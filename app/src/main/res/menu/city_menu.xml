@@ -1,9 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nokis"
-        android:title="Nókıs" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/shimbay"
-        android:title="Shımbay" />
+        android:title="Shımbay"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/nokis"
+        android:title="Nókıs"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/qonirat"
+        android:title="Qońırat"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/xojeli"
+        android:title="Xojeli"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/taxtakopir"
+        android:title="Taxtakópir"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/moynaq"
+        android:title="Moynaq"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/nokisRayon"
+        android:title="Nókıs rayon"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/kegeyli"
+        android:title="Kegeyli"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/qanlikol"
+        android:title="Qanlıkól"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/shomanay"
+        android:title="Shomanay"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/amudarya"
+        android:title="Amudarya"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/beruniy"
+        android:title="Beruniy"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/tortkol"
+        android:title="Tórtkól"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/elliqqala"
+        android:title="Elliqqala"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/bozataw"
+        android:title="Bozataw"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/qaraozek"
+        android:title="Qaraózek"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/taqiatas"
+        android:title="Taqiatas "
+        app:showAsAction="never" />
+
 </menu>

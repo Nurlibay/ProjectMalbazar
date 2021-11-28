@@ -4,19 +4,14 @@
     <item
         android:id="@+id/mainFragment"
         android:icon="@drawable/home"
-         android:enabled="true"
         android:title="Home" />
     <item
         android:id="@+id/addFragment"
-        android:actionLayout="@layout/fragment_add"
         android:icon="@drawable/add"
-         android:enabled="true"
         android:title="Qosıw" />
     <item
         android:id="@+id/registerFragment"
-        android:actionLayout="@layout/fragment_register"
         android:icon="@drawable/person"
-         android:enabled="true"
         android:title="Profil" />
 
 </menu>
