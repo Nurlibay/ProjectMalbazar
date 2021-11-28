@@ -7,25 +7,26 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.data.helper.Resource
 import uz.texnopos.malbazar.data.models.AnimalsCategory
+import uz.texnopos.malbazar.data.models.LastAnimals
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
-class AnimalsCategortViewModel(private val api: ApiInterface) : ViewModel() {
+class MainViewModel(private val api: ApiInterface) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
-    private var _animalsCategory: MutableLiveData<Resource<AnimalsCategory>> = MutableLiveData()
-    val animalsCategory: MutableLiveData<Resource<AnimalsCategory>>
-        get() = _animalsCategory
+    private var _lastAnimals: MutableLiveData<Resource<LastAnimals>> = MutableLiveData()
+    val lastAnimals: MutableLiveData<Resource<LastAnimals>>
+        get() = _lastAnimals
 
-    fun categoryAnimal() {
-        _animalsCategory.value = Resource.loading()
+    fun lastAnimals() {
+        _lastAnimals.value = Resource.loading()
         compositeDisposable.add(
-            api.getAnimalsCategory()
+            api.getLastEightAnimals()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        _animalsCategory.value = Resource.success(it)
+                        _lastAnimals.value = Resource.success(it.data)
                     }, {
-                        _animalsCategory.value = Resource.error(it.message)
+                        _lastAnimals.value = Resource.error(it.message)
                     }
                 )
         )

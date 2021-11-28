@@ -28,7 +28,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     b.etPhone.error = "Durıs formattda kiritıń"
                 }
                 b.etPassword.text.length < 6 -> {
-                    b.etPhone.error = "Parolińızdıń uzınlıǵı keminde 6 bolıw kerek"
+                    b.etPassword.error = "Parolińızdıń uzınlıǵı keminde 6 bolıw kerek"
                 }
                 b.etName.text.isEmpty() -> {
                     b.etName.error = "Atıńızdı kiritıń"
