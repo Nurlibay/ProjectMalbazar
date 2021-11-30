@@ -56,11 +56,67 @@
         android:gravity="top"
         android:hint="Toliǵraq malıwmat jazıń ..."
         android:inputType="textMultiLine"
-
         android:padding="4dp"
         android:paddingStart="8dp"
         android:paddingTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/etShortInfo" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/line"
+        app:layout_constraintTop_toBottomOf="@id/etInfo">
+
+        <TextView
+            android:id="@+id/tvImageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:text="Suwretler"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivFirst"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/line"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvImageTitle" />
+
+        <ImageView
+            android:id="@+id/ivSecond"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/line"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivFirst"
+            app:layout_constraintTop_toBottomOf="@id/tvImageTitle" />
+
+        <ImageView
+            android:id="@+id/ivThird"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/line"
+            android:src="@drawable/add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivSecond"
+            app:layout_constraintTop_toBottomOf="@id/tvImageTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/etPrice"
@@ -74,7 +130,7 @@
         android:inputType="number"
         android:paddingVertical="8dp"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@id/etInfo" />
+        app:layout_constraintTop_toBottomOf="@id/constraint" />
 
     <EditText
         android:id="@+id/etPhone"

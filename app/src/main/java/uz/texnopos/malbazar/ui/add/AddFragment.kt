@@ -1,23 +1,34 @@
 package uz.texnopos.malbazar.ui.add
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.annotation.MenuRes
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
+import uz.texnopos.malbazar.data.helper.ResourceState
 import uz.texnopos.malbazar.databinding.FragmentAddBinding
 
 class AddFragment : Fragment(R.layout.fragment_add) {
 
     private lateinit var b: FragmentAddBinding
     private val args: AddFragmentArgs by navArgs()
+    private val pickImage = 50
+    private var img1: String = ""
+    private var cityId: Int = 0
+    private var img2: String = ""
+    private val viewModel: AddAnimalViewModel by viewModel()
+    private var img3: String = ""
+    private var imageUri: Uri? = null
+    private lateinit var vvieww: ImageView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,13 +45,15 @@ class AddFragment : Fragment(R.layout.fragment_add) {
             8 -> b.menu.text = "Mal tasıw hizmeti"
             9 -> b.menu.text = "Teri(satıw hám satıp alıw)"
         }
+        b.ivSecond.isEnabled = false
+        b.ivThird.isEnabled = false
+
         b.menu.setOnClickListener {
             findNavController().navigate(R.id.action_addFragment_to_categoryFragment)
         }
         b.tvCity.setOnClickListener {
             showPopup(it)
         }
-
         b.btnSet.setOnClickListener {
             when {
                 b.menu.text.isEmpty() -> {
@@ -77,14 +90,102 @@ class AddFragment : Fragment(R.layout.fragment_add) {
                     b.tvCity.error = ""
                 }
                 else -> {
-                    setData()
+                    setData(
+                        title = b.etShortInfo.text.toString(),
+                        description = b.etInfo.text.toString(),
+                        cityId = cityId,
+                        userId = 1,   // SAZLAW KEREK
+                        categoryId = 5,   // SAZLAW KEREK
+                        phone = b.etPhone.text.toString(),
+                        price = b.etPrice.text.toString(),
+                        img1, img2, img3
+                    )
+                }
+            }
+        }
+
+        b.ivFirst.setOnClickListener {
+            vvieww = b.ivFirst
+            getImageFromGallery(it)
+            b.ivSecond.isEnabled = true
+            b.ivFirst.isEnabled = false
+        }
+        b.ivSecond.setOnClickListener {
+            vvieww = b.ivSecond
+            getImageFromGallery(it)
+            b.ivThird.isEnabled = true
+            b.ivSecond.isEnabled = false
+        }
+        b.ivThird.setOnClickListener {
+            vvieww = b.ivThird
+            getImageFromGallery(it)
+            b.ivThird.isEnabled = false
+        }
+    }
+
+    private fun getImageFromGallery(it: View?) {
+        //Intent to pick image
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, pickImage)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            vvieww.setImageURI(imageUri)
+            when (vvieww) {
+                b.ivFirst -> {
+                    img1 = imageUri.toString()
+                }
+                b.ivSecond -> {
+                    img2 = imageUri.toString()
+                }
+                else -> {
+                    img3 = imageUri.toString()
                 }
             }
         }
     }
 
-    private fun setData() {
-
+    private fun setData(
+        title: String,
+        description: String,
+        cityId: Int,
+        userId: Int,
+        categoryId: Int,
+        phone: String,
+        price: String,
+        img1: String,
+        img2: String,
+        img3: String
+    ) {
+        viewModel.addAnimal.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> {
+                    Toast.makeText(requireContext(), "LOADING", Toast.LENGTH_SHORT).show()
+                }
+                ResourceState.SUCCESS -> {
+                    Toast.makeText(requireContext(), "SUCCESS", Toast.LENGTH_SHORT).show()
+                }
+                ResourceState.ERROR -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        viewModel.addAnimal(
+            title,
+            description,
+            cityId,
+            userId,
+            categoryId,
+            phone,
+            price,
+            img1,
+            img2,
+            img3
+        )
     }
 
     private fun showPopup(view: View) {
@@ -93,54 +194,71 @@ class AddFragment : Fragment(R.layout.fragment_add) {
         popup.setOnMenuItemClickListener { item: MenuItem? ->
             when (item!!.itemId) {
                 R.id.nokis -> {
+                    cityId = 2
                     b.tvCity.text = item.title
                 }
                 R.id.shimbay -> {
+                    cityId = 1
                     b.tvCity.text = item.title
                 }
                 R.id.qonirat -> {
+                    cityId = 3
                     b.tvCity.text = item.title
                 }
                 R.id.xojeli -> {
+                    cityId = 4
                     b.tvCity.text = item.title
                 }
                 R.id.taxtakopir -> {
+                    cityId = 5
                     b.tvCity.text = item.title
                 }
                 R.id.moynaq -> {
+                    cityId = 6
                     b.tvCity.text = item.title
                 }
                 R.id.nokisRayon -> {
+                    cityId = 7
                     b.tvCity.text = item.title
                 }
                 R.id.kegeyli -> {
+                    cityId = 8
                     b.tvCity.text = item.title
                 }
                 R.id.qanlikol -> {
+                    cityId = 9
                     b.tvCity.text = item.title
                 }
                 R.id.shomanay -> {
+                    cityId = 10
                     b.tvCity.text = item.title
                 }
                 R.id.amudarya -> {
+                    cityId = 11
                     b.tvCity.text = item.title
                 }
                 R.id.beruniy -> {
+                    cityId = 12
                     b.tvCity.text = item.title
                 }
                 R.id.tortkol -> {
+                    cityId = 13
                     b.tvCity.text = item.title
                 }
                 R.id.elliqqala -> {
+                    cityId = 14
                     b.tvCity.text = item.title
                 }
                 R.id.bozataw -> {
+                    cityId = 15
                     b.tvCity.text = item.title
                 }
                 R.id.qaraozek -> {
+                    cityId = 16
                     b.tvCity.text = item.title
                 }
                 R.id.taqiatas -> {
+                    cityId = 17
                     b.tvCity.text = item.title
                 }
             }

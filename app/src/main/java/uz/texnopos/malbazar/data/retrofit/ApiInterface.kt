@@ -7,9 +7,9 @@ import retrofit2.http.POST
 import uz.texnopos.malbazar.data.models.*
 
 interface ApiInterface {
-//
-//  @POST ("api/animal")
-//  fun postAnimal(@Body ): Observable<GenericResponse>
+
+  @POST ("api/animal")
+  fun addAnimal(@Body animal:AddAnimal): Observable<GenericResponse<List<AddAnimal>>>
 
   @POST("api/register")
   fun registerUser(@Body user: RegisterUser): Observable<GenericResponse<UserToken>>
