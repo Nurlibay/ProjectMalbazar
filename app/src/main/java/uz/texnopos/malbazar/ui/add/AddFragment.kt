@@ -10,29 +10,37 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.data.helper.ResourceState
 import uz.texnopos.malbazar.databinding.FragmentAddBinding
+import java.io.File
 
 class AddFragment : Fragment(R.layout.fragment_add) {
 
     private lateinit var b: FragmentAddBinding
-    private val args: AddFragmentArgs by navArgs()
-    private val pickImage = 50
-    private var img1: String = ""
-    private var cityId: Int = 0
-    private var img2: String = ""
     private val viewModel: AddAnimalViewModel by viewModel()
-    private var img3: String = ""
+    private val args: AddFragmentArgs by navArgs()
+    private var cityId: Int = 0
+    private val getRootDirectoryPath =
+        ContextCompat.getExternalFilesDirs(requireContext(), null)[0].absolutePath
     private var imageUri: Uri? = null
-    private lateinit var vvieww: ImageView
+    private val fileName = "photo.jpg"
+    private val file = File("$getRootDirectoryPath/$fileName")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         b = FragmentAddBinding.bind(view)
+
+        imageUri = FileProvider.getUriForFile(
+            requireContext(),
+            requireActivity().packageName + ".provider", file
+        )
+
         when (args.id) {
             0 -> b.menu.text = "Bólimler"
             1 -> b.menu.text = "Qaramal"

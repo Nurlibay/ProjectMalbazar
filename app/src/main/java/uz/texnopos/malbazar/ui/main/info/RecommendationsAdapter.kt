@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.main
+package uz.texnopos.malbazar.ui.main.info
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class RecommendationsAdapter : RecyclerView.Adapter<RecommendationsAdapter.ViewHolder>() {
 
     var onItemClick:(animal:Animal) -> Unit = {}
     var models: List<Animal> = listOf()
@@ -24,7 +24,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price}"
+            binding.tvPrice.text = "${animal.price} som"
             binding.tvTitle.text = animal.title
             binding.tvCity.text = cityId.selectCity(animal.city_id)
             Glide
