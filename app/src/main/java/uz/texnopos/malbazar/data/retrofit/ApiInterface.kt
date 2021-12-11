@@ -32,5 +32,4 @@ interface ApiInterface {
         @Body animal: AddAnimal,
         @Part imageFile: MultipartBody.Part
     ): Observable<GenericResponse<List<AddAnimal>>>
-
 }
