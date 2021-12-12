@@ -18,5 +18,5 @@ interface ApiInterface {
   fun loginUser(@Body user: LoginUser): Observable<GenericResponse<UserToken>>
 
   @GET("api/animal")
-  fun getLastEightAnimals(): Observable<GenericResponse<LastAnimals>>
+  suspend fun getLastEightAnimals(): Observable<GenericResponse<LastAnimals>>
 }
