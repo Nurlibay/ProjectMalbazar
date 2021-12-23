@@ -30,5 +30,4 @@ class RegisterViewModel(private val apiInterface: ApiInterface) : ViewModel() {
                 )
         )
     }
-
 }
