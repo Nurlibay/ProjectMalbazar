@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.main_item.view.*
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.data.models.LastAnimals
+import uz.texnopos.malbazar.databinding.MainItem2Binding
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
@@ -23,10 +24,10 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
         }
 
 
-    inner class ViewHolder(private val binding: MainItemBinding) :
+    inner class ViewHolder(private val binding: MainItem2Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
-            binding.tvPrice.text = "${animal.price}"
+            binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
             Glide
                 .with(binding.root.context)
@@ -40,7 +41,7 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItemBinding.inflate(
+            MainItem2Binding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
