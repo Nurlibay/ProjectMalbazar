@@ -12,7 +12,7 @@ import uz.texnopos.malbazar.preferences.SharedPrefUtils
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        appInstance=this
+        appInstance = this
         val modules = listOf(dataModule, viewModelModule)
         startKoin {//use AndroidLogger as Koin Logger - default Level
             androidLogger()
@@ -24,6 +24,7 @@ class App : Application() {
             koin.loadModules(modules)
         }
     }
+
     companion object {
         private lateinit var appInstance: App
         var sharedPrefUtils: SharedPrefUtils? = null
