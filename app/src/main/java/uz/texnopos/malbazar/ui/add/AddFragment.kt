@@ -1,38 +1,45 @@
 package uz.texnopos.malbazar.ui.add
 
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.data.helper.ResourceState
 import uz.texnopos.malbazar.databinding.FragmentAddBinding
+import java.io.File
 
 class AddFragment : Fragment(R.layout.fragment_add) {
 
     private lateinit var b: FragmentAddBinding
-    private val args: AddFragmentArgs by navArgs()
-    private val pickImage = 50
-    private var img1: String = ""
-    private var cityId: Int = 0
-    private var img2: String = ""
     private val viewModel: AddAnimalViewModel by viewModel()
-    private var img3: String = ""
+    private val args: AddFragmentArgs by navArgs()
+    private var cityId: Int = 0
+    private val getRootDirectoryPath =
+        ContextCompat.getExternalFilesDirs(requireContext(), null)[0].absolutePath
     private var imageUri: Uri? = null
-    private lateinit var vvieww: ImageView
+    private var mImg1: Uri? = null
+    private var mImg2: Uri? = null
+    private var mImg3: Uri? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         b = FragmentAddBinding.bind(view)
+
+        imageUri = FileProvider.getUriForFile(
+            requireContext(),
+            requireActivity().packageName + ".provider", file
+        )
+
         when (args.id) {
             0 -> b.menu.text = "Bólimler"
             1 -> b.menu.text = "Qaramal"
@@ -105,46 +112,33 @@ class AddFragment : Fragment(R.layout.fragment_add) {
         }
 
         b.ivFirst.setOnClickListener {
-            vvieww = b.ivFirst
-            getImageFromGallery(it)
             b.ivSecond.isEnabled = true
             b.ivFirst.isEnabled = false
         }
         b.ivSecond.setOnClickListener {
-            vvieww = b.ivSecond
-            getImageFromGallery(it)
             b.ivThird.isEnabled = true
             b.ivSecond.isEnabled = false
         }
         b.ivThird.setOnClickListener {
-            vvieww = b.ivThird
-            getImageFromGallery(it)
             b.ivThird.isEnabled = false
         }
     }
 
-    private fun getImageFromGallery(it: View?) {
-        //Intent to pick image
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, pickImage)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == pickImage) {
-            imageUri = data?.data
-            vvieww.setImageURI(imageUri)
-            when (vvieww) {
-                b.ivFirst -> {
-                    img1 = imageUri.toString()
-                }
-                b.ivSecond -> {
-                    img2 = imageUri.toString()
-                }
-                else -> {
-                    img3 = imageUri.toString()
-                }
+        val uri: Uri = data?.data!!
+        when (requestCode) {
+            IMG1_GALLERY_REQ_CODE, IMG1_CAMERA_REQ_CODE -> {
+                this.mImg1 = uri
+                b.ivFirst.imgGallery.setLocalImage(uri)
+            }
+            IMG2_GALLERY_REQ_CODE, IMG2_CAMERA_REQ_CODE -> {
+                this.mImg2 = uri
+                b.selectPassportImage.imgGallery.setLocalImage(uri)
+            }
+            IMG3_GALLERY_REQ_CODE, IMG3_CAMERA_REQ_CODE -> {
+                this.mImg3 = uri
+                b.selectPassportImage.imgGallery.setLocalImage(uri)
             }
         }
     }
@@ -157,9 +151,9 @@ class AddFragment : Fragment(R.layout.fragment_add) {
         categoryId: Int,
         phone: String,
         price: String,
-        img1: String,
-        img2: String,
-        img3: String
+        img1: Uri,
+        img2: Uri,
+        img3: Uri
     ) {
         viewModel.addAnimal.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -187,83 +181,90 @@ class AddFragment : Fragment(R.layout.fragment_add) {
             img3
         )
     }
-
+    }
     private fun showPopup(view: View) {
         val popup = PopupMenu(view.context, view)
         popup.inflate(R.menu.city_menu)
-        popup.setOnMenuItemClickListener { item: MenuItem? ->
-            when (item!!.itemId) {
-                R.id.nokis -> {
-                    cityId = 2
-                    b.tvCity.text = item.title
-                }
-                R.id.shimbay -> {
-                    cityId = 1
-                    b.tvCity.text = item.title
-                }
-                R.id.qonirat -> {
-                    cityId = 3
-                    b.tvCity.text = item.title
-                }
-                R.id.xojeli -> {
-                    cityId = 4
-                    b.tvCity.text = item.title
-                }
-                R.id.taxtakopir -> {
-                    cityId = 5
-                    b.tvCity.text = item.title
-                }
-                R.id.moynaq -> {
-                    cityId = 6
-                    b.tvCity.text = item.title
-                }
-                R.id.nokisRayon -> {
-                    cityId = 7
-                    b.tvCity.text = item.title
-                }
-                R.id.kegeyli -> {
-                    cityId = 8
-                    b.tvCity.text = item.title
-                }
-                R.id.qanlikol -> {
-                    cityId = 9
-                    b.tvCity.text = item.title
-                }
-                R.id.shomanay -> {
-                    cityId = 10
-                    b.tvCity.text = item.title
-                }
-                R.id.amudarya -> {
-                    cityId = 11
-                    b.tvCity.text = item.title
-                }
-                R.id.beruniy -> {
-                    cityId = 12
-                    b.tvCity.text = item.title
-                }
-                R.id.tortkol -> {
-                    cityId = 13
-                    b.tvCity.text = item.title
-                }
-                R.id.elliqqala -> {
-                    cityId = 14
-                    b.tvCity.text = item.title
-                }
-                R.id.bozataw -> {
-                    cityId = 15
-                    b.tvCity.text = item.title
-                }
-                R.id.qaraozek -> {
-                    cityId = 16
-                    b.tvCity.text = item.title
-                }
-                R.id.taqiatas -> {
-                    cityId = 17
-                    b.tvCity.text = item.title
-                }
-            }
-            true
-        }
+//        popup.setOnMenuItemClickListener { item: MenuItem? ->
+//            when (item!!.itemId) {
+//                R.id.nokis -> {
+//                    cityId = 2
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.shimbay -> {
+//                    cityId = 1
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.qonirat -> {
+//                    cityId = 3
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.xojeli -> {
+//                    cityId = 4
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.taxtakopir -> {
+//                    cityId = 5
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.moynaq -> {
+//                    cityId = 6
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.nokisRayon -> {
+//                    cityId = 7
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.kegeyli -> {
+//                    cityId = 8
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.qanlikol -> {
+//                    cityId = 9
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.shomanay -> {
+//                    cityId = 10
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.amudarya -> {
+//                    cityId = 11
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.beruniy -> {
+//                    cityId = 12
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.tortkol -> {
+//                    cityId = 13
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.elliqqala -> {
+//                    cityId = 14
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.bozataw -> {
+//                    cityId = 15
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.qaraozek -> {
+//                    cityId = 16
+//                    b.tvCity.text = item.title
+//                }
+//                R.id.taqiatas -> {
+//                    cityId = 17
+//                    b.tvCity.text = item.title
+//                }
+//            }
+//            true
+//        }
         popup.show()
     }
+
+private const val IMG1_GALLERY_REQ_CODE = 102
+private const val IMG1_CAMERA_REQ_CODE = 103
+private const val IMG2_GALLERY_REQ_CODE = 102
+private const val IMG2_CAMERA_REQ_CODE = 103
+private const val IMG3_GALLERY_REQ_CODE = 102
+private const val IMG3_CAMERA_REQ_CODE = 103
 }

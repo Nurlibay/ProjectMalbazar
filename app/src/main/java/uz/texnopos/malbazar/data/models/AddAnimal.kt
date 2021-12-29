@@ -1,6 +1,7 @@
 package uz.texnopos.malbazar.data.models
 
 import com.google.gson.annotations.SerializedName
+import java.io.File
 
 data class AddAnimal(
     var title: String,
@@ -13,7 +14,7 @@ data class AddAnimal(
     var userId: Int,
     var phone: String,
     var price: String,
-    var img1: String,
-    var img2: String,
-    var img3: String
+    var img1: File,
+    var img2: File,
+    var img3: File
 )

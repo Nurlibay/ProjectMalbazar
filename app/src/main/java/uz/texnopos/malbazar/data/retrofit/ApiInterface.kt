@@ -2,7 +2,6 @@ package uz.texnopos.malbazar.data.retrofit
 
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.http.*
 import uz.texnopos.malbazar.data.models.*
 
@@ -26,10 +25,28 @@ interface ApiInterface {
     @GET("api/animal/{id}")
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<Recommendations>>
 
+    @GET("api/search")
+    fun searchAnimal(@Body quer:SearchAnimal): Observable<GenericResponse<SearchResult>>
+
+//    @HTTP(method = "GET", hasBody = true)
+//    fun searchAnimal(
+//        @Body query: SearchAnimal
+//    ): Observable<GenericResponse<SearchResult>>
+
     @Multipart
     @POST("api/animal")
     fun addAnimal(
-        @Body animal: AddAnimal,
-        @Part imageFile: MultipartBody.Part
+        @Part("title") title: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part("id") id: RequestBody,
+        @Part("user_id") user_id: RequestBody,
+        @Part("phone") phone: RequestBody,
+        @Part("city_id") city_id: RequestBody,
+        @Part("category_id") category_id: RequestBody,
+        @Part filePart1: MultipartBody.Part,
+        @Part filePart2: MultipartBody.Part,
+        @Part filePart3: MultipartBody.Part,
     ): Observable<GenericResponse<List<AddAnimal>>>
+
 }
