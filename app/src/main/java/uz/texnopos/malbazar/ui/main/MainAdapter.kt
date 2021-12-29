@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.databinding.MainItem2Binding
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
@@ -20,11 +21,11 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         }
 
 
-    inner class ViewHolder(private val binding: MainItemBinding) :
+    inner class ViewHolder(private val binding: MainItem2Binding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price}"
+            binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
             binding.tvCity.text = cityId.selectCity(animal.city_id)
             Glide
@@ -39,7 +40,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItemBinding.inflate(
+            MainItem2Binding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
