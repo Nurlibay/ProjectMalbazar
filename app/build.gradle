@@ -87,6 +87,10 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
+
+    //Lottie animation
+    implementation 'com.airbnb.android:lottie:3.4.0'
 
     //RxJava3
     implementation "io.reactivex.rxjava3:rxjava:3.0.0"
