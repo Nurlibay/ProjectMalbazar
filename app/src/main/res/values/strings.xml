@@ -8,7 +8,37 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome!"</string>
+    <string name="required">Мәжбүрий</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="advertise">Дағаза бериў</string>
+    <string name="category">Бөлимлер</string>
+    <string name="short_data">Қисқаша мағлиўмат жазиң</string>
+    <string name="apply_ad">Дағазани жәриялаў</string>
+    <string name="long_data">Толиғирақ мағлиўмат</string>
+    <string name="price">Бахаси</string>
+    <string name="phone_number">Телефон номер</string>
+    <string name="city">Аймақти сайлаң</string>
+    <string name="add_photo">Сүўрет қосиў</string>
+    <string name="fromCamera">С камеры</string>
+    <string name="fromGallery">Из галереи</string>
+    <string name="todo">TODO</string>
+    <string name="register">Регистрациядан өтиў</string>
+    <string name="btn_login">Кириӯ</string>
+    <string name="password">Парол</string>
+    <string name="phone">Телефон</string>
+    <string name="login">Атиңиз</string>
+    <string name="btn_signup">Дизимнен өтиў</string>
+
+    <string-array name="CategoryNames">
+        <item>Ӄарамал</item>
+        <item>Түйе</item>
+        <item>Жылӄы</item>
+        <item>Ешки</item>
+        <item>Ӄой</item>
+        <item>Мал азығы</item>
+        <item>Таўиқ</item>
+    </string-array>
+
 </resources>

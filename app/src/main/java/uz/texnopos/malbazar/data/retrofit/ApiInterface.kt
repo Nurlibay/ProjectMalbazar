@@ -2,13 +2,12 @@ package uz.texnopos.malbazar.data.retrofit
 
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.*
 import uz.texnopos.malbazar.data.models.*
 
 interface ApiInterface {
-//
-//    @POST("api/animal")
-//    fun addAnimal(@Body animal: AddAnimal): Observable<GenericResponse<List<AddAnimal>>>
 
     @POST("api/register")
     fun registerUser(@Body user: RegisterUser): Observable<GenericResponse<UserToken>>
@@ -26,27 +25,20 @@ interface ApiInterface {
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<Recommendations>>
 
     @GET("api/search")
-    fun searchAnimal(@Body quer:SearchAnimal): Observable<GenericResponse<SearchResult>>
+    fun searchAnimal(@Body query:SearchAnimal): Observable<GenericResponse<SearchResult>>
 
-//    @HTTP(method = "GET", hasBody = true)
-//    fun searchAnimal(
-//        @Body query: SearchAnimal
-//    ): Observable<GenericResponse<SearchResult>>
+    @GET("api/category")
+    fun getAllCategory(): Observable<GenericResponse<List<Category>>>
+
+    @GET("api/city")
+    fun getAllCity(): Observable<GenericResponse<List<City>>>
 
     @Multipart
     @POST("api/animal")
-    fun addAnimal(
-        @Part("title") title: RequestBody,
-        @Part("description") description: RequestBody,
-        @Part("price") price: RequestBody,
-        @Part("id") id: RequestBody,
-        @Part("user_id") user_id: RequestBody,
-        @Part("phone") phone: RequestBody,
-        @Part("city_id") city_id: RequestBody,
-        @Part("category_id") category_id: RequestBody,
-        @Part filePart1: MultipartBody.Part,
-        @Part filePart2: MultipartBody.Part,
-        @Part filePart3: MultipartBody.Part,
-    ): Observable<GenericResponse<List<AddAnimal>>>
-
+    suspend  fun addAnimal(
+        @PartMap partMap: HashMap<String, RequestBody>,
+        @Part img1: MultipartBody.Part,
+        @Part img2: MultipartBody.Part,
+        @Part img3: MultipartBody.Part
+    ): Response<GenericResponse<Any>>
 }

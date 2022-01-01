@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import uz.texnopos.malbazar.data.helper.Resource
+import uz.texnopos.malbazar.core.Resource
 import uz.texnopos.malbazar.data.models.Recommendations
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class RecommendationViewModel(private val api: ApiInterface) : ViewModel() {
+
     private val compositeDisposable = CompositeDisposable()
     private var _recomendAnimals: MutableLiveData<Resource<Recommendations>> = MutableLiveData()
     val recommendAnimals: MutableLiveData<Resource<Recommendations>>
@@ -30,5 +31,4 @@ class RecommendationViewModel(private val api: ApiInterface) : ViewModel() {
                 )
         )
     }
-
 }

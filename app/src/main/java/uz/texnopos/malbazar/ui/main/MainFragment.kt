@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.SelectCity
-import uz.texnopos.malbazar.data.helper.ResourceState
+import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.search.SearchViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private lateinit var b: FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     private val adapter = MainAdapter()
     private val adapter2 = MainAdapter2()
     private val mainViewModel: MainViewModel by viewModel()
@@ -26,19 +26,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        b = FragmentMainBinding.bind(view)
+        binding = FragmentMainBinding.bind(view)
         getData()
-        b.recyclerView.adapter = adapter
-        b.recyclerView2.adapter = adapter2
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView2.adapter = adapter2
 
-        b.recyclerView.addItemDecoration(
+        binding.recyclerView.addItemDecoration(
             DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-        b.recyclerView2.addItemDecoration(
+        binding.recyclerView2.addItemDecoration(
             DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
 
-        b.swipe.setOnRefreshListener {
-            b.swipe.isRefreshing = false
+        binding.swipe.setOnRefreshListener {
+            binding.swipe.isRefreshing = false
             getData()
         }
         adapter.onItemClick = {
@@ -69,12 +69,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             )
             findNavController().navigate(action)
         }
-        b.btnSearch.setOnClickListener {
-            var quer: String = b.searchView.text.toString()
+        binding.btnSearch.setOnClickListener {
+            var quer: String = binding.searchView.text.toString()
             searchAnimal(quer)
-            b.tvEnKopKoringenler.isVisible = false
-            b.tvLastLook.isVisible = false
-            b.recyclerView2.isVisible = false
+            binding.tvEnKopKoringenler.isVisible = false
+            binding.tvLastLook.isVisible = false
+            binding.recyclerView2.isVisible = false
         }
     }
 
@@ -85,16 +85,16 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         searchViewModel.search.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    b.lottie.isVisible = true
+                    binding.lottie.isVisible = true
                 }
                 ResourceState.SUCCESS -> {
                     adapter.models = listOf()
                     adapter.models = it!!.data!!.results
-                    b.lottie.isVisible = false
+                    binding.lottie.isVisible = false
                 }
                 ResourceState.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    b.lottie.isVisible = false
+                    binding.lottie.isVisible = false
                 }
             }
         }
@@ -105,15 +105,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         mainViewModel.lastAnimals.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    b.swipe.isRefreshing = false
-                    b.lottie.isVisible = true
+                    binding.swipe.isRefreshing = false
+                    binding.lottie.isVisible = true
                 }
                 ResourceState.SUCCESS -> {
-                    b.lottie.isVisible = false
+                    binding.lottie.isVisible = false
                     setData(it.data!!.lastes, it.data.views)
                 }
                 ResourceState.ERROR -> {
-                    b.lottie.isVisible = false
+                    binding.lottie.isVisible = false
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }

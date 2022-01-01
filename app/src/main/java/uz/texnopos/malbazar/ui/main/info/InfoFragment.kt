@@ -14,9 +14,8 @@ import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.SelectCity
-import uz.texnopos.malbazar.data.helper.ResourceState
+import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
-import uz.texnopos.malbazar.ui.main.MainFragmentDirections
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
 

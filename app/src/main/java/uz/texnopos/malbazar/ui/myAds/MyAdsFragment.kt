@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.Toast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.data.helper.ResourceState
-import uz.texnopos.malbazar.preferences.userId
+import uz.texnopos.malbazar.core.ResourceState
+import uz.texnopos.malbazar.core.preferences.userId
 
 class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
 
