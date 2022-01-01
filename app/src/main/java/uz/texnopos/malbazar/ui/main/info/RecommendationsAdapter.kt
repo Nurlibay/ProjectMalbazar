@@ -19,7 +19,6 @@ class RecommendationsAdapter : RecyclerView.Adapter<RecommendationsAdapter.ViewH
             notifyDataSetChanged()
         }
 
-
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {

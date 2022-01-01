@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.MainItem2Binding
-import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 

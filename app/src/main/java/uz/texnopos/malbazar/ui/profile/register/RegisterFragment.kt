@@ -28,7 +28,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterBinding.bind(view)
-        updateUI()
         binding.tvSignIn.onClick {
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
@@ -63,7 +62,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     binding.progressBar.isVisible = false
                     token = it.data?.token
                     userId = it.data!!.userId
-                    updateUI()
+                    findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
                 }
                 ResourceState.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
@@ -72,9 +71,4 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             }
         }
     }
-    
-    private fun updateUI() {
-        if (isSignedIn()) findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
-    }
-    
 }
