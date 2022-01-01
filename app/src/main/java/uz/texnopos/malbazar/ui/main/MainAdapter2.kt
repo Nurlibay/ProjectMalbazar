@@ -21,7 +21,6 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
             notifyDataSetChanged()
         }
 
-
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {

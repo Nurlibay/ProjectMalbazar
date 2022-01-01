@@ -13,6 +13,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.util.IntentUtils
 import hideProgress
+import kotlinx.android.synthetic.main.content_gallery_only.*
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showError

@@ -19,7 +19,7 @@ class SearchViewModel(private val api: ApiInterface) : ViewModel() {
     fun searchAnimal(query: String) {
         _search.value = Resource.loading()
         compositeDisposable.add(
-            api.searchAnimal(query= SearchAnimal(query,"all","all"))
+            api.searchAnimal(query,"all","all")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
