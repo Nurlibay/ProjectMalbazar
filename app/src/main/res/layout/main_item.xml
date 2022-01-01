@@ -41,8 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingStart="18dp"
-        android:text="Нѳкис район"
-        android:textColor="#406367"
+        android:text="Аимак: Нѳкис район"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@id/tvDescription"
         app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
@@ -54,10 +54,9 @@
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:paddingStart="16dp"
-        android:text="1 300 000 swm"
+        android:text="Бахасы: 1 300 000 swm"
         android:textColor="@color/black"
         android:textSize="16dp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tvCity"
         app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
@@ -72,7 +71,7 @@
         android:paddingStart="16dp"
         android:paddingEnd="8dp"
         android:text="Науа сатылады узыны 4метир листи калын алатынларалатынларалатынлар"
-        android:textColor="#002F34"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@id/ivAnimal"
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
@@ -80,25 +79,14 @@
     <TextView
         android:id="@+id/tvPhoneNumber"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="+998334980705"
+        android:paddingStart="16dp"
+        android:text="Телефон номер: +998334980705"
         android:textColor="@color/black"
+        android:layout_marginTop="8dp"
         android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivCall"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/phone_shape"
-        android:clickable="true"
-        android:padding="8dp"
-        android:src="@drawable/phone"
-        app:layout_constraintBottom_toBottomOf="@id/tvPhoneNumber"
-        app:layout_constraintEnd_toStartOf="@id/tvPhoneNumber" />
+        app:layout_constraintStart_toStartOf="@id/tvPrice"
+        app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

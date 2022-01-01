@@ -30,21 +30,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
 
-            binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    // Handle tab select
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-                    // Handle tab reselect
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-                    // Handle tab unselect
-                }
-            })
-
             val cityId = SelectCity()
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
@@ -52,6 +37,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
             binding.tvPhoneNumber.text = animal.phone
             binding.tvCity.text = cityId.selectCity(animal.city_id)
             if (animal.img1.isEmpty()) {
+
                 Glide
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
@@ -63,7 +49,7 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivAnimal)
             }
-            binding.ivCall.setOnClickListener {
+            binding.tvPhoneNumber.setOnClickListener {
                 onPhoneClick.invoke(animal)
             }
         }

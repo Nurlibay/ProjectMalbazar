@@ -41,7 +41,7 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivAnimal)
             }
-            binding.ivCall.setOnClickListener {
+            binding.tvPhoneNumber.setOnClickListener {
                 onPhoneClick.invoke(animal)
             }
         }

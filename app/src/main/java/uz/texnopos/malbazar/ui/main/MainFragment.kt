@@ -10,7 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.texnopos.malbazar.data.helper.ResourceState
+import toast
+import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.search.SearchViewModel
@@ -31,8 +32,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.recyclerView.adapter = adapter
         binding.recyclerView2.adapter = adapter2
 
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
         binding.recyclerView.adapter = adapter
         binding.recyclerView2.adapter = adapter2
 
@@ -82,7 +81,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     binding.recyclerView.isVisible = true
                 }
                 ResourceState.ERROR -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    it.message?.let { it1 -> toast(it1) }
                     binding.shimmerLayout.isVisible = false
                     binding.recyclerView.isVisible = true
                 }
