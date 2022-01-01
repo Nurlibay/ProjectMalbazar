@@ -29,6 +29,7 @@
     <string name="password">Парол</string>
     <string name="phone">Телефон</string>
     <string name="login">Атиңиз</string>
+    <string name="malbazar">Малбазар</string>
     <string name="btn_signup">Дизимнен өтиў</string>
 
     <string-array name="CategoryNames">
