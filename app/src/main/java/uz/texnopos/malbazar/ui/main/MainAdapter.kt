@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
@@ -53,7 +54,13 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder( MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            MainItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -61,4 +68,12 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun getItemCount() = models.size
+
+//    class ItemViewHolder : RecyclerView.ViewHolder {
+//        var mEtMessage: EditText? = null
+//
+//        constructor(itemView: View?) : super(itemView) {
+//            mEtMessage = itemView?.findViewById(R.id.crlEtMessage)
+//        }
+//    }
 }
