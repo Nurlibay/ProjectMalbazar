@@ -2,20 +2,18 @@ package uz.texnopos.malbazar.ui.main
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.main_item.view.*
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.data.models.Animal
-import uz.texnopos.malbazar.data.models.LastAnimals
-import uz.texnopos.malbazar.databinding.MainItem2Binding
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
 
-    var onItemClick:(animal:Animal) -> Unit = {}
+    var onPhoneClick: (animal: Animal) -> Unit = {}
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -24,24 +22,34 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
         }
 
 
-    inner class ViewHolder(private val binding: MainItem2Binding) :
+    inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
-            Glide
-                .with(binding.root.context)
-                .load(animal.img1)
-                .into(binding.ivAnimal)
-            binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal)
+            binding.tvPhoneNumber.text = animal.phone
+            binding.tvDescription.text = animal.description
+            if (animal.img1.isEmpty()) {
+                Glide
+                    .with(binding.root.context)
+                    .load(R.drawable.malbazar_logo)
+                    .into(binding.ivAnimal)
+            } else {
+                Glide
+                    .with(binding.root.context)
+                    .load(animal.img1)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivAnimal)
+            }
+            binding.tvPhoneNumber.setOnClickListener {
+                onPhoneClick.invoke(animal)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItem2Binding.inflate(
+            MainItemBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )

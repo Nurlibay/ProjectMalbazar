@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2F4F5"
     tools:context=".ui.main.info.InfoFragment">
 
     <ScrollView
@@ -18,7 +19,6 @@
                 android:id="@+id/ivAnimal"
                 android:layout_width="match_parent"
                 android:layout_height="320dp"
-                android:background="@drawable/square"
                 android:padding="1dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,107 +41,110 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:paddingHorizontal="16dp"
-                android:text="1 кошкар 1 кой 2 теке"
-                android:textColor="@color/black"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivAnimal" />
-
-            <ScrollView
-                android:id="@+id/scrollView"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/square"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle">
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/ivAnimal">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Qaramal"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="120dp"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:paddingStart="8dp"
+                    android:text="🏠  Qonirat"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="200dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:text="48646 swm"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Maǵlıwmat"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/tvDescription"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="36dp"
                     android:paddingHorizontal="8dp"
-                    android:text="1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке \n1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке \n1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке \n1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке \n1 кошкар 1 кой 2 теке 1 кошкар 1 кой 2 теке"
+                    android:text="kjsdrgknuhcfjkgsvgdlknhuvsdgklhunsgfkuhlgku   dgfknhulgfukhlnukhlkuhdglkuh   dsuhdgrkulhuhdg h dgfklunhugflhu  gfnuhugf"
                     android:textColor="#2B2929"
-                    android:textSize="16dp" />
-            </ScrollView>
+                    android:textSize="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
-            <TextView
-                android:id="@+id/tvPhoneTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:text="Qońıraw ushın telefon:"
-                app:layout_constraintStart_toStartOf="@id/scrollView"
-                app:layout_constraintTop_toBottomOf="@id/scrollView" />
 
-            <TextView
-                android:id="@+id/tvPhoneNumber"
-                android:layout_width="200dp"
-                android:layout_height="36dp"
-                android:background="@drawable/square"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:text="📞  +998996629801"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/scrollView"
-                app:layout_constraintTop_toBottomOf="@id/tvPhoneTitle" />
+                <TextView
+                    android:id="@+id/tvPhoneTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:text="Telefon:"
+                    app:layout_constraintStart_toStartOf="@id/constraint"
+                    app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
-            <TextView
-                android:id="@+id/tvAddressTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:text="Manzil:"
-                app:layout_constraintStart_toStartOf="@id/scrollView"
-                app:layout_constraintTop_toBottomOf="@id/tvPhoneNumber" />
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                     android:background="@drawable/square"
+                    android:text="+998996629801"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@id/constraint"
+                    app:layout_constraintTop_toBottomOf="@id/tvPhoneTitle" />
 
-            <TextView
-                android:id="@+id/tvAddress"
-                android:layout_width="200dp"
-                android:layout_height="36dp"
-                android:background="@drawable/square"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:text="🏠  Qonirat"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/scrollView"
-                app:layout_constraintTop_toBottomOf="@id/tvAddressTitle" />
+                <ImageView
+                    android:id="@+id/ivCall"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:background="#018D43"
+                    android:src="@drawable/phone"
+                    app:layout_constraintBottom_toBottomOf="@id/tvPhoneNumber"
+                    app:layout_constraintStart_toEndOf="@id/tvPhoneNumber"
+                    app:layout_constraintTop_toTopOf="@id/tvPhoneNumber" />
 
-            <TextView
-                android:id="@+id/tvPriceTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:text="Bahası:"
-                app:layout_constraintStart_toStartOf="@id/scrollView"
-                app:layout_constraintTop_toBottomOf="@id/tvAddress" />
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="200dp"
-                android:layout_height="36dp"
-                android:background="@drawable/square"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:text="💰  200 мын"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/scrollView"
-                app:layout_constraintTop_toBottomOf="@id/tvPriceTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvTagiBasqalarTitle"
@@ -150,9 +153,9 @@
                 android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:paddingVertical="8dp"
-                android:text="--------------  Taǵı basqalar  --------------"
+                android:text="Taǵı basqalar"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+                app:layout_constraintTop_toBottomOf="@id/constraint" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
@@ -162,7 +165,7 @@
                 android:padding="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvTagiBasqalarTitle"
-                tools:listitem="@layout/main_item" />
+                tools:listitem="@layout/recommendation_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
