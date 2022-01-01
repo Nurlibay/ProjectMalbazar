@@ -25,7 +25,11 @@ interface ApiInterface {
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<Recommendations>>
 
     @GET("api/search")
-    fun searchAnimal(@Body query:SearchAnimal): Observable<GenericResponse<SearchResult>>
+    fun searchAnimal(
+        @Query("query") query: String,
+        @Query("city_id") city_id: String,
+        @Query("category_id") category_id: String
+    ): Observable<GenericResponse<SearchResult>>
 
     @GET("api/category")
     fun getAllCategory(): Observable<GenericResponse<List<Category>>>
@@ -35,7 +39,7 @@ interface ApiInterface {
 
     @Multipart
     @POST("api/animal")
-    suspend  fun addAnimal(
+    suspend fun addAnimal(
         @PartMap partMap: HashMap<String, RequestBody>,
         @Part img1: MultipartBody.Part,
         @Part img2: MultipartBody.Part,

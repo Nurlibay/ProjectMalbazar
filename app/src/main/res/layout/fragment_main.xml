@@ -7,37 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/topAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:title="@string/malbazari"
-            app:titleMarginStart="@dimen/margin_large"
-            app:titleTextColor="@color/white" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputSearch"
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:layout_marginTop="@dimen/margin_standard"
-        android:hint="@string/search"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="@dimen/margin_extra_small"
+        android:hint="Излеу"
         android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/search">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -59,7 +41,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/tvLastLook"
@@ -130,7 +112,7 @@
                 android:paddingVertical="8dp"
                 android:text="Еӊ көп кѳрилгенлер"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="16dp"
                 android:textStyle="bold"
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/recyclerView" />

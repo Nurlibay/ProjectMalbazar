@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import uz.texnopos.malbazar.R
@@ -106,7 +105,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     binding.tvEnKopKoringenler.isVisible = true
                 }
                 ResourceState.ERROR -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    it.message?.let { it1 -> toast(it1) }
                     binding.shimmerLayout.isVisible = false
                     binding.tvLastLook.isVisible = false
                 }

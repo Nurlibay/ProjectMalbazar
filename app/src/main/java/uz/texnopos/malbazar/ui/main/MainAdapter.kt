@@ -25,19 +25,16 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
 
-
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
-
             val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price} swm"
+            binding.tvPrice.text = "Бахасы: ${animal.price} swm"
             binding.tvTitle.text = animal.title
             binding.tvDescription.text = animal.description
-            binding.tvPhoneNumber.text = animal.phone
-            binding.tvCity.text = cityId.selectCity(animal.city_id)
+            binding.tvPhoneNumber.text = "Телефон номер: ${animal.phone}"
+            binding.tvCity.text = "Аимак: ${cityId.selectCity(animal.city_id)}"
             if (animal.img1.isEmpty()) {
-
                 Glide
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
