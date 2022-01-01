@@ -27,12 +27,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 b.etPassword.text!!.isEmpty() -> {
                     b.etPassword.error = ""
                 }
-                b.etPhone.text.isEmpty() -> {
+                b.etPhone2.text!!.isEmpty() -> {
                     b.etPassword.error = ""
                 }
                 else -> {
                     viewModel.loginUser(
-                        b.etPhone.text.toString().toInt(),
+                        b.etPhone2.text.toString().toInt(),
                         b.etPassword.text.toString()
                     )
                 }

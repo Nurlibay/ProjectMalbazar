@@ -1,16 +1,15 @@
 package uz.texnopos.malbazar.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.helper.ResourceState
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
@@ -18,83 +17,69 @@ import uz.texnopos.malbazar.ui.main.search.SearchViewModel
 
 class MainFragment : Fragment(R.layout.fragment_main) {
 
-    private lateinit var b: FragmentMainBinding
+    private lateinit var binding: FragmentMainBinding
     private val adapter = MainAdapter()
     private val adapter2 = MainAdapter2()
     private val mainViewModel: MainViewModel by viewModel()
     private val searchViewModel: SearchViewModel by viewModel()
-
+    private var lastest: List<Animal> = listOf()
+    private var viewss: List<Animal> = listOf()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        b = FragmentMainBinding.bind(view)
+        binding = FragmentMainBinding.bind(view)
         getData()
-        b.recyclerView.adapter = adapter
-        b.recyclerView2.adapter = adapter2
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView2.adapter = adapter2
 
-        b.recyclerView.addItemDecoration(
-            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-
-        b.recyclerView2.addItemDecoration(
-            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
-
-        b.swipe.setOnRefreshListener {
-            b.swipe.isRefreshing = false
-            getData()
+        adapter.onPhoneClick = {
+            val intent = Intent(Intent.ACTION_DIAL);
+            intent.data = Uri.parse("tel:${it.phone}")
+            startActivity(intent)
         }
-        adapter.onItemClick = {
-            val city = SelectCity()
-            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(
-                imgFirst = it.img1,
-                imgSecond = it.img2,
-                animalTitle = it.title,
-                description = it.description,
-                phone = it.phone,
-                price = it.price,
-                adress = city.selectCity(it.city_id),
-                id = it.id
-            )
-            findNavController().navigate(action)
+        adapter2.onPhoneClick = {
+            val intent = Intent(Intent.ACTION_DIAL);
+            intent.data = Uri.parse("tel:${it.phone}")
+            startActivity(intent)
         }
-        adapter2.onItemClick = {
-            val city = SelectCity()
-            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(
-                imgFirst = it.img1,
-                imgSecond = it.img2,
-                animalTitle = it.title,
-                description = it.description,
-                phone = it.phone,
-                price = it.price,
-                adress = city.selectCity(it.city_id),
-                id = it.id
-            )
-            findNavController().navigate(action)
-        }
-        b.btnSearch.setOnClickListener {
-            var quer: String = b.searchView.text.toString()
-            searchAnimal(quer)
-            b.tvEnKopKoringenler.isVisible = false
-            b.tvLastLook.isVisible = false
-            b.recyclerView2.isVisible = false
+        binding.searchView.addTextChangedListener {
+            if (it!!.isEmpty()) {
+                adapter.models = lastest
+                binding.tvEnKopKoringenler.isVisible = true
+                binding.tvLastLook.isVisible = true
+                binding.recyclerView2.isVisible = true
+            } else {
+                var query: String = binding.searchView.text.toString()
+                searchAnimal(query)
+                binding.tvEnKopKoringenler.isVisible = false
+                binding.tvLastLook.isVisible = false
+                binding.recyclerView2.isVisible = false
+            }
         }
     }
 
-    private fun searchAnimal(quer: String) {
+    private fun searchAnimal(query: String) {
 
-        searchViewModel.searchAnimal(quer)
+        searchViewModel.searchAnimal(query)
 
         searchViewModel.search.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    b.lottie.isVisible = true
+                    binding.shimmerLayout.startShimmer()
+                    binding.recyclerView.isVisible = false
+                    binding.recyclerView2.isVisible = false
+                    binding.tvEnKopKoringenler.isVisible = false
+                    binding.tvLastLook.isVisible = false
                 }
                 ResourceState.SUCCESS -> {
                     adapter.models = listOf()
                     adapter.models = it!!.data!!.results
-                    b.lottie.isVisible = false
+                    binding.shimmerLayout.isVisible = false
+                    binding.recyclerView.isVisible = true
                 }
                 ResourceState.ERROR -> {
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
-                    b.lottie.isVisible = false
+                    binding.shimmerLayout.isVisible = false
+                    binding.recyclerView.isVisible = true
                 }
             }
         }
@@ -105,23 +90,28 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         mainViewModel.lastAnimals.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    b.swipe.isRefreshing = false
-                    b.lottie.isVisible = true
+                    binding.shimmerLayout.startShimmer()
                 }
                 ResourceState.SUCCESS -> {
-                    b.lottie.isVisible = false
-                    setData(it.data!!.lastes, it.data.views)
+                    lastest = it.data!!.lastes
+                    viewss = it.data.views
+                    setData()
+                    binding.shimmerLayout.isVisible = false
+                    binding.recyclerView.isVisible = true
+                    binding.recyclerView2.isVisible = true
+                    binding.tvEnKopKoringenler.isVisible = true
                 }
                 ResourceState.ERROR -> {
-                    b.lottie.isVisible = false
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    binding.shimmerLayout.isVisible = false
+                    binding.tvLastLook.isVisible = false
                 }
             }
         }
     }
 
-    private fun setData(lastes: List<Animal>, views: List<Animal>) {
-        adapter.models = lastes
-        adapter2.models = views
+    private fun setData() {
+        adapter.models = lastest
+        adapter2.models = viewss
     }
 }

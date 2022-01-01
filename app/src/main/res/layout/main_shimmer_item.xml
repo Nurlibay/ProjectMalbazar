@@ -4,31 +4,27 @@
     android:id="@+id/constraintMainItem"
     android:layout_width="344dp"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginVertical="16dp"
     android:background="@drawable/round_outline"
     android:paddingBottom="18dp">
-
 
     <ImageView
         android:id="@+id/ivAnimal"
         android:layout_width="match_parent"
         android:layout_height="194dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/malbazar_logo"
+        android:layout_margin="16dp"
+        android:background="@color/shimmerColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@color/shimmerColor"
         android:gravity="center"
-        android:paddingStart="16dp"
-        android:text="Qaramal"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold"
@@ -37,24 +33,24 @@
 
     <TextView
         android:id="@+id/tvCity"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/shimmerColor"
         android:paddingStart="18dp"
-        android:text="Нѳкис район"
         android:textColor="#406367"
         app:layout_constraintStart_toStartOf="@id/tvDescription"
         app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
     <TextView
         android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:background="@color/shimmerColor"
         android:gravity="center"
         android:paddingStart="16dp"
-        android:text="1 300 000 swm"
         android:textColor="@color/black"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -65,40 +61,14 @@
     <TextView
         android:id="@+id/tvDescription"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="56dp"
+        android:background="@color/shimmerColor"
         android:maxLines="3"
-        android:minLines="1"
-        android:paddingStart="16dp"
+        android:layout_marginTop="8dp"
         android:paddingEnd="8dp"
-        android:text="Науа сатылады узыны 4метир листи калын алатынларалатынларалатынлар"
         android:textColor="#002F34"
         app:layout_constraintEnd_toEndOf="@id/ivAnimal"
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <TextView
-        android:id="@+id/tvPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center_vertical"
-        android:text="+998334980705"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivCall"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/phone_shape"
-        android:clickable="true"
-        android:padding="8dp"
-        android:src="@drawable/phone"
-        app:layout_constraintBottom_toBottomOf="@id/tvPhoneNumber"
-        app:layout_constraintEnd_toStartOf="@id/tvPhoneNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

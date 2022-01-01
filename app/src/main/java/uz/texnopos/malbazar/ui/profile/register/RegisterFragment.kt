@@ -33,7 +33,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
         b.btnSignUp.setOnClickListener {
             when {
-                b.etPhone.text.toString().length < 9 -> {
+                b.etPhone2.text.toString().length < 9 -> {
                     b.etPhone.error = "Durıs formattda kiritıń"
                 }
                 b.etPassword.text!!.length < 6 -> {
@@ -43,7 +43,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     b.etName.error = "Atıńızdı kiritıń"
                 }
                 else -> {
-                    val phone = b.etPhone.text.toString()
+                    val phone = b.etPhone2.text.toString()
                     viewModel.registerUser(
                         phone = phone.toInt(),
                         name = b.etName.text.toString(),
