@@ -53,6 +53,9 @@ dependencies {
     // Current version
     def koin_version = "3.1.2"
 
+    //Shimmer effect
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
     // Koin core features
     implementation "io.insert-koin:koin-core:$koin_version"
 

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import toast
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.preferences.isSignedIn
@@ -19,11 +20,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel: RegisterViewModel by viewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (isSignedIn()) findNavController().navigate(R.id.action_registerFragment_to_myAdsFragment)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,7 +61,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
                 }
                 ResourceState.ERROR -> {
-                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                    it.message?.let { it1 -> toast(it1) }
                     binding.progressBar.isVisible = false
                 }
             }
