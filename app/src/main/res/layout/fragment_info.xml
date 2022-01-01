@@ -20,7 +20,6 @@
                 android:layout_height="320dp"
                 android:background="@drawable/square"
                 android:padding="1dp"
-                android:src="@drawable/goat"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView

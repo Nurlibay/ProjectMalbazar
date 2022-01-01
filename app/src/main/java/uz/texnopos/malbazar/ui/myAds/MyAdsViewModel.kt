@@ -5,10 +5,8 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import uz.texnopos.malbazar.data.helper.Resource
+import uz.texnopos.malbazar.core.Resource
 import uz.texnopos.malbazar.data.models.Animal
-import uz.texnopos.malbazar.data.models.AnimalsCategory
-import uz.texnopos.malbazar.data.models.LastAnimals
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class MyAdsViewModel(private val api: ApiInterface) : ViewModel() {
@@ -17,7 +15,7 @@ class MyAdsViewModel(private val api: ApiInterface) : ViewModel() {
     val myAds: MutableLiveData<Resource<List<Animal>>>
         get() = _myAds
 
-    fun userAds(userId:Int) {
+    fun userAds(userId: Int) {
         _myAds.value = Resource.loading()
         compositeDisposable.add(
             api.getUserAds(userId)

@@ -8,8 +8,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import uz.texnopos.malbazar.core.preferences.token
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
-import uz.texnopos.malbazar.preferences.token
 import uz.texnopos.malbazar.ui.add.AddAnimalViewModel
 import uz.texnopos.malbazar.ui.main.MainViewModel
 import uz.texnopos.malbazar.ui.main.info.RecommendationViewModel
@@ -45,7 +45,7 @@ val dataModule = module {
         //OkHttpClient start
         OkHttpClient.Builder()
             .addInterceptor { chain ->
-                var request = chain.request()
+                val request = chain.request()
                 request.newBuilder().header("Cache-Control", "public, max-age=" + 5).build()
                 request.newBuilder().header(
                     "Cache-Control",

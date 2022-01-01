@@ -10,7 +10,7 @@
         android:icon="@drawable/add"
         android:title="Qosıw" />
     <item
-        android:id="@+id/registerFragment"
+        android:id="@+id/loginFragment"
         android:icon="@drawable/person"
         android:title="Profil" />
 
