@@ -1,6 +1,6 @@
 package uz.texnopos.malbazar.data.models
 
 data class LoginUser(
-    var phone: Int,
+    var phone: String,
     var password:String
 )

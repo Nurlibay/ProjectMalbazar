@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Malbazar" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Malbazar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -16,19 +16,39 @@
         <item name="android:splitMotionEvents">false</item>
         <item name="android:windowEnableSplitTouch">false</item>
 
-
     </style>
     <style name="TextInputLayoutStyle">
-        <item name="boxStrokeColor">@color/white</item>
         <item name="boxBackgroundMode">outline</item>
-        <item name="boxBackgroundColor">@color/dark_blue</item>
-        <item name="android:textColorHint">@color/white</item>
-        <item name="startIconTint">@color/white</item>
-        <item name="endIconTint">@color/white</item>
-        <item name="hintTextColor">@color/white</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/margin_middle_standard</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/margin_middle_standard</item>
-        <item name="boxCornerRadiusTopEnd">@dimen/margin_middle_standard</item>
-        <item name="boxCornerRadiusTopStart">@dimen/margin_middle_standard</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="hintTextColor">@color/black</item>
     </style>
+
+    <style name="TextInputLayoutDropDown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="hintTextColor">@color/black</item>
+    </style>
+
+    <style name="TitleTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Subhead</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="FabStyle">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="srcCompat">@drawable/outline_cloud_upload_24</item>
+        <item name="backgroundTint">@color/item_background</item>
+        <item name="tint">@color/white</item>
+    </style>
+
 </resources>

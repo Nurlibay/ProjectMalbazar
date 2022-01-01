@@ -8,32 +8,33 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.data.helper.ResourceState
+import uz.texnopos.malbazar.core.ResourceState
+import uz.texnopos.malbazar.core.preferences.isSignedIn
+import uz.texnopos.malbazar.core.preferences.token
+import uz.texnopos.malbazar.core.preferences.userId
 import uz.texnopos.malbazar.databinding.FragmentLoginBinding
-import uz.texnopos.malbazar.preferences.token
-import uz.texnopos.malbazar.preferences.userId
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private lateinit var b: FragmentLoginBinding
+    private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        b = FragmentLoginBinding.bind(view)
-        animateViews()
-        b.btnSignIn.setOnClickListener {
+        binding = FragmentLoginBinding.bind(view)
+        updateUI()
+        binding.btnLogin.setOnClickListener {
             when {
-                b.etPassword.text!!.isEmpty() -> {
-                    b.etPassword.error = ""
+                binding.etPassword.text!!.isEmpty() -> {
+                    binding.etPassword.error = ""
                 }
-                b.etPhone2.text!!.isEmpty() -> {
-                    b.etPassword.error = ""
+                binding.etPhone.text!!.isEmpty() -> {
+                    binding.etPassword.error = ""
                 }
                 else -> {
                     viewModel.loginUser(
-                        b.etPhone2.text.toString().toInt(),
-                        b.etPassword.text.toString()
+                        binding.etPhone.text.toString(),
+                        binding.etPassword.text.toString()
                     )
                 }
             }
@@ -41,58 +42,26 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.login.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    b.progressBar.isVisible = true
+                    binding.progressBar.isVisible = true
                 }
                 ResourceState.SUCCESS -> {
-                    b.progressBar.isVisible = false
+                    binding.progressBar.isVisible = false
                     token = it.data!!.token
                     userId = it.data.userId
-                    findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                    updateUI()
                 }
                 ResourceState.ERROR -> {
-                    b.progressBar.isVisible = false
+                    binding.progressBar.isVisible = false
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
-        b.btnSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
-    private fun animateViews() {
-        b.btnSignIn.translationX = -1000F
-        b.btnSignIn.alpha = 0F
-        b.btnSignIn.animate().translationX(0F).alpha(1F).setDuration(1500).setStartDelay(100)
-            .start()
-
-        b.iv1.translationY = 1000F
-        b.iv1.alpha = 0F
-        b.iv1.animate().translationY(0F).alpha(1F).setDuration(1000).setStartDelay(10)
-            .start()
-        b.ivPeron.translationY = 1000F
-        b.ivPeron.alpha = 0F
-        b.ivPeron.animate().translationY(0F).alpha(1F).setDuration(1000).setStartDelay(10)
-            .start()
-
-        b.appName.translationY = 1000F
-        b.appName.alpha = 0F
-        b.appName.animate().translationY(0F).alpha(1F).setDuration(1000).setStartDelay(30)
-            .start()
-
-        b.etPassword.translationX = 1100F
-        b.etPassword.alpha = 0F
-        b.etPassword.animate().translationX(0F).alpha(1F).setDuration(1200).setStartDelay(400)
-            .start()
-
-        b.etPhone.translationX = -1200F
-        b.etPhone.alpha = 0F
-        b.etPhone.animate().translationX(0F).alpha(1F).setDuration(1400).setStartDelay(400)
-            .start()
-
-        b.btnSignUp.translationY = 1000F
-        b.btnSignUp.alpha = 0F
-        b.btnSignUp.animate().translationY(0F).alpha(1F).setDuration(1500).setStartDelay(100)
-            .start()
+    private fun updateUI() {
+        if (isSignedIn()) findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
     }
 }

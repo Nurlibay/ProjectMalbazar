@@ -31,6 +31,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.recyclerView.adapter = adapter
         binding.recyclerView2.adapter = adapter2
 
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL))
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView2.adapter = adapter2
+
         adapter.onPhoneClick = {
             val intent = Intent(Intent.ACTION_DIAL);
             intent.data = Uri.parse("tel:${it.phone}")
