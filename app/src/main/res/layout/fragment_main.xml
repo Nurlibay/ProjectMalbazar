@@ -78,8 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
-                android:background="#EDEBEB"
-                android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/tvLastLook">
 
                 <LinearLayout

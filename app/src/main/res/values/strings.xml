@@ -26,10 +26,10 @@
     <string name="todo">TODO</string>
     <string name="register">Регистрациядан өтиў</string>
     <string name="btn_login">Кириӯ</string>
-    <string name="password">Парол</string>
+    <string name="password">Пароль</string>
     <string name="phone">Телефон</string>
     <string name="login">Атиңиз</string>
-    <string name="malbazar">Малбазар</string>
+    <string name="malbazar">Мал базары</string>
     <string name="btn_signup">Дизимнен өтиў</string>
 
     <string-array name="CategoryNames">
