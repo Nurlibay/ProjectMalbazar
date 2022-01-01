@@ -39,6 +39,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
+
         viewModel.login.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
@@ -56,6 +57,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
+
         binding.btnSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }

@@ -30,6 +30,8 @@
     <string name="phone">Телефон</string>
     <string name="login">Атиңиз</string>
     <string name="btn_signup">Дизимнен өтиў</string>
+    <string name="malbazari">Мал базари</string>
+    <string name="search">Излеу</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>
