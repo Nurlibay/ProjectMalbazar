@@ -32,13 +32,34 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
                 Glide
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
-                    .into(binding.ivAnimal)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivFirstAnimal)
+                Glide
+                    .with(binding.root.context)
+                    .load(R.drawable.malbazar_logo)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivSecondAnimal)
+                Glide
+                    .with(binding.root.context)
+                    .load(R.drawable.malbazar_logo)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivThirdAnimal)
             } else {
                 Glide
                     .with(binding.root.context)
                     .load(animal.img1)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivAnimal)
+                    .into(binding.ivFirstAnimal)
+                Glide
+                    .with(binding.root.context)
+                    .load(animal.img2)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivSecondAnimal)
+                Glide
+                    .with(binding.root.context)
+                    .load(animal.img3)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivThirdAnimal)
             }
             binding.tvPhoneNumber.setOnClickListener {
                 onPhoneClick.invoke(animal)

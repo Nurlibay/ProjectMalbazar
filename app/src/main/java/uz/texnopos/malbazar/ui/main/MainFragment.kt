@@ -37,8 +37,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.recyclerView.adapter = adapter
         binding.recyclerView2.adapter = adapter2
 
-//        binding.recyclerView.layoutManager =
-//            GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL, false)
+        adapter.toast = {
+            toast(it)
+        }
+
         adapter.onPhoneClick = {
             val intent = Intent(Intent.ACTION_DIAL);
             intent.data = Uri.parse("tel:${it.phone}")
