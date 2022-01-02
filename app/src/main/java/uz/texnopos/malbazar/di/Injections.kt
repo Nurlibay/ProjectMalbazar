@@ -12,6 +12,7 @@ import uz.texnopos.malbazar.core.preferences.token
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 import uz.texnopos.malbazar.ui.add.AddAnimalViewModel
 import uz.texnopos.malbazar.ui.main.MainViewModel
+import uz.texnopos.malbazar.ui.main.info.InfoViewModel
 import uz.texnopos.malbazar.ui.main.search.SearchViewModel
 import uz.texnopos.malbazar.ui.myAds.MyAdsViewModel
 import uz.texnopos.malbazar.ui.profile.login.LoginViewModel
@@ -75,4 +76,5 @@ val viewModelModule = module {
     viewModel { AddAnimalViewModel(get()) }
     viewModel { MyAdsViewModel(get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { InfoViewModel(get()) }
 }
