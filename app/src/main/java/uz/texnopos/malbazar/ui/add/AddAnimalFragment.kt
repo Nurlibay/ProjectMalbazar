@@ -6,26 +6,31 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import checkIsEmpty
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.util.IntentUtils
+import com.google.android.material.textfield.TextInputEditText
+import com.redmadrobot.inputmask.MaskedTextChangedListener
+import getOnlyDigits
 import hideProgress
-import kotlinx.android.synthetic.main.content_gallery_only.*
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showError
 import showProgress
 import textToString
 import toast
+import uz.texnopos.malbazar.core.mask.MaskWatcherPrice
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.Constants.NO_INTERNET
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.imagehelper.pickCameraImage
 import uz.texnopos.malbazar.core.imagehelper.pickGalleryImage
 import uz.texnopos.malbazar.core.imagehelper.setLocalImage
+import uz.texnopos.malbazar.core.mask.MaskWatcherPhone
 import uz.texnopos.malbazar.core.preferences.userId
 import uz.texnopos.malbazar.data.models.AddAnimal
 import uz.texnopos.malbazar.data.models.Category
@@ -54,6 +59,10 @@ class AddAnimalFragment: Fragment(R.layout.fragment_add_animal) {
         viewModel.getCategory()
         viewModel.getCity()
         binding.apply {
+
+            etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
+            etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
+            etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")
 
             allCategory.observe(requireActivity(), { categoryList ->
                 val categoryNameList = categoryList.map { category ->  category.name }.toTypedArray()
@@ -110,8 +119,8 @@ class AddAnimalFragment: Fragment(R.layout.fragment_add_animal) {
                         cityId = cityId,
                         categoryId = categoryId,
                         userId = userId!!,
-                        phone = etPhone.textToString(),
-                        price = etPrice.textToString(),
+                        phone = etPhone.textToString().getOnlyDigits(),
+                        price = etPrice.textToString().getOnlyDigits(),
                         img1 = File(img1ImageUri?.path!!),
                         img2 = File(img2ImageUri?.path!!),
                         img3 = File(img3ImageUri?.path!!)
@@ -120,6 +129,14 @@ class AddAnimalFragment: Fragment(R.layout.fragment_add_animal) {
                 }
             }
         }
+    }
+
+    private fun TextInputEditText.addMaskAndHint(mask: String) {
+        val listener = MaskedTextChangedListener.installOn(
+            this,
+            mask
+        )
+        this.hint = listener.placeholder()
     }
 
     private fun setUpObserver() {

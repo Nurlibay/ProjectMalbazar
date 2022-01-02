@@ -83,3 +83,9 @@ fun Fragment.showProgress() {
 fun Fragment.hideProgress() {
     (requireActivity() as AppBaseActivity).showProgress(false)
 }
+
+fun String.getOnlyDigits(): String {
+    var s = ""
+    this.forEach { if (it.isDigit()) s += it }
+    return s
+}

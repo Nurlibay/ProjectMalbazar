@@ -164,21 +164,33 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:enabled="true"
+                android:hint="@string/phone"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:endIconMode="clear_text"
+                app:expandedHintEnabled="false"
+                app:hintAnimationEnabled="false"
+                app:hintEnabled="true"
+                app:prefixText="+998"
+                app:prefixTextColor="@color/black"
+                app:startIconDrawable="@drawable/ic_call"
                 android:layout_marginTop="@dimen/margin_middle"
                 >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPhone"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/phone_number"
-                    android:inputType="number"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="20"
+                    android:textColorHint="@color/valueOperationColor"
                     android:maxLines="1"
                     android:padding="@dimen/margin_middle_standard"
-                    />
+                    android:textColor="@color/black" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilCity"
