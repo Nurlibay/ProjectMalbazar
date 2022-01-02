@@ -33,6 +33,9 @@
     <string name="btn_signup">Дизимнен өтиў</string>
     <string name="malbazari">Мал базари</string>
     <string name="search">Излеу</string>
+    <string name="home">Бас бет</string>
+    <string name="add">Дағаза бериў</string>
+    <string name="profil">Кириӯ</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>

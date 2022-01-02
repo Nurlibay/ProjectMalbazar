@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.core.widget.doOnTextChanged
@@ -119,12 +120,13 @@ class AddAnimalFragment: Fragment(R.layout.fragment_add_animal) {
                         cityId = cityId,
                         categoryId = categoryId,
                         userId = userId!!,
-                        phone = etPhone.textToString().getOnlyDigits(),
+                        phone = ("998${etPhone.textToString().getOnlyDigits()}"),
                         price = etPrice.textToString().getOnlyDigits(),
                         img1 = File(img1ImageUri?.path!!),
                         img2 = File(img2ImageUri?.path!!),
                         img3 = File(img3ImageUri?.path!!)
                     )
+                    Log.d("haywan", newAnimal.toString())
                     viewModel.addAnimal(newAnimal)
                 }
             }

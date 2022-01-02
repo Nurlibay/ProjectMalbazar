@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import textToString
 import toast
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.ResourceState
@@ -42,8 +43,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                     val phone = binding.etPhone.text.toString()
                     viewModel.registerUser(
                         phone = phone,
-                        name = binding.etName.text.toString(),
-                        password = binding.etName.toString()
+                        name = binding.etName.textToString(),
+                        password = binding.etPassword.textToString()
                     )
                 }
             }
