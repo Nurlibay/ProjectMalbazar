@@ -4,14 +4,16 @@
     <item
         android:id="@+id/mainFragment"
         android:icon="@drawable/home"
-        android:title="Home" />
+        android:title="@string/home" />
+
     <item
         android:id="@+id/addFragment"
-        android:icon="@drawable/add"
-        android:title="Qosıw" />
+        android:icon="@drawable/ic__add"
+        android:title="@string/add" />
+
     <item
         android:id="@+id/loginFragment"
         android:icon="@drawable/person"
-        android:title="Profil" />
+        android:title="@string/profil" />
 
 </menu>
