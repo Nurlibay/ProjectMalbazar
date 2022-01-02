@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import checkIsEmpty
@@ -24,8 +22,8 @@ import showError
 import showProgress
 import textToString
 import toast
-import uz.texnopos.malbazar.core.mask.MaskWatcherPrice
 import uz.texnopos.malbazar.R
+import uz.texnopos.malbazar.core.mask.MaskWatcherPrice
 import uz.texnopos.malbazar.core.Constants.NO_INTERNET
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.imagehelper.pickCameraImage
@@ -120,13 +118,12 @@ class AddAnimalFragment: Fragment(R.layout.fragment_add_animal) {
                         cityId = cityId,
                         categoryId = categoryId,
                         userId = userId!!,
-                        phone = ("998${etPhone.textToString().getOnlyDigits()}"),
+                        phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
                         price = etPrice.textToString().getOnlyDigits(),
-                        img1 = File(img1ImageUri?.path!!),
-                        img2 = File(img2ImageUri?.path!!),
-                        img3 = File(img3ImageUri?.path!!)
+                        img1 = if(img1ImageUri == null) null else File(img1ImageUri?.path!!),
+                        img2 = if(img2ImageUri == null) null else File(img2ImageUri?.path!!),
+                        img3 = if(img3ImageUri == null) null else File(img3ImageUri?.path!!),
                     )
-                    Log.d("haywan", newAnimal.toString())
                     viewModel.addAnimal(newAnimal)
                 }
             }
@@ -217,7 +214,7 @@ class AddAnimalFragment: Fragment(R.layout.fragment_add_animal) {
         super.onActivityResult(requestCode, resultCode, data)
         when (resultCode) {
             Activity.RESULT_OK -> {
-                val uri: Uri = data?.data!!
+                val uri: Uri? = data?.data!!
                 when (requestCode) {
                     IMG1_GALLERY_REQ_CODE, IMG1_CAMERA_REQ_CODE -> {
                         this.img1ImageUri = uri
