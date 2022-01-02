@@ -22,7 +22,7 @@ interface ApiInterface {
     fun getUserAds(@Path("userId") id: Int): Observable<GenericResponse<List<Animal>>>
 
     @GET("api/animal/{id}")
-    fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<Recommendations>>
+    fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<AnimalInfo>>
 
     @GET("api/search")
     fun searchAnimal(

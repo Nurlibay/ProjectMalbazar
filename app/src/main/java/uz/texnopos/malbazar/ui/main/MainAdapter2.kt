@@ -13,7 +13,6 @@ import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
 
-    var onPhoneClick: (animal: Animal) -> Unit = {}
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -26,43 +25,18 @@ class MainAdapter2 : RecyclerView.Adapter<MainAdapter2.ViewHolder>() {
         fun populateModel(animal: Animal) {
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
-            binding.tvPhoneNumber.text = animal.phone
-            binding.tvDescription.text = animal.description
             if (animal.img1.isEmpty()) {
                 Glide
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivFirstAnimal)
-                Glide
-                    .with(binding.root.context)
-                    .load(R.drawable.malbazar_logo)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivSecondAnimal)
-                Glide
-                    .with(binding.root.context)
-                    .load(R.drawable.malbazar_logo)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivThirdAnimal)
             } else {
                 Glide
                     .with(binding.root.context)
                     .load(animal.img1)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivFirstAnimal)
-                Glide
-                    .with(binding.root.context)
-                    .load(animal.img2)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivSecondAnimal)
-                Glide
-                    .with(binding.root.context)
-                    .load(animal.img3)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivThirdAnimal)
-            }
-            binding.tvPhoneNumber.setOnClickListener {
-                onPhoneClick.invoke(animal)
             }
         }
     }

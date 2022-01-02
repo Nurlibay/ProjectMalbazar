@@ -18,6 +18,7 @@
     <string name="apply_ad">Дағазани жәриялаў</string>
     <string name="long_data">Толиғирақ мағлиўмат</string>
     <string name="price">Бахаси</string>
+    <string name="pricee">Бахаси: </string>
     <string name="phone_number">Телефон номер</string>
     <string name="city">Аймақти сайлаң</string>
     <string name="add_photo">Сүўрет қосиў</string>
@@ -31,6 +32,9 @@
     <string name="login">Атиңиз</string>
     <string name="malbazar">Мал базары</string>
     <string name="btn_signup">Дизимнен өтиў</string>
+    <string name="qaramal">Ӄарамал</string>
+    <string name="aymaq">Аимақ: </string>
+    <string name="phoneNumber">Телефон номер: </string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>
