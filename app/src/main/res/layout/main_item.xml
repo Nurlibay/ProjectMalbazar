@@ -8,6 +8,7 @@
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="16dp"
     android:background="@drawable/round_outline"
+    android:minHeight="300dp"
     android:paddingBottom="18dp">
 
     <ImageView
@@ -38,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/aymaq"
+        android:text="Аимақ: "
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/tvTitle"

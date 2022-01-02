@@ -11,10 +11,9 @@
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
 
-        <argument
-            android:name="id"
-            android:defaultValue="0"
-            app:argType="integer" />
+        <action
+            android:id="@+id/action_mainFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
 
     </fragment>
 
@@ -53,12 +52,26 @@
         android:id="@+id/addFragment"
         android:name="uz.texnopos.malbazar.ui.add.AddAnimalFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add_animal" />
+        tools:layout="@layout/fragment_add_animal" >
+        <action
+            android:id="@+id/action_addFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/myAdsFragment"
         android:name="uz.texnopos.malbazar.ui.myAds.MyAdsFragment"
         android:label="fragment_my_ads"
         tools:layout="@layout/fragment_my_ads" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="uz.texnopos.malbazar.ui.main.info.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" >
+        <argument
+            android:name="id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
 
 </navigation>

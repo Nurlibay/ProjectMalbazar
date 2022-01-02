@@ -41,8 +41,8 @@ interface ApiInterface {
     @POST("api/animal")
     suspend fun addAnimal(
         @PartMap partMap: HashMap<String, RequestBody>,
-        @Part img1: MultipartBody.Part,
-        @Part img2: MultipartBody.Part,
-        @Part img3: MultipartBody.Part
+        @Part img1: MultipartBody.Part?,
+        @Part img2: MultipartBody.Part?,
+        @Part img3: MultipartBody.Part?
     ): Response<GenericResponse<Any>>
 }

@@ -1,7 +1,6 @@
 package uz.texnopos.malbazar.ui.main
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +11,10 @@ import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
-import androidx.annotation.RequiresApi
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    var toast: (word: String) -> Unit = {}
+    var onItemClick: (id: Int) -> Unit = {}
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -45,6 +43,9 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivFirstAnimal)
             }
+            binding.constraintMainItem.setOnClickListener {
+                onItemClick.invoke(animal.id)
+            }
         }
     }
 
@@ -58,7 +59,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         )
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.populateModel(models[position])
     }
