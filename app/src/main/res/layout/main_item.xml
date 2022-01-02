@@ -10,42 +10,14 @@
     android:background="@drawable/round_outline"
     android:paddingBottom="18dp">
 
-    <HorizontalScrollView
-        android:id="@+id/horScrollView"
+    <ImageView
+        android:id="@+id/ivFirstAnimal"
         android:layout_width="match_parent"
         android:layout_height="194dp"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="379dp"
-            android:layout_height="194dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/ivFirstAnimal"
-                android:layout_width="379dp"
-                android:layout_height="194dp"
-                android:src="@drawable/malbazar_logo" />
-
-            <ImageView
-                android:id="@+id/ivSecondAnimal"
-                android:layout_width="379dp"
-                android:layout_height="194dp"
-                android:src="@drawable/malbazar_logo" />
-
-            <ImageView
-                android:id="@+id/ivThirdAnimal"
-                android:layout_width="379dp"
-                android:layout_height="194dp"
-                android:src="@drawable/malbazar_logo" />
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/malbazar_logo"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvTitle"
@@ -54,33 +26,32 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Qaramal"
+        android:text="@string/qaramal"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horScrollView" />
+        app:layout_constraintTop_toBottomOf="@id/ivFirstAnimal" />
 
     <TextView
         android:id="@+id/tvBoldCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Аимак: "
+        android:text="@string/aymaq"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tvDescription"
-        app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+        app:layout_constraintStart_toStartOf="@id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
     <TextView
         android:id="@+id/tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Нѳкис район"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/tvBoldCity"
-        app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+        app:layout_constraintTop_toTopOf="@id/tvBoldCity" />
 
     <TextView
         android:id="@+id/tvBoldPrice"
@@ -108,45 +79,5 @@
         android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@id/tvBoldPrice"
         app:layout_constraintTop_toBottomOf="@id/tvCity" />
-
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:maxLines="3"
-        android:minLines="1"
-        android:paddingEnd="8dp"
-        android:text="Науа сатылады узыны 4метир листи калын алатынларалатынларалатынлар"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/horScrollView"
-        app:layout_constraintStart_toStartOf="@id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <TextView
-        android:id="@+id/tvBoldPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="Телефон номер: "
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/tvBoldPrice"
-        app:layout_constraintTop_toBottomOf="@id/tvPrice" />
-
-    <TextView
-        android:id="@+id/tvPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="+998334980705"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@id/tvBoldPhone"
-        app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
