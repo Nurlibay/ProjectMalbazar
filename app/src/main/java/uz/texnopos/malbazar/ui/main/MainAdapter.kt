@@ -1,6 +1,7 @@
 package uz.texnopos.malbazar.ui.main
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +16,16 @@ import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
+import android.view.ViewTreeObserver
+import android.view.ViewTreeObserver.OnScrollChangedListener
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+
 
 class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     var onPhoneClick: (animal: Animal) -> Unit = {}
+    var toast: (word: String) -> Unit = {}
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -28,24 +35,28 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.M)
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
-            binding.tvPrice.text = "Бахасы: ${animal.price} swm"
+            binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
             binding.tvDescription.text = animal.description
-            binding.tvPhoneNumber.text = "Телефон номер: ${animal.phone}"
-            binding.tvCity.text = "Аимак: ${cityId.selectCity(animal.city_id)}"
+            binding.tvPhoneNumber.text = animal.phone
+            binding.tvCity.text = cityId.selectCity(animal.city_id)
+            binding.horScrollView.smoothScrollBy(0, 0)
+
             if (animal.img1.isEmpty()) {
                 Glide
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
-                    .into(binding.ivAnimal)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivFirstAnimal)
             } else {
                 Glide
                     .with(binding.root.context)
                     .load(animal.img1)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivAnimal)
+                    .into(binding.ivFirstAnimal)
             }
             binding.tvPhoneNumber.setOnClickListener {
                 onPhoneClick.invoke(animal)
@@ -63,17 +74,10 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.populateModel(models[position])
     }
 
     override fun getItemCount() = models.size
-
-//    class ItemViewHolder : RecyclerView.ViewHolder {
-//        var mEtMessage: EditText? = null
-//
-//        constructor(itemView: View?) : super(itemView) {
-//            mEtMessage = itemView?.findViewById(R.id.crlEtMessage)
-//        }
-//    }
 }

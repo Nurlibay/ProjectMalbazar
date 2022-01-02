@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="@dimen/margin_extra_small"
+        android:layout_marginTop="@dimen/margin_standard"
         android:hint="Излеу"
         android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="clear_text"

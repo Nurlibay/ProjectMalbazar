@@ -3,47 +3,98 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintMainItem"
     android:layout_width="match_parent"
-    android:layout_marginHorizontal="16dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="16dp"
     android:background="@drawable/round_outline"
     android:paddingBottom="18dp">
 
-
-    <ImageView
-        android:id="@+id/ivAnimal"
+    <HorizontalScrollView
+        android:id="@+id/horScrollView"
         android:layout_width="match_parent"
         android:layout_height="194dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/malbazar_logo"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="379dp"
+            android:layout_height="194dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/ivFirstAnimal"
+                android:layout_width="379dp"
+                android:layout_height="194dp"
+                android:src="@drawable/malbazar_logo" />
+
+            <ImageView
+                android:id="@+id/ivSecondAnimal"
+                android:layout_width="379dp"
+                android:layout_height="194dp"
+                android:src="@drawable/malbazar_logo" />
+
+            <ImageView
+                android:id="@+id/ivThirdAnimal"
+                android:layout_width="379dp"
+                android:layout_height="194dp"
+                android:src="@drawable/malbazar_logo" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:layout_marginStart="16dp"
         android:text="Qaramal"
         android:textColor="@color/black"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivAnimal" />
+        app:layout_constraintTop_toBottomOf="@id/horScrollView" />
+
+    <TextView
+        android:id="@+id/tvBoldCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Аимак: "
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvDescription"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
     <TextView
         android:id="@+id/tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Аимак: Нѳкис район"
+        android:layout_marginTop="8dp"
+        android:text="Нѳкис район"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/tvDescription"
+        app:layout_constraintStart_toEndOf="@id/tvBoldCity"
         app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
+    <TextView
+        android:id="@+id/tvBoldPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="Бахасы: "
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvBoldCity"
+        app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
     <TextView
         android:id="@+id/tvPrice"
@@ -52,10 +103,10 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
-        android:text="Бахасы: 1 300 000 swm"
+        android:text="1 300 000 swm"
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@id/tvCity"
+        app:layout_constraintStart_toEndOf="@id/tvBoldPrice"
         app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
 
@@ -69,20 +120,33 @@
         android:paddingEnd="8dp"
         android:text="Науа сатылады узыны 4метир листи калын алатынларалатынларалатынлар"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/ivAnimal"
+        app:layout_constraintEnd_toEndOf="@id/horScrollView"
         app:layout_constraintStart_toStartOf="@id/tvTitle"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvBoldPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="Телефон номер: "
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/tvBoldPrice"
+        app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
     <TextView
         android:id="@+id/tvPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:text="Телефон номер: +998334980705"
-        android:textColor="@color/black"
         android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:text="+998334980705"
+        android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@id/tvPrice"
+        app:layout_constraintStart_toEndOf="@id/tvBoldPhone"
         app:layout_constraintTop_toBottomOf="@id/tvPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
