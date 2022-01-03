@@ -1,10 +1,13 @@
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.IntRange
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -38,6 +41,13 @@ fun File.toMultiPart(key: String) =
 
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+fun Fragment.isHasPermission(permission: String): Boolean {
+    return requireActivity().applicationContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+}
+
+fun Fragment.askPermission(permissions: Array<out String>, @IntRange(from = 0) requestCode: Int) =
+    ActivityCompat.requestPermissions(requireActivity(), permissions, requestCode)
 
 fun isNetworkAvailable(): Boolean {
     val info = getAppInstance().getConnectivityManager().activeNetworkInfo

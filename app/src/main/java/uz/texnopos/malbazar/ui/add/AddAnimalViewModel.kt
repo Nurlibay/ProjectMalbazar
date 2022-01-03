@@ -42,9 +42,9 @@ class AddAnimalViewModel(private val api: ApiInterface): ViewModel() {
                     partMap["phone"] = phone.toRequestBody()
                     partMap["price"] = price.toRequestBody()
                 }
-                val img1 = addAnimal.img1.toMultiPart("img1")
-                val img2 = addAnimal.img2.toMultiPart("img2")
-                val img3 = addAnimal.img3.toMultiPart("img3")
+                val img1 = addAnimal.img1?.toMultiPart("img1")
+                val img2 = addAnimal.img2?.toMultiPart("img2")
+                val img3 = addAnimal.img3?.toMultiPart("img3")
                 val response = api.addAnimal(partMap, img1, img2, img3)
                 if (response.isSuccessful) {
                     if (response.body()!!.success) {

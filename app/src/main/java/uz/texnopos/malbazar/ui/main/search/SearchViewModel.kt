@@ -6,7 +6,6 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.SearchAnimal
 import uz.texnopos.malbazar.data.models.SearchResult
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 

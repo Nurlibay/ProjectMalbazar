@@ -14,7 +14,7 @@ data class AddAnimal(
     var userId: Int,
     var phone: String,
     var price: String,
-    var img1: File,
-    var img2: File,
-    var img3: File
+    var img1: File?,
+    var img2: File?,
+    var img3: File?
 )

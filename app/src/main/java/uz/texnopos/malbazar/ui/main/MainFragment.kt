@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import toast
 import uz.texnopos.malbazar.core.ResourceState
@@ -16,40 +17,50 @@ import uz.texnopos.malbazar.ui.main.search.SearchViewModel
 class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
-    private val adapter = MainAdapter()
-    private val adapter2 = MainAdapter2()
+    private val adapterLastAdded = AdapterLastAdded()
+    private val adapterMoreViewed = AdapterMoreViewed()
     private val mainViewModel: MainViewModel by viewModel()
     private val searchViewModel: SearchViewModel by viewModel()
-    private var lastest: List<Animal> = listOf()
-    private var viewss: List<Animal> = listOf()
+    private var lastAdded: List<Animal> = listOf()
+    private var views: List<Animal> = listOf()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainBinding.bind(view)
         getData()
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView2.adapter = adapter2
-
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView2.adapter = adapter2
-
-        adapter.toast = {
-            toast(it)
+        binding.apply {
+            rvLastAnimals.adapter = adapterLastAdded
+            rvMoreViewed.adapter = adapterMoreViewed
         }
 
-        binding.searchView.addTextChangedListener {
+
+        adapterLastAdded.onItemClick = {
+            goToInfoFragment(it)
+        }
+        adapterMoreViewed.onItemClick = {
+            goToInfoFragment(it)
+        }
+
+        binding.etSearch.addTextChangedListener {
             if (it!!.isEmpty()) {
-                adapter.models = lastest
-                binding.tvEnKopKoringenler.isVisible = true
+                adapterLastAdded.models = lastAdded
+                binding.tvMoreViewed.isVisible = true
                 binding.tvLastLook.isVisible = true
-                binding.recyclerView2.isVisible = true
+                binding.rvMoreViewed.isVisible = true
             } else {
-                var query: String = binding.searchView.text.toString()
+                val query: String = binding.etSearch.text.toString()
                 searchAnimal(query)
-                binding.tvEnKopKoringenler.isVisible = false
+                binding.tvMoreViewed.isVisible = false
                 binding.tvLastLook.isVisible = false
-                binding.recyclerView2.isVisible = false
+                binding.rvMoreViewed.isVisible = false
             }
         }
+    }
+
+
+    private fun goToInfoFragment(id: Int) {
+        val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id)
+        findNavController().navigate(action)
     }
 
     private fun searchAnimal(query: String) {
@@ -59,22 +70,22 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         searchViewModel.search.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    binding.shimmerLayout.startShimmer()
-                    binding.recyclerView.isVisible = false
-                    binding.recyclerView2.isVisible = false
-                    binding.tvEnKopKoringenler.isVisible = false
+                    //binding.shimmerLayout.startShimmer()
+                    binding.rvLastAnimals.isVisible = false
+                    binding.rvMoreViewed.isVisible = false
+                    binding.tvMoreViewed.isVisible = false
                     binding.tvLastLook.isVisible = false
                 }
                 ResourceState.SUCCESS -> {
-                    adapter.models = listOf()
-                    adapter.models = it!!.data!!.results
-                    binding.shimmerLayout.isVisible = false
-                    binding.recyclerView.isVisible = true
+                    adapterLastAdded.models = listOf()
+                    adapterLastAdded.models = it!!.data!!.results
+                    //binding.shimmerLayout.isVisible = false
+                    binding.rvLastAnimals.isVisible = true
                 }
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
-                    binding.shimmerLayout.isVisible = false
-                    binding.recyclerView.isVisible = true
+                    //binding.shimmerLayout.isVisible = false
+                    binding.rvLastAnimals.isVisible = true
                 }
             }
         }
@@ -85,20 +96,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         mainViewModel.lastAnimals.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    binding.shimmerLayout.startShimmer()
+                    //binding.shimmerLayout.startShimmer()
                 }
                 ResourceState.SUCCESS -> {
-                    lastest = it.data!!.lastes
-                    viewss = it.data.views
+                    lastAdded = it.data!!.lastes
+                    views = it.data.views
                     setData()
-                    binding.shimmerLayout.isVisible = false
-                    binding.recyclerView.isVisible = true
-                    binding.recyclerView2.isVisible = true
-                    binding.tvEnKopKoringenler.isVisible = true
+                    //binding.shimmerLayout.isVisible = false
+                    binding.rvLastAnimals.isVisible = true
+                    binding.rvMoreViewed.isVisible = true
+                    binding.tvMoreViewed.isVisible = true
                 }
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
-                    binding.shimmerLayout.isVisible = false
+                    //binding.shimmerLayout.isVisible = false
                     binding.tvLastLook.isVisible = false
                 }
             }
@@ -106,7 +117,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setData() {
-        adapter.models = lastest
-        adapter2.models = viewss
+        adapterLastAdded.models = lastAdded
+        adapterMoreViewed.models = views
     }
 }
