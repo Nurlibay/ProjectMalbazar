@@ -12,10 +12,11 @@ import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
-class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
 
     var onItemClick: (id: Int) -> Unit = {}
     var models: List<Animal> = listOf()
+
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value

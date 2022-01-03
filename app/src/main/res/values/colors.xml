@@ -15,5 +15,6 @@
     <color name="valueOperationColor">#838383</color>
     <color name="valueTotalColor">#caaeaeae</color>
     <color name="valueTotalError">#B64D65</color>
+    <color name="background">#F2F4F5</color>
 
 </resources>
