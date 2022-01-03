@@ -30,8 +30,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         binding.apply {
             recyclerView.adapter = adapter
             recyclerView2.adapter = adapter2
-            recyclerView.adapter = adapter
-            recyclerView2.adapter = adapter2
+            searchView.addTextChangedListener {
+                if (it!!.isEmpty()) {
+                    adapter.models = lastest
+                    binding.tvEnKopKoringenler.isVisible = true
+                    binding.tvLastLook.isVisible = true
+                    binding.recyclerView2.isVisible = true
+                } else {
+                    var query: String = binding.searchView.text.toString()
+                    searchAnimal(query)
+                    binding.tvEnKopKoringenler.isVisible = false
+                    binding.tvLastLook.isVisible = false
+                    binding.recyclerView2.isVisible = false
+                }
+            }
         }
 
 
@@ -42,20 +54,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             goToInfoFragment(it)
         }
 
-        binding.searchView.addTextChangedListener {
-            if (it!!.isEmpty()) {
-                adapter.models = lastest
-                binding.tvEnKopKoringenler.isVisible = true
-                binding.tvLastLook.isVisible = true
-                binding.recyclerView2.isVisible = true
-            } else {
-                var query: String = binding.searchView.text.toString()
-                searchAnimal(query)
-                binding.tvEnKopKoringenler.isVisible = false
-                binding.tvLastLook.isVisible = false
-                binding.recyclerView2.isVisible = false
-            }
-        }
     }
 
 

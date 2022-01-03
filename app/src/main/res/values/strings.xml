@@ -37,6 +37,7 @@
     <string name="add">Дағаза бериў</string>
     <string name="profil">Кириӯ</string>
     <string name="qaramal">Ӄарамал</string>
+    <string name="terrain">Аимақ:</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>
