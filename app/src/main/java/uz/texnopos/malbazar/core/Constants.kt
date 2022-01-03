@@ -6,4 +6,6 @@ object Constants {
     const val UNAUTHORIZED = "Не зарегистрирован"
     const val mySharedPreferences = "MalbazarProjectPreferences"
     const val USERID = 0
+    const val ASK_PHONE_PERMISSION_REQUEST_CODE=1002
+
 }

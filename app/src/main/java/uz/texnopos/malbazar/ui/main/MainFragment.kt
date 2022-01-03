@@ -27,20 +27,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainBinding.bind(view)
         getData()
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView2.adapter = adapter2
+        binding.apply {
+            recyclerView.adapter = adapter
+            recyclerView2.adapter = adapter2
+            recyclerView.adapter = adapter
+            recyclerView2.adapter = adapter2
+        }
 
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView2.adapter = adapter2
 
         adapter.onItemClick = {
-            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
-            findNavController().navigate(action)
+            goToInfoFragment(it)
         }
-//        adapter2.onItemClick = {
-//            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
-//            findNavController().navigate(action)
-//        }
+        adapter2.onItemClick = {
+            goToInfoFragment(it)
+        }
 
         binding.searchView.addTextChangedListener {
             if (it!!.isEmpty()) {
@@ -56,6 +56,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 binding.recyclerView2.isVisible = false
             }
         }
+    }
+
+
+    private fun goToInfoFragment(id: Int) {
+        val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id)
+        findNavController().navigate(action)
     }
 
     private fun searchAnimal(query: String) {

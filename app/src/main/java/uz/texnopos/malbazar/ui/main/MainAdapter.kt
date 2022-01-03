@@ -29,7 +29,6 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
             binding.tvCity.text = cityId.selectCity(animal.city_id)
-
             if (animal.img1.isEmpty()) {
                 Glide
                     .with(binding.root.context)

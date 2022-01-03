@@ -72,6 +72,12 @@
             android:name="id"
             android:defaultValue="0"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_infoFragment_self"
+            app:destination="@id/infoFragment"
+            app:popUpTo="@id/nav_graph"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>
