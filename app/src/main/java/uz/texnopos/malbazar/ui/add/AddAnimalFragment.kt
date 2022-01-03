@@ -59,7 +59,6 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
         viewModel.getCategory()
         viewModel.getCity()
         binding.apply {
-
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")

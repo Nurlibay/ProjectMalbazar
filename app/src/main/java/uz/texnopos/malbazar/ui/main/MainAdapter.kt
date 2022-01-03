@@ -3,7 +3,6 @@ package uz.texnopos.malbazar.ui.main
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -30,12 +29,19 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
             binding.tvCity.text = cityId.selectCity(animal.city_id)
-
-            Glide
-                .with(binding.root.context)
-                .load(ContextCompat.getDrawable(binding.root.context, R.drawable.malbazar_logo))
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                .into(binding.ivFirstAnimal)
+            if (animal.img1.isEmpty()) {
+                Glide
+                    .with(binding.root.context)
+                    .load(R.drawable.malbazar_logo)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivFirstAnimal)
+            } else {
+                Glide
+                    .with(binding.root.context)
+                    .load(animal.img1)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(binding.ivFirstAnimal)
+            }
             binding.constraintMainItem.setOnClickListener {
                 onItemClick.invoke(animal.id)
             }

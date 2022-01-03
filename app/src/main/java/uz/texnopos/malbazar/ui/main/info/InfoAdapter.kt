@@ -11,6 +11,7 @@ import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
+import uz.texnopos.malbazar.databinding.RecommendationItemBinding
 
 class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
@@ -22,7 +23,7 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
 
-    inner class ViewHolder(private val binding: MainItemBinding) :
+    inner class ViewHolder(private val binding: RecommendationItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
@@ -35,13 +36,13 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivFirstAnimal)
+                    .into(binding.ivAnimal)
             } else {
                 Glide
                     .with(binding.root.context)
                     .load(animal.img1)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivFirstAnimal)
+                    .into(binding.ivAnimal)
             }
             binding.constraintMainItem.setOnClickListener {
                 onItemClick.invoke(animal.id)
@@ -51,7 +52,7 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItemBinding.inflate(
+            RecommendationItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
