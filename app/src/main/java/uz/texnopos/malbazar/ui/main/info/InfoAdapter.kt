@@ -30,7 +30,7 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
             binding.tvTitle.text = animal.title
             binding.tvCity.text = cityId.selectCity(animal.city_id)
 
-            if (animal.img1.isEmpty()) {
+            if (animal.img1 == null) {
                 Glide
                     .with(binding.root.context)
                     .load(R.drawable.malbazar_logo)
