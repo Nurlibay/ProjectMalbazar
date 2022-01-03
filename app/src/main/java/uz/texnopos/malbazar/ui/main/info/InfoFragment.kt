@@ -1,11 +1,13 @@
 package uz.texnopos.malbazar.ui.main.info
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import askPermission
@@ -40,7 +42,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
         binding = FragmentInfoBinding.bind(view)
         binding.recyclerView.adapter = adapter
-        binding.ivLeft.isEnabled = false
+        binding.ivLeft.isVisible = false
 
         binding.tvPhoneNumber.setOnClickListener {
             var phone = binding.tvPhoneNumber.textToString()
@@ -48,11 +50,13 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 val callIntent = Intent(Intent.ACTION_CALL)
                 callIntent.data = Uri.parse("tel:$phone")
                 startActivity(callIntent)
-            } else askPermission(arrayOf(Manifest.permission.CALL_PHONE), ASK_PHONE_PERMISSION_REQUEST_CODE)
+            } else askPermission(
+                arrayOf(Manifest.permission.CALL_PHONE),
+                ASK_PHONE_PERMISSION_REQUEST_CODE
+            )
 
         }
-
-        binding.back.setOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
         adapter.onItemClick = {
@@ -68,8 +72,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                     .into(binding.ivAnimal)
             } else {
                 imageCount = 3
-                binding.ivRight.isEnabled = false
-                binding.ivLeft.isEnabled = true
+                binding.ivRight.isVisible = false
+                binding.ivLeft.isVisible = true
                 Glide
                     .with(requireContext())
                     .load(animal.img3)
@@ -77,10 +81,10 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
         }
         binding.ivLeft.setOnClickListener {
-            binding.ivRight.isEnabled = true
+            binding.ivRight.isVisible = true
             if (maxImageCount - imageCount == 1) {
                 imageCount = 1
-                binding.ivLeft.isEnabled = false
+                binding.ivLeft.isVisible = false
                 Glide
                     .with(requireContext())
                     .load(animal.img1)
@@ -118,6 +122,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setInfo() {
         Glide
             .with(requireContext())
@@ -126,10 +131,10 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
         var city: String = SelectCity().selectCity(animal.city_id)
         binding.tvDescription.text = animal.description
-        binding.tvPhoneNumber.text = animal.phone
-        binding.tvPrice.text = animal.price
+        binding.tvPhoneNumber.text = ": ${animal.phone}"
+        binding.tvPrice.text = ": ${animal.price}"
         binding.tvTitle.text = animal.title
-        binding.tvCity.text = city
+        binding.tvCity.text = " $city"
     }
 
     private fun setDataToRecyclerView(likes: List<Animal>) {
