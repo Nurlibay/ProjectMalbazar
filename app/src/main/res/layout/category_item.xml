@@ -3,18 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/categoryItem"
-    android:layout_width="wrap_content"
+    android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_middle">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivCategory"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        app:layout_constraintCircleRadius="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/add"
+        android:src="@drawable/malbazar_logo"
         />
 
     <androidx.appcompat.widget.AppCompatTextView

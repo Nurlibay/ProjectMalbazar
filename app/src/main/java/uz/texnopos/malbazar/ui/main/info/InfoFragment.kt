@@ -19,10 +19,11 @@ import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.core.SelectCity
+import uz.texnopos.malbazar.SelectCategory
+import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.model.Animal
+import uz.texnopos.malbazar.data.models.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
@@ -37,65 +38,70 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getData(args.id)
-
         binding = FragmentInfoBinding.bind(view)
-        binding.recyclerView.adapter = adapter
-        binding.ivLeft.isVisible = false
 
-        binding.tvPhoneNumber.setOnClickListener {
-            callToUser()
+        binding.apply {
+            toolbar.title = args.categoryId
+            recyclerView.adapter = adapter
+            ivLeft.isVisible = false
+
+            tvPhoneNumber.setOnClickListener {
+                callToUser()
+            }
+            ivCallIcon.setOnClickListener {
+                callToUser()
+            }
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigate(R.id.action_infoFragment_to_mainFragment)
+            }
+            ivRight.setOnClickListener {
+                if (maxImageCount - imageCount == 2) {
+                    imageCount = 2
+                    binding.tvImageCount.text = "2/3"
+                    binding.ivLeft.isVisible = true
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img2)
+                        .into(binding.ivAnimal)
+                } else {
+                    imageCount = 3
+                    binding.tvImageCount.text = "3/3"
+                    binding.ivRight.isVisible = false
+                    binding.ivLeft.isVisible = true
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img3)
+                        .into(binding.ivAnimal)
+                }
+            }
+            ivLeft.setOnClickListener {
+                binding.ivRight.isVisible = true
+                if (maxImageCount - imageCount == 1) {
+                    imageCount = 1
+                    binding.tvImageCount.text = "1/3"
+                    binding.ivLeft.isVisible = false
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img1)
+                        .into(binding.ivAnimal)
+                } else {
+                    imageCount = 2
+                    binding.tvImageCount.text = "2/3"
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img2)
+                        .into(binding.ivAnimal)
+                }
+            }
         }
-        binding.ivCallIcon.setOnClickListener {
-            callToUser()
-        }
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_infoFragment_to_mainFragment)
-        }
-        adapter.onItemClick = {
-            var action = InfoFragmentDirections.actionInfoFragmentSelf(it)
+
+        adapter.onItemClick = { id, categoryId ->
+            var category = SelectCategory().selectCity(categoryId)
+            var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
             findNavController().navigate(action)
         }
-        binding.ivRight.setOnClickListener {
-            if (maxImageCount - imageCount == 2) {
-                imageCount = 2
-                binding.tvImageCount.text = "2/3"
-                binding.ivLeft.isVisible = true
-                Glide
-                    .with(requireContext())
-                    .load(animal.img2)
-                    .into(binding.ivAnimal)
-            } else {
-                imageCount = 3
-                binding.tvImageCount.text = "3/3"
-                binding.ivRight.isVisible = false
-                binding.ivLeft.isVisible = true
-                Glide
-                    .with(requireContext())
-                    .load(animal.img3)
-                    .into(binding.ivAnimal)
-            }
-        }
-        binding.ivLeft.setOnClickListener {
-            binding.ivRight.isVisible = true
-            if (maxImageCount - imageCount == 1) {
-                imageCount = 1
-                binding.tvImageCount.text = "1/3"
-                binding.ivLeft.isVisible = false
-                Glide
-                    .with(requireContext())
-                    .load(animal.img1)
-                    .into(binding.ivAnimal)
-            } else {
-                imageCount = 2
-                binding.tvImageCount.text = "2/3"
-                Glide
-                    .with(requireContext())
-                    .load(animal.img2)
-                    .into(binding.ivAnimal)
-            }
-        }
+
     }
 
     private fun callToUser() {

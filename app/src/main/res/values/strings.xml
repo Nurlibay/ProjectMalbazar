@@ -35,17 +35,15 @@
     <string name="search">Излеу</string>
     <string name="home">Бас бет</string>
     <string name="add">Дағаза бериў</string>
-    <string name="profil">Профил</string>
+    <string name="profil">Кириӯ</string>
     <string name="qaramal">Ӄарамал</string>
     <string name="region">Нѳкис район</string>
     <string name="tvPrice">1 300 000 swm</string>
     <string name="more_viewed">Еӊ көп кѳрилгенлер</string>
     <string name="last_added">Соӊғы ӄосылғанлар</string>
     <string name="terrain">Аимақ</string>
-    <string name="number_format_exception">Телефон номерди дурис форматта киритиń</string>
-    <string name="password_format_exception">Парол 8 симболдан коп болиў керек!</string>
-    <string name="empty_ad_list">Сизде еле дагаза жок</string>
-    <string name="my_ads">Менин дагазаларим</string>
+    <string name="all">Хаммеси</string>
+    <string name="categoryes">Категориялар</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>
