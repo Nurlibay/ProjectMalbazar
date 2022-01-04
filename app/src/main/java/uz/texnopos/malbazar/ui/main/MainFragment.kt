@@ -8,13 +8,10 @@ import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import hideProgress
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.category_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
-import uz.texnopos.malbazar.SelectCategory
+import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.data.model.Animal
@@ -99,6 +96,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     hideProgress()
                     binding.rvLastAnimals.isVisible = true
                 }
+
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
                     hideProgress()
@@ -147,7 +145,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.latest
+                    lastAdded = it.data!!.lastes
                     views = it.data.views
                     setData()
                     hideProgress()
