@@ -45,6 +45,7 @@
     <string name="number_format_exception">Телефон номерди дурис форматта киритиń</string>
     <string name="password_format_exception">Парол 8 симболдан коп болиў керек!</string>
     <string name="empty_ad_list">Сизде еле дагаза жок</string>
+    <string name="my_ads">Менин дагазаларим</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>

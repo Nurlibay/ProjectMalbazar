@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.myAds.MyAdsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -37,47 +38,73 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUserName"
+            android:id="@+id/tilPhone"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
+            android:enabled="false"
+            android:hint="@string/phone"
+            app:endIconMode="clear_text"
+            app:expandedHintEnabled="false"
+            app:hintAnimationEnabled="false"
+            app:hintEnabled="true"
+            app:prefixTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_call"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                />
+                android:inputType="none"
+                android:maxLength="13"
+                android:textColorHint="@color/valueOperationColor"
+                android:maxLines="1"
+                android:padding="@dimen/margin_middle_standard"
+                android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilUserPhone"
+            android:id="@+id/tilName"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/margin_standard"
-
+            android:hint="@string/login"
+            android:enabled="false"
+            android:importantForAutofill="noExcludeDescendants"
+            app:startIconDrawable="@drawable/person"
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
-                />
+                android:layout_height="match_parent"
+                android:inputType="none"
+                android:paddingVertical="@dimen/margin_middle"
+                android:textColor="@color/black" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_ads"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:textSize="18sp"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyAds"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
+            android:layout_marginTop="@dimen/margin_standard"
+            tools:listitem="@layout/main_item"
             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

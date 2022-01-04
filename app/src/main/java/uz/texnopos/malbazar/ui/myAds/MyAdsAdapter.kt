@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.main
+package uz.texnopos.malbazar.ui.myAds
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,10 +11,9 @@ import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
-class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
+class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>(){
 
-    inner class ViewHolder(private val binding: MainItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
             binding.tvPrice.text = "${animal.price} swm"
@@ -42,11 +41,7 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItemBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
+            MainItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
         )
     }
 

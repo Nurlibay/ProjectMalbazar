@@ -14,9 +14,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
 import uz.texnopos.malbazar.core.Constants
-import uz.texnopos.malbazar.core.Resource
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.category.CategoryAdapter
 import uz.texnopos.malbazar.ui.main.category.CategoryViewModel
@@ -140,7 +139,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.lastes
+                    lastAdded = it.data!!.latest
                     views = it.data.views
                     setData()
                     hideProgress()
