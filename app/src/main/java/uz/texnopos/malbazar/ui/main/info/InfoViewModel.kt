@@ -6,8 +6,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.AnimalInfo
-import uz.texnopos.malbazar.data.models.LastAnimals
+import uz.texnopos.malbazar.data.model.AnimalInfo
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class InfoViewModel(private val api: ApiInterface) : ViewModel() {

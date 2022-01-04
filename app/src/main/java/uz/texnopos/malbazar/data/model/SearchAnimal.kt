@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.data.models
+package uz.texnopos.malbazar.data.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -7,5 +7,5 @@ data class SearchAnimal(
     @SerializedName("city_id")
     var cityId: String,
     @SerializedName("category_id")
-    var categotyId: String
+    var categoryId: String
 )

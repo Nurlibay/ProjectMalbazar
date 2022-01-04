@@ -7,21 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.SelectCity
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.core.SelectCity
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
-
-    var onItemClick: (id: Int) -> Unit = {}
-    var models: List<Animal> = listOf()
-
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -30,24 +20,25 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
             binding.tvCity.text = cityId.selectCity(animal.city_id)
-            if (animal.img1.isEmpty()) {
-                Glide
-                    .with(binding.root.context)
-                    .load(R.drawable.malbazar_logo)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivFirstAnimal)
-            } else {
-                Glide
-                    .with(binding.root.context)
-                    .load(animal.img1)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivFirstAnimal)
-            }
+            Glide
+                .with(binding.root.context)
+                .load(animal.img1)
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                .into(binding.ivFirstAnimal)
             binding.constraintMainItem.setOnClickListener {
                 onItemClick.invoke(animal.id)
             }
         }
     }
+
+    var models: List<Animal> = listOf()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var onItemClick: (id: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

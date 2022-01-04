@@ -6,14 +6,15 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.LastAnimals
+import uz.texnopos.malbazar.data.model.LastAnimals
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class MainViewModel(private val api: ApiInterface) : ViewModel() {
+
     private val compositeDisposable = CompositeDisposable()
+
     private var _lastAnimals: MutableLiveData<Resource<LastAnimals>> = MutableLiveData()
-    val lastAnimals: MutableLiveData<Resource<LastAnimals>>
-        get() = _lastAnimals
+    val lastAnimals: MutableLiveData<Resource<LastAnimals>> get() = _lastAnimals
 
     fun lastAnimals() {
         _lastAnimals.value = Resource.loading()
@@ -30,5 +31,4 @@ class MainViewModel(private val api: ApiInterface) : ViewModel() {
                 )
         )
     }
-
 }

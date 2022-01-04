@@ -22,33 +22,41 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLogin"
+        android:id="@+id/tilPhone"
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_height"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:layout_marginVertical="@dimen/margin_extra_small"
+        android:layout_height="wrap_content"
+        android:enabled="true"
         android:hint="@string/phone"
-        android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="clear_text"
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="true"
+        app:prefixText="+998"
+        app:prefixTextColor="@color/black"
+        app:startIconDrawable="@drawable/ic_call"
+        android:layout_marginTop="@dimen/margin_middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
-        app:startIconDrawable="@drawable/phone"
+        android:layout_marginHorizontal="@dimen/margin_large"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
-            android:paddingVertical="@dimen/margin_middle"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="20"
+            android:textColorHint="@color/valueOperationColor"
+            android:maxLines="1"
+            android:padding="@dimen/margin_middle_standard"
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputPassword"
+        android:id="@+id/tilPassword"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/standard_height"
@@ -60,8 +68,9 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputLogin"
+        app:layout_constraintTop_toBottomOf="@id/tilPhone"
         app:startIconDrawable="@drawable/password"
+        app:errorEnabled="true"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -77,18 +86,18 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
-        android:layout_width="160dp"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/standard_height"
         android:layout_marginTop="@dimen/margin_standard"
         android:backgroundTint="@color/purple_700"
-        android:paddingHorizontal="48dp"
         android:text="@string/btn_login"
+        android:paddingHorizontal="@dimen/margin_standard"
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_standard"
         app:cornerRadius="8dp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/inputPassword"
-        app:layout_constraintTop_toBottomOf="@id/inputPassword"
+        app:layout_constraintEnd_toEndOf="@id/tilPassword"
+        app:layout_constraintTop_toBottomOf="@id/tilPassword"
         tools:ignore="SpUsage" />
 
 

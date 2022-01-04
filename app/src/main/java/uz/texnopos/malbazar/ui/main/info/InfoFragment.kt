@@ -1,11 +1,13 @@
 package uz.texnopos.malbazar.ui.main.info
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import askPermission
@@ -17,10 +19,10 @@ import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.SelectCity
+import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
@@ -40,20 +42,16 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
         binding = FragmentInfoBinding.bind(view)
         binding.recyclerView.adapter = adapter
-        binding.ivLeft.isEnabled = false
+        binding.ivLeft.isVisible = false
 
         binding.tvPhoneNumber.setOnClickListener {
-            var phone = binding.tvPhoneNumber.textToString()
-            if (isHasPermission(Manifest.permission.CALL_PHONE)) {
-                val callIntent = Intent(Intent.ACTION_CALL)
-                callIntent.data = Uri.parse("tel:$phone")
-                startActivity(callIntent)
-            } else askPermission(arrayOf(Manifest.permission.CALL_PHONE), ASK_PHONE_PERMISSION_REQUEST_CODE)
-
+            callToUser()
         }
-
-        binding.back.setOnClickListener {
-            requireActivity().onBackPressed()
+        binding.ivCallIcon.setOnClickListener {
+            callToUser()
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            findNavController().navigate(R.id.action_infoFragment_to_mainFragment)
         }
         adapter.onItemClick = {
             var action = InfoFragmentDirections.actionInfoFragmentSelf(it)
@@ -62,14 +60,17 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         binding.ivRight.setOnClickListener {
             if (maxImageCount - imageCount == 2) {
                 imageCount = 2
+                binding.tvImageCount.text = "2/3"
+                binding.ivLeft.isVisible = true
                 Glide
                     .with(requireContext())
                     .load(animal.img2)
                     .into(binding.ivAnimal)
             } else {
                 imageCount = 3
-                binding.ivRight.isEnabled = false
-                binding.ivLeft.isEnabled = true
+                binding.tvImageCount.text = "3/3"
+                binding.ivRight.isVisible = false
+                binding.ivLeft.isVisible = true
                 Glide
                     .with(requireContext())
                     .load(animal.img3)
@@ -77,22 +78,36 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
         }
         binding.ivLeft.setOnClickListener {
-            binding.ivRight.isEnabled = true
+            binding.ivRight.isVisible = true
             if (maxImageCount - imageCount == 1) {
                 imageCount = 1
-                binding.ivLeft.isEnabled = false
+                binding.tvImageCount.text = "1/3"
+                binding.ivLeft.isVisible = false
                 Glide
                     .with(requireContext())
                     .load(animal.img1)
                     .into(binding.ivAnimal)
             } else {
                 imageCount = 2
+                binding.tvImageCount.text = "2/3"
                 Glide
                     .with(requireContext())
                     .load(animal.img2)
                     .into(binding.ivAnimal)
             }
         }
+    }
+
+    private fun callToUser() {
+        var phone = binding.tvPhoneNumber.textToString()
+        if (isHasPermission(Manifest.permission.CALL_PHONE)) {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:$phone")
+            startActivity(callIntent)
+        } else askPermission(
+            arrayOf(Manifest.permission.CALL_PHONE),
+            ASK_PHONE_PERMISSION_REQUEST_CODE
+        )
     }
 
     private fun getData(id: Int) {
@@ -118,6 +133,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setInfo() {
         Glide
             .with(requireContext())
@@ -126,10 +142,10 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
         var city: String = SelectCity().selectCity(animal.city_id)
         binding.tvDescription.text = animal.description
-        binding.tvPhoneNumber.text = animal.phone
-        binding.tvPrice.text = animal.price
+        binding.tvPhoneNumber.text = ": ${animal.phone}"
+        binding.tvPrice.text = ": ${animal.price}"
         binding.tvTitle.text = animal.title
-        binding.tvCity.text = city
+        binding.tvCity.text = ": $city"
     }
 
     private fun setDataToRecyclerView(likes: List<Animal>) {

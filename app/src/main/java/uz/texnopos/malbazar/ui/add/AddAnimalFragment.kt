@@ -32,9 +32,9 @@ import uz.texnopos.malbazar.core.imagehelper.pickGalleryImage
 import uz.texnopos.malbazar.core.imagehelper.setLocalImage
 import uz.texnopos.malbazar.core.mask.MaskWatcherPhone
 import uz.texnopos.malbazar.core.preferences.userId
-import uz.texnopos.malbazar.data.models.AddAnimal
-import uz.texnopos.malbazar.data.models.Category
-import uz.texnopos.malbazar.data.models.City
+import uz.texnopos.malbazar.data.model.AddAnimal
+import uz.texnopos.malbazar.data.model.Category
+import uz.texnopos.malbazar.data.model.City
 import uz.texnopos.malbazar.databinding.FragmentAddAnimalBinding
 import java.io.File
 
