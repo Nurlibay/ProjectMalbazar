@@ -144,13 +144,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.latest
-                    views = it.data.views
-                    setData()
-                    hideProgress()
                     binding.rvLastAnimals.isVisible = true
                     binding.rvMoreViewed.isVisible = true
                     binding.tvMoreViewed.isVisible = true
+                    views = it.data!!.views
+                    lastAdded = it.data.lastes
+                    setData()
+                    hideProgress()
                 }
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
@@ -162,8 +162,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setData() {
-        adapterLastAdded.models = lastAdded
         adapterMoreViewed.models = views
+        adapterLastAdded.models = lastAdded
     }
 
     private fun setUpObserverGetCategory() {

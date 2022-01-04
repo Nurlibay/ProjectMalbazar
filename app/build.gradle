@@ -121,4 +121,7 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:recyclerview-v7:25.1.1'
 
+    //rounded image view
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+
 }
