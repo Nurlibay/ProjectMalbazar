@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F4F5"
-    android:forceDarkAllowed="false"
     tools:context=".ui.main.info.InfoFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -32,13 +31,15 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/margin_middle"
+        android:layout_marginVertical="@dimen/margin_standard"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topAppBar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@drawable/shape"
             android:paddingBottom="8dp">
 
             <ImageView
@@ -65,12 +66,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvImageCount"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_small"
+                android:gravity="center"
+                android:text="1/3"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_middle"
                 android:layout_marginTop="@dimen/margin_standard"
+                android:paddingStart="@dimen/margin_standard"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -78,25 +92,37 @@
 
             <TextView
                 android:id="@+id/tvDescription"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_middle"
-                android:paddingHorizontal="@dimen/margin_middle"
+                android:paddingStart="@dimen/margin_standard"
                 android:textColor="#2B2929"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tvTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCityIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/margin_middle"
+                android:padding="@dimen/margin_middle"
+                android:src="@drawable/address"
+                app:layout_constraintStart_toStartOf="@id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@id/tvBoldPhone" />
 
             <TextView
                 android:id="@+id/tvBoldCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/margin_middle"
                 android:layout_marginStart="@dimen/margin_middle"
                 android:text="@string/terrain"
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@id/tvBoldPhone" />
+                app:layout_constraintBottom_toBottomOf="@id/ivCityIcon"
+                app:layout_constraintStart_toEndOf="@id/ivCityIcon"
+                app:layout_constraintTop_toTopOf="@id/ivCityIcon" />
 
             <TextView
                 android:id="@+id/tvCity"
@@ -107,19 +133,29 @@
                 app:layout_constraintTop_toTopOf="@id/tvBoldCity" />
 
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivPriceIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/margin_middle"
+                android:padding="@dimen/margin_middle"
+                android:src="@drawable/price"
+                app:layout_constraintStart_toStartOf="@id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+
             <TextView
                 android:id="@+id/tvBoldPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_middle"
-                android:layout_marginTop="@dimen/margin_middle"
                 android:gravity="center"
                 android:text="@string/price"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+                app:layout_constraintBottom_toBottomOf="@id/ivPriceIcon"
+                app:layout_constraintStart_toEndOf="@id/ivPriceIcon"
+                app:layout_constraintTop_toTopOf="@id/ivPriceIcon" />
 
             <TextView
                 android:id="@+id/tvPrice"
@@ -132,35 +168,43 @@
                 app:layout_constraintStart_toEndOf="@id/tvBoldPrice"
                 app:layout_constraintTop_toTopOf="@id/tvBoldPrice" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCallIcon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="@dimen/margin_middle"
+                android:src="@drawable/phone"
+                app:layout_constraintStart_toStartOf="@id/tvDescription"
+                app:layout_constraintTop_toBottomOf="@id/ivPriceIcon" />
+
             <TextView
                 android:id="@+id/tvBoldPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_middle"
-                android:layout_marginTop="@dimen/margin_middle"
                 android:gravity="center_vertical"
                 android:text="@string/phone_number"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+                app:layout_constraintBottom_toBottomOf="@id/ivCallIcon"
+                app:layout_constraintStart_toEndOf="@id/ivCallIcon"
+                app:layout_constraintTop_toTopOf="@id/ivCallIcon" />
 
             <TextView
                 android:id="@+id/tvPhoneNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_middle"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/tvBoldPhone"
-                app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+                app:layout_constraintTop_toTopOf="@id/tvBoldPhone" />
 
             <TextView
                 android:id="@+id/tvTagiBasqalarTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_standard"
+                android:layout_marginTop="@dimen/margin_large"
                 android:gravity="center"
                 android:paddingTop="@dimen/margin_middle"
                 android:text="Таги басқалар"
@@ -174,10 +218,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvTagiBasqalarTitle"
-                tools:listitem="@layout/main_item" />
+                tools:listitem="@layout/recommendation_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -45,19 +45,13 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         binding.ivLeft.isVisible = false
 
         binding.tvPhoneNumber.setOnClickListener {
-            var phone = binding.tvPhoneNumber.textToString()
-            if (isHasPermission(Manifest.permission.CALL_PHONE)) {
-                val callIntent = Intent(Intent.ACTION_CALL)
-                callIntent.data = Uri.parse("tel:$phone")
-                startActivity(callIntent)
-            } else askPermission(
-                arrayOf(Manifest.permission.CALL_PHONE),
-                ASK_PHONE_PERMISSION_REQUEST_CODE
-            )
-
+            callToUser()
+        }
+        binding.ivCallIcon.setOnClickListener {
+            callToUser()
         }
         binding.toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().navigate(R.id.action_infoFragment_to_mainFragment)
         }
         adapter.onItemClick = {
             var action = InfoFragmentDirections.actionInfoFragmentSelf(it)
@@ -66,12 +60,15 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         binding.ivRight.setOnClickListener {
             if (maxImageCount - imageCount == 2) {
                 imageCount = 2
+                binding.tvImageCount.text = "2/3"
+                binding.ivLeft.isVisible = true
                 Glide
                     .with(requireContext())
                     .load(animal.img2)
                     .into(binding.ivAnimal)
             } else {
                 imageCount = 3
+                binding.tvImageCount.text = "3/3"
                 binding.ivRight.isVisible = false
                 binding.ivLeft.isVisible = true
                 Glide
@@ -84,6 +81,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             binding.ivRight.isVisible = true
             if (maxImageCount - imageCount == 1) {
                 imageCount = 1
+                binding.tvImageCount.text = "1/3"
                 binding.ivLeft.isVisible = false
                 Glide
                     .with(requireContext())
@@ -91,12 +89,25 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                     .into(binding.ivAnimal)
             } else {
                 imageCount = 2
+                binding.tvImageCount.text = "2/3"
                 Glide
                     .with(requireContext())
                     .load(animal.img2)
                     .into(binding.ivAnimal)
             }
         }
+    }
+
+    private fun callToUser() {
+        var phone = binding.tvPhoneNumber.textToString()
+        if (isHasPermission(Manifest.permission.CALL_PHONE)) {
+            val callIntent = Intent(Intent.ACTION_CALL)
+            callIntent.data = Uri.parse("tel:$phone")
+            startActivity(callIntent)
+        } else askPermission(
+            arrayOf(Manifest.permission.CALL_PHONE),
+            ASK_PHONE_PERMISSION_REQUEST_CODE
+        )
     }
 
     private fun getData(id: Int) {
@@ -134,7 +145,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         binding.tvPhoneNumber.text = ": ${animal.phone}"
         binding.tvPrice.text = ": ${animal.price}"
         binding.tvTitle.text = animal.title
-        binding.tvCity.text = " $city"
+        binding.tvCity.text = ": $city"
     }
 
     private fun setDataToRecyclerView(likes: List<Animal>) {
