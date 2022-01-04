@@ -15,7 +15,7 @@ import uz.texnopos.malbazar.databinding.RecommendationItemBinding
 
 class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
-    var onItemClick: (id: Int) -> Unit = {}
+    var onItemClick: (id: Int,categoryId:Int) -> Unit = {_,_ -> }
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -45,7 +45,7 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
                     .into(binding.ivAnimal)
             }
             binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id)
+                onItemClick.invoke(animal.id,animal.category_id)
             }
         }
     }

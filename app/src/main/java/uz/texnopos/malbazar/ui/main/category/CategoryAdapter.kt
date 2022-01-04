@@ -20,9 +20,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         fun populateModel(category: Category) {
             binding.apply {
                 tvCategoryName.text = category.name
+//                    .load(ContextCompat.getDrawable(root.context, R.drawable.malbazar_logo))
                 Glide
                     .with(root.context)
-                    .load(ContextCompat.getDrawable(root.context, R.drawable.malbazar_logo))
+                    .load(category.icon)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(500)))
                     .into(ivCategory)
                 categoryItem.onClick {
@@ -56,14 +57,4 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     }
 
     override fun getItemCount() = models.size
-
-    private var categoryes = mutableListOf<Category>()
-    fun setData(category: List<Category>) {
-        this.categoryes.clear()
-        for (model in category) {
-            this.categoryes.add(0, model)
-            notifyItemChanged(0)
-        }
-    }
-
 }
