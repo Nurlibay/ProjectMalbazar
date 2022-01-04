@@ -56,7 +56,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_city.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_info.xml" value="0.40687919463087246" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_login.xml" value="0.2526041666666667" />
+<<<<<<< HEAD
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_main.xml" value="0.23868110236220472" />
+=======
+        <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_main.xml" value="0.237279843444227" />
+>>>>>>> 173dc623ecb8fd291b7de1623617dd85b5762a9f
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_my_ads.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/fragment_register.xml" value="0.34088200238379024" />
         <entry key="..\:/Users/User/AndroidStudioProjects/ProjectMalbazar/app/src/main/res/layout/main_item.xml" value="0.2" />

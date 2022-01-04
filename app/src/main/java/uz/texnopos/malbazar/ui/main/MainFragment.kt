@@ -11,7 +11,7 @@ import hideProgress
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
-import uz.texnopos.malbazar.core.SelectCategory
+import uz.texnopos.malbazar.SelectCategory
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.data.model.Animal
@@ -96,7 +96,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     hideProgress()
                     binding.rvLastAnimals.isVisible = true
                 }
-
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
                     hideProgress()
@@ -108,7 +107,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
 
     private fun goToInfoFragment(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCity(categoryId)
+        var category = SelectCategory().selectCategory(categoryId)
         val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
         findNavController().navigate(action)
     }
@@ -145,13 +144,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.lastes
-                    views = it.data.views
-                    setData()
-                    hideProgress()
                     binding.rvLastAnimals.isVisible = true
                     binding.rvMoreViewed.isVisible = true
                     binding.tvMoreViewed.isVisible = true
+                    views = it.data!!.views
+                    lastAdded = it.data.lastes
+                    setData()
+                    hideProgress()
                 }
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
@@ -163,8 +162,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setData() {
-        adapterLastAdded.models = lastAdded
         adapterMoreViewed.models = views
+        adapterLastAdded.models = lastAdded
     }
 
     private fun setUpObserverGetCategory() {

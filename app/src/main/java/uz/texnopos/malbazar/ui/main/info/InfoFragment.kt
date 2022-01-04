@@ -19,7 +19,12 @@ import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
+<<<<<<< HEAD
 import uz.texnopos.malbazar.core.SelectCategory
+=======
+import uz.texnopos.malbazar.SelectCategory
+import uz.texnopos.malbazar.SelectCity
+>>>>>>> 173dc623ecb8fd291b7de1623617dd85b5762a9f
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.SelectCity
@@ -97,7 +102,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
 
         adapter.onItemClick = { id, categoryId ->
-            var category = SelectCategory().selectCity(categoryId)
+            var category = SelectCategory().selectCategory(categoryId)
             var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
             findNavController().navigate(action)
         }

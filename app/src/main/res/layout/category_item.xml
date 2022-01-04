@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/categoryItem"
     android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_middle">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/ivCategory"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/malbazar_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/malbazar_logo"
-        />
+        app:riv_corner_radius="30dip"
+        app:riv_mutate_background="true"
+        app:riv_oval="true" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvCategoryName"
@@ -23,9 +25,9 @@
         android:gravity="center"
         android:text="Qaramal"
         android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/ivCategory"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="16sp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivCategory" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
