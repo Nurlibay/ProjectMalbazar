@@ -16,5 +16,6 @@
     <color name="valueTotalColor">#caaeaeae</color>
     <color name="valueTotalError">#B64D65</color>
     <color name="background">#F2F4F5</color>
+    <color name="color_error">#F44336</color>
 
 </resources>

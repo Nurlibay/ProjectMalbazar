@@ -6,10 +6,11 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.SearchResult
+import uz.texnopos.malbazar.data.model.SearchResult
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class SearchViewModel(private val api: ApiInterface) : ViewModel() {
+
     private val compositeDisposable = CompositeDisposable()
     private var _search: MutableLiveData<Resource<SearchResult>> = MutableLiveData()
     val search: MutableLiveData<Resource<SearchResult>>

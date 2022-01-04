@@ -23,7 +23,7 @@ import uz.texnopos.malbazar.SelectCategory
 import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
@@ -97,7 +97,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
 
         adapter.onItemClick = { id, categoryId ->
-            var category = SelectCategory().selectCity(categoryId)
+            var category = SelectCategory().selectCategory(categoryId)
             var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
             findNavController().navigate(action)
         }

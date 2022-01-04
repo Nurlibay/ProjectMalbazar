@@ -5,7 +5,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
-import uz.texnopos.malbazar.data.models.*
+import uz.texnopos.malbazar.data.model.*
 
 interface ApiInterface {
 
@@ -19,7 +19,7 @@ interface ApiInterface {
     fun getLastEightAnimals(): Observable<GenericResponse<LastAnimals>>
 
     @GET("api/myads/{userId}")
-    fun getUserAds(@Path("userId") id: Int): Observable<GenericResponse<List<Animal>>>
+    fun getUserAds(@Path("userId") id: Int): Observable<GenericResponse<MyAds>>
 
     @GET("api/animal/{id}")
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<AnimalInfo>>

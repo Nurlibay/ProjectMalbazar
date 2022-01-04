@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.data.models
+package uz.texnopos.malbazar.data.model
 
 import com.google.gson.annotations.SerializedName
 

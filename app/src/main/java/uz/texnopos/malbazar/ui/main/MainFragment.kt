@@ -8,17 +8,13 @@ import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import hideProgress
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.android.synthetic.main.category_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
 import uz.texnopos.malbazar.SelectCategory
 import uz.texnopos.malbazar.core.Constants
-import uz.texnopos.malbazar.core.Resource
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.category.CategoryAdapter
 import uz.texnopos.malbazar.ui.main.category.CategoryViewModel
@@ -111,7 +107,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
 
     private fun goToInfoFragment(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCity(categoryId)
+        var category = SelectCategory().selectCategory(categoryId)
         val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
         findNavController().navigate(action)
     }
@@ -148,7 +144,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.lastes
+                    lastAdded = it.data!!.latest
                     views = it.data.views
                     setData()
                     hideProgress()

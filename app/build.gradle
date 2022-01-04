@@ -24,6 +24,7 @@ android {
 
     buildTypes {
         release {
+            multiDexEnabled true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -38,6 +39,8 @@ android {
 }
 
 dependencies {
+
+    implementation("androidx.multidex:multidex:2.0.1")
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'

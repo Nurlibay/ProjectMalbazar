@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.*
+import uz.texnopos.malbazar.data.model.Category
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class CategoryViewModel(private val api: ApiInterface): ViewModel() {

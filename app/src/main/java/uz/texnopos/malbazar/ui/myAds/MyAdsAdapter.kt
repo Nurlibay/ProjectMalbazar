@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.main
+package uz.texnopos.malbazar.ui.myAds
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,14 +11,7 @@ import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
-class AdapterMoreViewed : RecyclerView.Adapter<AdapterMoreViewed.ViewHolder>() {
-
-    var models: List<Animal> = listOf()
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>(){
 
     inner class ViewHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
@@ -31,18 +24,24 @@ class AdapterMoreViewed : RecyclerView.Adapter<AdapterMoreViewed.ViewHolder>() {
                 .load(animal.img1)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                 .into(binding.ivFirstAnimal)
-
             binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id, animal.category_id)
+                onItemClick.invoke(animal.id)
             }
         }
     }
 
-    var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
+    var models: List<Animal> = listOf()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var onItemClick: (id: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            MainItemBinding.inflate(LayoutInflater.from(parent.context), parent,false)
         )
     }
 

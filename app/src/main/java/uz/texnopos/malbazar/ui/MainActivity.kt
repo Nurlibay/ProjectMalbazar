@@ -1,8 +1,9 @@
-package uz.texnopos.malbazar
+package uz.texnopos.malbazar.ui
 
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.AppBaseActivity
 import uz.texnopos.malbazar.databinding.ActivityMainBinding
 

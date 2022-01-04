@@ -6,8 +6,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.LoginUser
-import uz.texnopos.malbazar.data.models.UserToken
+import uz.texnopos.malbazar.data.model.LoginUser
+import uz.texnopos.malbazar.data.model.UserToken
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class LoginViewModel(private val api: ApiInterface) : ViewModel() {

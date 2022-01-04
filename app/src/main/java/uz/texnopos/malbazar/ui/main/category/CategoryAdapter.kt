@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import onClick
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.data.models.Category
+import uz.texnopos.malbazar.data.model.Category
 import uz.texnopos.malbazar.databinding.CategoryItemBinding
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {

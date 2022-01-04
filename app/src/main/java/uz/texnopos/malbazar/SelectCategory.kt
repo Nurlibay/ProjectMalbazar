@@ -1,7 +1,7 @@
 package uz.texnopos.malbazar
 
 class SelectCategory {
-    fun selectCity(category_id: Int): String {
+    fun selectCategory(category_id: Int): String {
         return when (category_id) {
             1 -> "Ӄарамал"
             2 -> "Түйе"

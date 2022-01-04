@@ -2,6 +2,7 @@ package uz.texnopos.malbazar
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.multidex.MultiDexApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -10,7 +11,7 @@ import uz.texnopos.malbazar.core.preferences.SharedPrefUtils
 import uz.texnopos.malbazar.di.dataModule
 import uz.texnopos.malbazar.di.viewModelModule
 
-class App : Application() {
+class App : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         appInstance = this
