@@ -24,6 +24,11 @@
         <item name="hintTextColor">@color/black</item>
     </style>
 
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
     <style name="TextInputLayoutDropDown" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxBackgroundMode">outline</item>
         <item name="android:textColorHint">@color/black</item>

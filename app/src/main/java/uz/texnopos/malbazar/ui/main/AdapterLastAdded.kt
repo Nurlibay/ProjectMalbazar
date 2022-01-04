@@ -14,15 +14,6 @@ import uz.texnopos.malbazar.databinding.MainItemBinding
 
 class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
 
-    var onItemClick: (id: Int) -> Unit = {}
-    var models: List<Animal> = listOf()
-
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
-
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(animal: Animal) {
@@ -40,6 +31,15 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
             }
         }
     }
+
+    var models: List<Animal> = listOf()
+        @SuppressLint("NotifyDataSetChanged")
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+    var onItemClick: (id: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

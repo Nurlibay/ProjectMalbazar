@@ -30,7 +30,6 @@ interface ApiInterface {
         @Query("city_id") city_id: String,
         @Query("category_id") category_id: String
     ): Observable<GenericResponse<SearchResult>>
-
     @GET("api/category")
     fun getAllCategory(): Observable<GenericResponse<List<Category>>>
 
