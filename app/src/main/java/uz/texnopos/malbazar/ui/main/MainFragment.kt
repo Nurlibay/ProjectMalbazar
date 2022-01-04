@@ -8,13 +8,12 @@ import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import hideProgress
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
+import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.category.CategoryAdapter
@@ -44,18 +43,23 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             rvMoreViewed.adapter = adapterMoreViewed
             rvCategory.adapter = adapterCategory
 
+            ivCategory.setOnClickListener {
+                tvLastAdded.isVisible = true
+                getData()
+            }
+
             // search func
             etSearch.addTextChangedListener {
                 if (it!!.isEmpty()) {
                     adapterLastAdded.models = lastAdded
                     binding.tvMoreViewed.isVisible = true
-                    binding.tvLastLook.isVisible = true
+                    binding.tvLastAdded.isVisible = true
                     binding.rvMoreViewed.isVisible = true
                 } else {
                     val query: String = binding.etSearch.text.toString()
                     searchAnimal(query)
                     binding.tvMoreViewed.isVisible = false
-                    binding.tvLastLook.isVisible = false
+                    binding.tvLastAdded.isVisible = false
                     binding.rvMoreViewed.isVisible = false
                 }
             }
@@ -64,14 +68,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         adapterCategory.onItemClick = {
             searchCategory(it)
             binding.tvMoreViewed.isVisible = false
-            binding.tvLastLook.isVisible = false
+            binding.tvLastAdded.isVisible = false
             binding.rvMoreViewed.isVisible = false
         }
-        adapterLastAdded.onItemClick = {
-            goToInfoFragment(it)
+        adapterLastAdded.onItemClick = { id: Int, categoryId: Int ->
+            goToInfoFragment(id, categoryId)
         }
-        adapterMoreViewed.onItemClick = {
-            goToInfoFragment(it)
+        adapterMoreViewed.onItemClick = { id: Int, categoryId: Int ->
+            goToInfoFragment(id, categoryId)
         }
     }
 
@@ -84,7 +88,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     binding.rvLastAnimals.isVisible = false
                     binding.rvMoreViewed.isVisible = false
                     binding.tvMoreViewed.isVisible = false
-                    binding.tvLastLook.isVisible = false
+                    binding.tvLastAdded.isVisible = false
                 }
                 ResourceState.SUCCESS -> {
                     adapterLastAdded.models = listOf()
@@ -102,8 +106,9 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
 
-    private fun goToInfoFragment(id: Int) {
-        val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id)
+    private fun goToInfoFragment(id: Int, categoryId: Int) {
+        var category = SelectCategory().selectCategory(categoryId)
+        val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
         findNavController().navigate(action)
     }
 
@@ -116,7 +121,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     binding.rvLastAnimals.isVisible = false
                     binding.rvMoreViewed.isVisible = false
                     binding.tvMoreViewed.isVisible = false
-                    binding.tvLastLook.isVisible = false
+                    binding.tvLastAdded.isVisible = false
                 }
                 ResourceState.SUCCESS -> {
                     adapterLastAdded.models = listOf()
@@ -139,26 +144,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.latest
-                    views = it.data.views
-                    setData()
-                    hideProgress()
                     binding.rvLastAnimals.isVisible = true
                     binding.rvMoreViewed.isVisible = true
                     binding.tvMoreViewed.isVisible = true
+                    views = it.data!!.views
+                    lastAdded = it.data.lastes
+                    setData()
+                    hideProgress()
                 }
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
                     hideProgress()
-                    binding.tvLastLook.isVisible = false
+                    binding.tvLastAdded.isVisible = false
                 }
             }
         }
     }
 
     private fun setData() {
-        adapterLastAdded.models = lastAdded
         adapterMoreViewed.models = views
+        adapterLastAdded.models = lastAdded
     }
 
     private fun setUpObserverGetCategory() {

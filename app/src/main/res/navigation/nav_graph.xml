@@ -75,7 +75,7 @@
     <fragment
         android:id="@+id/infoFragment"
         android:name="uz.texnopos.malbazar.ui.main.info.InfoFragment"
-        android:label="fragment_iяnfo"
+        android:label="fragment_info"
         tools:layout="@layout/fragment_info">
         <argument
             android:name="id"
@@ -90,6 +90,9 @@
         <action
             android:id="@+id/action_infoFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
     </fragment>
 
 </navigation>
