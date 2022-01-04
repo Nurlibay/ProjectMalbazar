@@ -26,12 +26,18 @@
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+
         <action
             android:id="@+id/action_registerFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+
         <action
             android:id="@+id/action_registerFragment_to_myAdsFragment"
-            app:destination="@id/myAdsFragment" />
+            app:destination="@id/myAdsFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            />
     </fragment>
 
     <fragment
@@ -46,6 +52,13 @@
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_myAdsFragment"
+            app:destination="@id/myAdsFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            />
     </fragment>
 
     <fragment

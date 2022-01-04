@@ -6,8 +6,8 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.RegisterUser
-import uz.texnopos.malbazar.data.models.UserToken
+import uz.texnopos.malbazar.data.model.RegisterUser
+import uz.texnopos.malbazar.data.model.UserToken
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class RegisterViewModel(private val apiInterface: ApiInterface) : ViewModel() {

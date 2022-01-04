@@ -22,27 +22,35 @@
         app:layout_constraintVertical_bias="0.2" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputLogin"
+        android:id="@+id/tilPhone"
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_height"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:layout_marginVertical="@dimen/margin_extra_small"
+        android:layout_height="wrap_content"
+        android:enabled="true"
         android:hint="@string/phone"
-        android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="clear_text"
+        app:expandedHintEnabled="false"
+        app:hintAnimationEnabled="false"
+        app:hintEnabled="true"
+        app:prefixText="+998"
+        app:prefixTextColor="@color/black"
+        app:startIconDrawable="@drawable/ic_call"
+        android:layout_marginTop="@dimen/margin_middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
-        app:startIconDrawable="@drawable/phone"
+        android:layout_marginHorizontal="@dimen/margin_large"
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
-            android:paddingVertical="@dimen/margin_middle"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLength="20"
+            android:textColorHint="@color/valueOperationColor"
+            android:maxLines="1"
+            android:padding="@dimen/margin_middle_standard"
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -60,8 +68,9 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputLogin"
+        app:layout_constraintTop_toBottomOf="@id/tilPhone"
         app:startIconDrawable="@drawable/password"
+        app:errorEnabled="true"
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +116,7 @@
         android:layout_height="@dimen/standard_height"
         android:layout_marginTop="@dimen/margin_standard"
         android:backgroundTint="@color/purple_700"
-        android:paddingHorizontal="48dp"
+        android:paddingHorizontal="@dimen/margin_standard"
         android:text="@string/btn_signup"
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_standard"
@@ -117,7 +126,7 @@
         app:layout_constraintTop_toBottomOf="@id/tilName"
         tools:ignore="SpUsage" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvSignIn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
@@ -144,146 +153,3 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:id="@+id/container"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:background="@color/colorPrimaryDark"-->
-<!--    tools:context=".ui.profile.register.RegisterFragment">-->
-
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progressBar"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/iv1"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="44dp"-->
-<!--        android:src="@drawable/shape_login"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/progressBar" />-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/ivPeron"-->
-<!--        android:layout_width="50dp"-->
-<!--        android:layout_height="50dp"-->
-<!--        android:src="@drawable/person"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/iv1"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/iv1"-->
-<!--        app:layout_constraintStart_toStartOf="@id/iv1"-->
-<!--        app:layout_constraintTop_toTopOf="@id/iv1" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/appName"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:gravity="center"-->
-<!--        android:text="MALBAZAR"-->
-<!--        android:textSize="24dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/iv1" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/btnSignIn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginHorizontal="8dp"-->
-<!--        android:layout_marginTop="13dp"-->
-<!--        android:background="#2F384A"-->
-<!--        android:paddingHorizontal="24dp"-->
-<!--        android:paddingVertical="8dp"-->
-<!--        android:text="Kiriw"-->
-<!--        android:textColor="@color/white"-->
-<!--        android:textSize="16dp"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etPhone"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginHorizontal="24dp"-->
-<!--        android:background="@drawable/fields_shape"-->
-<!--        android:drawableStart="@drawable/phone"-->
-<!--        android:drawablePadding="8dp"-->
-<!--        android:hint="Telefon*"-->
-<!--        android:inputType="number"-->
-<!--        android:paddingVertical="8dp"-->
-<!--        android:paddingStart="8dp"-->
-<!--        android:selectAllOnFocus="true"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <com.google.android.material.textfield.TextInputLayout-->
-<!--        android:id="@+id/inputPassword"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        app:endIconMode="password_toggle"-->
-<!--        android:hint="Parol*"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/etPhone"-->
-<!--        app:layout_constraintStart_toStartOf="@id/etPhone"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/etPhone"-->
-<!--        app:startIconDrawable="@drawable/password">-->
-
-<!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:id="@+id/etPassword"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/fields_shape"-->
-<!--            android:hint=""-->
-<!--            android:ems="10"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:textColor="@color/white" />-->
-<!--    </com.google.android.material.textfield.TextInputLayout>-->
-
-<!--    <EditText-->
-<!--        android:id="@+id/etName"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="48dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:background="@drawable/fields_shape"-->
-<!--        android:drawableStart="@drawable/person"-->
-<!--        android:drawablePadding="8dp"-->
-<!--        android:hint="Atıńız*"-->
-<!--        android:imeOptions="actionDone"-->
-<!--        android:inputType="textPersonName"-->
-<!--        android:paddingVertical="8dp"-->
-<!--        android:paddingStart="8dp"-->
-<!--        android:selectAllOnFocus="true"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/etPhone"-->
-<!--        app:layout_constraintStart_toStartOf="@id/etPhone"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/btnSignUp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="36dp"-->
-<!--        android:layout_marginTop="36dp"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:background="@drawable/fields_shape"-->
-<!--        android:gravity="center"-->
-<!--        android:minWidth="64dp"-->
-<!--        android:paddingHorizontal="16dp"-->
-<!--        android:text="Dizimnen otiw"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="16dp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/etName" />-->
-
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

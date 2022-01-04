@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.data.models
+package uz.texnopos.malbazar.data.model
 
 data class Category(
     val created_at: String,

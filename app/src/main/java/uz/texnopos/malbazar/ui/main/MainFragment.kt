@@ -7,10 +7,14 @@ import androidx.core.widget.addTextChangedListener
 import uz.texnopos.malbazar.R
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import hideProgress
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import showProgress
+import textToString
 import toast
+import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.search.SearchViewModel
 
@@ -27,18 +31,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainBinding.bind(view)
-        getData()
+        lastAnimals()
         binding.apply {
             rvLastAnimals.adapter = adapterLastAdded
             rvMoreViewed.adapter = adapterMoreViewed
         }
 
-
-        adapterLastAdded.onItemClick = {
-            goToInfoFragment(it)
+        adapterLastAdded.setOnItemClickListener {
+            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
+            findNavController().navigate(action)
         }
+
         adapterMoreViewed.onItemClick = {
-            goToInfoFragment(it)
+            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
+            findNavController().navigate(action)
         }
 
         binding.etSearch.addTextChangedListener {
@@ -48,7 +54,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 binding.tvLastLook.isVisible = true
                 binding.rvMoreViewed.isVisible = true
             } else {
-                val query: String = binding.etSearch.text.toString()
+                val query: String = binding.etSearch.textToString()
                 searchAnimal(query)
                 binding.tvMoreViewed.isVisible = false
                 binding.tvLastLook.isVisible = false
@@ -57,60 +63,45 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
     }
 
-
-    private fun goToInfoFragment(id: Int) {
-        val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id)
-        findNavController().navigate(action)
-    }
-
     private fun searchAnimal(query: String) {
-
         searchViewModel.searchAnimal(query)
-
         searchViewModel.search.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    //binding.shimmerLayout.startShimmer()
-                    binding.rvLastAnimals.isVisible = false
-                    binding.rvMoreViewed.isVisible = false
-                    binding.tvMoreViewed.isVisible = false
-                    binding.tvLastLook.isVisible = false
+                    showProgress()
                 }
                 ResourceState.SUCCESS -> {
-                    adapterLastAdded.models = listOf()
                     adapterLastAdded.models = it!!.data!!.results
-                    //binding.shimmerLayout.isVisible = false
-                    binding.rvLastAnimals.isVisible = true
                 }
                 ResourceState.ERROR -> {
-                    it.message?.let { it1 -> toast(it1) }
-                    //binding.shimmerLayout.isVisible = false
-                    binding.rvLastAnimals.isVisible = true
+                    hideProgress()
+                    toast(it.message!!)
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(Constants.NO_INTERNET)
                 }
             }
         }
     }
 
-    private fun getData() {
+    private fun lastAnimals() {
         mainViewModel.lastAnimals()
         mainViewModel.lastAnimals.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> {
-                    //binding.shimmerLayout.startShimmer()
-                }
+                ResourceState.LOADING -> { showProgress() }
                 ResourceState.SUCCESS -> {
-                    lastAdded = it.data!!.lastes
+                    lastAdded = it.data!!.latest
                     views = it.data.views
                     setData()
-                    //binding.shimmerLayout.isVisible = false
-                    binding.rvLastAnimals.isVisible = true
-                    binding.rvMoreViewed.isVisible = true
-                    binding.tvMoreViewed.isVisible = true
                 }
                 ResourceState.ERROR -> {
-                    it.message?.let { it1 -> toast(it1) }
-                    //binding.shimmerLayout.isVisible = false
-                    binding.tvLastLook.isVisible = false
+                    hideProgress()
+                    toast(it.message!!)
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(Constants.NO_INTERNET)
                 }
             }
         }

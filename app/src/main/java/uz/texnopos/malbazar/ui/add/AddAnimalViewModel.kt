@@ -12,7 +12,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import toMultiPart
 import uz.texnopos.malbazar.core.Resource
-import uz.texnopos.malbazar.data.models.*
+import uz.texnopos.malbazar.data.model.*
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class AddAnimalViewModel(private val api: ApiInterface): ViewModel() {

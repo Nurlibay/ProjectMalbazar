@@ -19,10 +19,10 @@ import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.SelectCity
+import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.data.models.Animal
+import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
