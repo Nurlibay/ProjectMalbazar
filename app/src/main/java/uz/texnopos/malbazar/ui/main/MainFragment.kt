@@ -11,9 +11,9 @@ import hideProgress
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
-import uz.texnopos.malbazar.SelectCategory
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
+import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.category.CategoryAdapter
