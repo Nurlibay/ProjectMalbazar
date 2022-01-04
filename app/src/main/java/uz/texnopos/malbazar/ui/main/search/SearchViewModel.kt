@@ -16,10 +16,10 @@ class SearchViewModel(private val api: ApiInterface) : ViewModel() {
     val search: MutableLiveData<Resource<SearchResult>>
         get() = _search
 
-    fun searchAnimal(query: String) {
+    fun searchAnimal(query: String,city_id:String,category_id:String) {
         _search.value = Resource.loading()
         compositeDisposable.add(
-            api.searchAnimal(query,"all","all")
+            api.searchAnimal(query,city_id,category_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

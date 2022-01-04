@@ -11,18 +11,17 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/purple_700"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:liftOnScroll="true">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="match_parent"
             app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             app:title="@string/malbazari" />
 
@@ -42,163 +41,170 @@
             android:background="@drawable/shape"
             android:paddingBottom="8dp">
 
-            <ImageView
-                android:id="@+id/ivAnimal"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clInfo"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/ivLeft"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/left"
-                app:layout_constraintBottom_toBottomOf="@id/ivAnimal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/ivAnimal"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivRight"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/right"
-                app:layout_constraintBottom_toBottomOf="@id/ivAnimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/ivLeft"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/left"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAnimal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tvImageCount"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                android:gravity="center"
-                android:text="1/3"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/ivRight"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/right"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAnimal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_middle"
-                android:layout_marginTop="@dimen/margin_standard"
-                android:paddingStart="@dimen/margin_standard"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ivAnimal" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvImageCount"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_standard"
+                    android:gravity="center"
+                    android:text="1/3"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_middle"
-                android:paddingStart="@dimen/margin_standard"
-                android:textColor="#2B2929"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_middle"
+                    android:layout_marginTop="@dimen/margin_standard"
+                    android:paddingStart="@dimen/margin_standard"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivAnimal" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivCityIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="@dimen/margin_middle"
-                android:padding="@dimen/margin_middle"
-                android:src="@drawable/address"
-                app:layout_constraintStart_toStartOf="@id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@id/tvBoldPhone" />
+                <TextView
+                    android:id="@+id/tvDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_middle"
+                    android:paddingStart="@dimen/margin_standard"
+                    android:textColor="#2B2929"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tvTitle"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-            <TextView
-                android:id="@+id/tvBoldCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_middle"
-                android:text="@string/terrain"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/ivCityIcon"
-                app:layout_constraintStart_toEndOf="@id/ivCityIcon"
-                app:layout_constraintTop_toTopOf="@id/ivCityIcon" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCityIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_middle"
+                    android:padding="@dimen/margin_middle"
+                    android:src="@drawable/address"
+                    app:layout_constraintStart_toStartOf="@id/tvDescription"
+                    app:layout_constraintTop_toBottomOf="@id/tvBoldPhone" />
 
-            <TextView
-                android:id="@+id/tvCity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toEndOf="@id/tvBoldCity"
-                app:layout_constraintTop_toTopOf="@id/tvBoldCity" />
+                <TextView
+                    android:id="@+id/tvBoldCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_middle"
+                    android:text="@string/terrain"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/ivCityIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivCityIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivCityIcon" />
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/tvBoldCity"
+                    app:layout_constraintTop_toTopOf="@id/tvBoldCity" />
 
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivPriceIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="@dimen/margin_middle"
-                android:padding="@dimen/margin_middle"
-                android:src="@drawable/price"
-                app:layout_constraintStart_toStartOf="@id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@id/tvDescription" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPriceIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_middle"
+                    android:padding="@dimen/margin_middle"
+                    android:src="@drawable/price"
+                    app:layout_constraintStart_toStartOf="@id/tvDescription"
+                    app:layout_constraintTop_toBottomOf="@id/tvDescription" />
 
-            <TextView
-                android:id="@+id/tvBoldPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_middle"
-                android:gravity="center"
-                android:text="@string/price"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/ivPriceIcon"
-                app:layout_constraintStart_toEndOf="@id/ivPriceIcon"
-                app:layout_constraintTop_toTopOf="@id/ivPriceIcon" />
+                <TextView
+                    android:id="@+id/tvBoldPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_middle"
+                    android:gravity="center"
+                    android:text="@string/price"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/ivPriceIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivPriceIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivPriceIcon" />
 
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_standard"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/tvBoldPrice"
-                app:layout_constraintTop_toTopOf="@id/tvBoldPrice" />
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_standard"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvBoldPrice"
+                    app:layout_constraintTop_toTopOf="@id/tvBoldPrice" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivCallIcon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="@dimen/margin_middle"
-                android:src="@drawable/phone"
-                app:layout_constraintStart_toStartOf="@id/tvDescription"
-                app:layout_constraintTop_toBottomOf="@id/ivPriceIcon" />
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCallIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="@dimen/margin_middle"
+                    android:src="@drawable/phone"
+                    app:layout_constraintStart_toStartOf="@id/tvDescription"
+                    app:layout_constraintTop_toBottomOf="@id/ivPriceIcon" />
 
-            <TextView
-                android:id="@+id/tvBoldPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_middle"
-                android:gravity="center_vertical"
-                android:text="@string/phone_number"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/ivCallIcon"
-                app:layout_constraintStart_toEndOf="@id/ivCallIcon"
-                app:layout_constraintTop_toTopOf="@id/ivCallIcon" />
+                <TextView
+                    android:id="@+id/tvBoldPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_middle"
+                    android:gravity="center_vertical"
+                    android:text="@string/phone_number"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/ivCallIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivCallIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivCallIcon" />
 
-            <TextView
-                android:id="@+id/tvPhoneNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/tvBoldPhone"
-                app:layout_constraintTop_toTopOf="@id/tvBoldPhone" />
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/tvBoldPhone"
+                    app:layout_constraintTop_toTopOf="@id/tvBoldPhone" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvTagiBasqalarTitle"
@@ -211,7 +217,7 @@
                 android:textColor="@color/purple_700"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/tvBoldCity" />
+                app:layout_constraintTop_toBottomOf="@id/clInfo" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

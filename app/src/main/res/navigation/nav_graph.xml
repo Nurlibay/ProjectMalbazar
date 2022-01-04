@@ -10,11 +10,9 @@
         android:name="uz.texnopos.malbazar.ui.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
-
         <action
             android:id="@+id/action_mainFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
-
     </fragment>
 
     <fragment
@@ -22,7 +20,6 @@
         android:name="uz.texnopos.malbazar.ui.profile.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register">
-
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -45,7 +42,6 @@
         android:name="uz.texnopos.malbazar.ui.profile.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
-
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -65,7 +61,7 @@
         android:id="@+id/addFragment"
         android:name="uz.texnopos.malbazar.ui.add.AddAnimalFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add_animal" >
+        tools:layout="@layout/fragment_add_animal">
         <action
             android:id="@+id/action_addFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
@@ -80,7 +76,7 @@
         android:id="@+id/infoFragment"
         android:name="uz.texnopos.malbazar.ui.main.info.InfoFragment"
         android:label="fragment_iяnfo"
-        tools:layout="@layout/fragment_info" >
+        tools:layout="@layout/fragment_info">
         <argument
             android:name="id"
             android:defaultValue="0"
@@ -88,9 +84,9 @@
         <action
             android:id="@+id/action_infoFragment_self"
             app:destination="@id/infoFragment"
-            app:popUpTo="@id/nav_graph"
             app:launchSingleTop="true"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_infoFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
