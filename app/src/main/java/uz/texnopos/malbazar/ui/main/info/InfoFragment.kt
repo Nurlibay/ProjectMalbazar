@@ -22,7 +22,6 @@ import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 
