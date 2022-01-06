@@ -80,7 +80,7 @@
                 android:id="@+id/tvViewing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" Коринди: 25"
+                android:text="25"
                 app:layout_constraintStart_toEndOf="@id/ivViewing"
                 app:layout_constraintTop_toTopOf="@id/ivViewing" />
 

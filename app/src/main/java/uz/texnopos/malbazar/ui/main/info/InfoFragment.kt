@@ -19,9 +19,10 @@ import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
+import uz.texnopos.malbazar.core.SelectCategory
+import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 
@@ -99,8 +100,16 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.selected -> {
-                        menuItem.setIcon(R.drawable.selected)
-                        addSelectedAnimal(animal.id)
+                        if (select == 0) {
+                            select = 1
+                            menuItem.setIcon(R.drawable.selected)
+                            addSelectedAnimalViewModel.addSelectedAnimal(animal.id)
+                        } else {
+                            select = 0
+                            menuItem.setIcon(R.drawable.select)
+                            addSelectedAnimalViewModel.deleteSelectedAnimal(animal.id)
+                        }
+
                         true
                     }
                     else -> false
@@ -113,7 +122,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
 
     }
-
 
     private fun callToUser() {
         var phone = binding.tvPhoneNumber.textToString()
@@ -132,39 +140,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         setUpObserver()
     }
 
-    private fun addSelectedAnimal(animalId: Int) {
-        addSelectedAnimalViewModel.addSelectedAnimal(animalId)
-        addSelectedAnimalViewModel.addSelectedAnimal.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> showProgress()
-                ResourceState.SUCCESS -> {
-                    hideProgress()
-                    toast("Successful selected")
-                }
-                ResourceState.ERROR -> {
-                    hideProgress()
-                    it.message?.let { it1 -> toast(it1) }
-                }
-            }
-        }
-    }
-    private fun deleteSelectedAnimal(animalId: Int) {
-        addSelectedAnimalViewModel.addSelectedAnimal(animalId)
-        addSelectedAnimalViewModel.addSelectedAnimal.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> showProgress()
-                ResourceState.SUCCESS -> {
-                    hideProgress()
-                    toast("Successful selected")
-                }
-                ResourceState.ERROR -> {
-                    hideProgress()
-                    it.message?.let { it1 -> toast(it1) }
-                }
-            }
-        }
-    }
-
     private fun setUpObserver() {
         viewModel.getInfoAboutAnimal.observe(viewLifecycleOwner) {
             when (it.status) {
@@ -181,6 +156,34 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 }
             }
         }
+
+        addSelectedAnimalViewModel.selectedAnimal.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> showProgress()
+                ResourceState.SUCCESS -> {
+                    hideProgress()
+                    toast("Successful selected")
+                }
+                ResourceState.ERROR -> {
+                    hideProgress()
+                    it.message?.let { it1 -> toast(it1) }
+                }
+            }
+        }
+
+        addSelectedAnimalViewModel.unSelectedAnimal.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> showProgress()
+                ResourceState.SUCCESS -> {
+                    hideProgress()
+                    toast("Successful unSelected")
+                }
+                ResourceState.ERROR -> {
+                    hideProgress()
+                    it.message?.let { it1 -> toast(it1) }
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -190,7 +193,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             .load(animal.img1)
             .into(binding.ivAnimal)
 
-        val city: String = SelectCity().selectCity(animal.city_id)
+        var city: String = SelectCity().selectCity(animal.city_id)
         binding.tvDescription.text = animal.description
         binding.tvPhoneNumber.text = ": ${animal.phone}"
         binding.tvPrice.text = ": ${animal.price}"

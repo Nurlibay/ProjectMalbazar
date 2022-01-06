@@ -10,14 +10,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
 import uz.texnopos.malbazar.R
-import uz.texnopos.malbazar.SelectCategory
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
+import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.preferences.token
 import uz.texnopos.malbazar.core.preferences.userId
 import uz.texnopos.malbazar.databinding.FragmentMyAdsBinding
 import uz.texnopos.malbazar.ui.dialogs.ExitFromAccountDialog
-import uz.texnopos.malbazar.ui.main.MainFragmentDirections
 
 class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
 

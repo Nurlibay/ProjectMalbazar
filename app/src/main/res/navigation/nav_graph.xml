@@ -106,7 +106,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectedFragment"
-        android:name="uz.texnopos.malbazar.ui.selected.SelectedFragment"
+        android:name="uz.texnopos.malbazar.ui.selected.UserSelectedAnimals"
         android:label="fragment_selected"
         tools:layout="@layout/fragment_selected" >
     </fragment>
