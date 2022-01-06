@@ -1,112 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".ui.myAds.MyAdsFragment">
+    tools:context=".ui.profile.myAds.MyAdsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways|snap">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:menu="@menu/menu_more_profile"
             app:title="@string/profil"
             app:titleMarginStart="@dimen/margin_large"
             app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="@dimen/margin_standard"
+        android:src="@drawable/malbazar_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        app:riv_corner_radius="50dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_middle"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:gravity="center"
+        android:text="@string/userName"
+        android:textColor="@color/black"
+        android:textSize="@dimen/valueTextSize"
+        app:layout_constraintStart_toEndOf="@id/ivLogo"
+        app:layout_constraintTop_toTopOf="@id/ivLogo" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/phonee"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAdsCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Дағазалар саны: 3"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvPhoneNumber" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMyAds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:gravity="center"
+        android:text="@string/my_ads"
+        android:textColor="@color/purple_700"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMyAds"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        android:layout_marginTop="@dimen/margin_standard"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/margin_standard"
-        >
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPhone"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:enabled="false"
-            android:hint="@string/phone"
-            app:endIconMode="clear_text"
-            app:expandedHintEnabled="false"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="true"
-            app:prefixTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_call"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:maxLength="13"
-                android:textColorHint="@color/valueOperationColor"
-                android:maxLines="1"
-                android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilName"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/login"
-            android:enabled="false"
-            android:importantForAutofill="noExcludeDescendants"
-            app:startIconDrawable="@drawable/person"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="none"
-                android:paddingVertical="@dimen/margin_middle"
-                android:textColor="@color/black" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/my_ads"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_standard"
-            android:textSize="18sp"
-            android:textColor="@color/purple_700"
-            android:textStyle="bold"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvMyAds"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
-            android:layout_marginTop="@dimen/margin_standard"
-            tools:listitem="@layout/main_item"
-            />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintTop_toBottomOf="@id/tvMyAds"
+        app:spanCount="2"
+        tools:listitem="@layout/main_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

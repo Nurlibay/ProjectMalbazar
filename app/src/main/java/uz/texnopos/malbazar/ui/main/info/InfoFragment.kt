@@ -29,12 +29,14 @@ import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private lateinit var binding: FragmentInfoBinding
-    private val args: InfoFragmentArgs by navArgs()
     private val adapter = InfoAdapter()
+    private val args: InfoFragmentArgs by navArgs()
     private val viewModel: InfoViewModel by viewModel()
+    private val addSelectedAnimalViewModel: SelectedViewModel by viewModel()
     private val maxImageCount = 3
     private var imageCount = 1
     private lateinit var animal: Animal
+    private var select = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -94,15 +96,25 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                         .into(binding.ivAnimal)
                 }
             }
+
+            toolbar.setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.selected -> {
+                        menuItem.setIcon(R.drawable.selected)
+                        addSelectedAnimal(animal.id)
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
 
         adapter.onItemClick = { id, categoryId ->
-            var category = SelectCategory().selectCategory(categoryId)
-            var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
-            findNavController().navigate(action)
+            updateUI(id, categoryId)
         }
 
     }
+
 
     private fun callToUser() {
         var phone = binding.tvPhoneNumber.textToString()
@@ -119,6 +131,39 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     private fun getData(id: Int) {
         viewModel.getAnimalInfo(id)
         setUpObserver()
+    }
+
+    private fun addSelectedAnimal(animalId: Int) {
+        addSelectedAnimalViewModel.addSelectedAnimal(animalId)
+        addSelectedAnimalViewModel.addSelectedAnimal.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> showProgress()
+                ResourceState.SUCCESS -> {
+                    hideProgress()
+                    toast("Successful selected")
+                }
+                ResourceState.ERROR -> {
+                    hideProgress()
+                    it.message?.let { it1 -> toast(it1) }
+                }
+            }
+        }
+    }
+    private fun deleteSelectedAnimal(animalId: Int) {
+        addSelectedAnimalViewModel.addSelectedAnimal(animalId)
+        addSelectedAnimalViewModel.addSelectedAnimal.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> showProgress()
+                ResourceState.SUCCESS -> {
+                    hideProgress()
+                    toast("Successful selected")
+                }
+                ResourceState.ERROR -> {
+                    hideProgress()
+                    it.message?.let { it1 -> toast(it1) }
+                }
+            }
+        }
     }
 
     private fun setUpObserver() {
@@ -156,5 +201,11 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private fun setDataToRecyclerView(likes: List<Animal>) {
         adapter.models = likes
+    }
+
+    private fun updateUI(id: Int, categoryId: Int) {
+        var category = SelectCategory().selectCategory(categoryId)
+        var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
+        findNavController().navigate(action)
     }
 }

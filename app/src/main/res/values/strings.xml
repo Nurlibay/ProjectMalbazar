@@ -19,6 +19,7 @@
     <string name="long_data">Толиғирақ мағлиўмат</string>
     <string name="price">Бахаси</string>
     <string name="phone_number">Телефон номер</string>
+    <string name="phonee">+998334980705</string>
     <string name="city">Аймақти сайлаң</string>
     <string name="add_photo">Сүўрет қосиў</string>
     <string name="fromCamera">С камеры</string>
@@ -45,9 +46,14 @@
     <string name="number_format_exception">Телефон номерди дурис форматта киритиń</string>
     <string name="password_format_exception">Парол 8 симболдан коп болиў керек!</string>
     <string name="empty_ad_list">Сизде еле дагаза жок</string>
-    <string name="my_ads">Менин дагазаларим</string>
+    <string name="my_ads">Мениӊ дағазаларим</string>
     <string name="categories">Категориялар</string>
     <string name="all">Хаммеси</string>
+    <string name="account">Аккаунт</string>
+    <string name="userName">Атыныз</string>
+    <string name="selected">Саиландылар</string>
+    <string name="logOut">Аккаунтан шыгыу</string>
+    <string name="aboutUs">Биз хаӄымызда</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>

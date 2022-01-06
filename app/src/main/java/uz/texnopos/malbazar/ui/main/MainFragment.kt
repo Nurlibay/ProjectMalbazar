@@ -24,8 +24,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
     private lateinit var binding: FragmentMainBinding
     private val adapterLastAdded = AdapterLastAdded()
-    private val adapterCategory = CategoryAdapter()
     private val adapterMoreViewed = AdapterMoreViewed()
+    private val adapterCategory = CategoryAdapter()
     private val mainViewModel: MainViewModel by viewModel()
     private val searchViewModel: SearchViewModel by viewModel()
     private val categoryViewModel: CategoryViewModel by viewModel()
@@ -48,19 +48,14 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 getData()
             }
 
-            // search func
+            // search function
             etSearch.addTextChangedListener {
-                if (it!!.isEmpty()) {
-                    adapterLastAdded.models = lastAdded
-                    binding.tvMoreViewed.isVisible = true
-                    binding.tvLastAdded.isVisible = true
-                    binding.rvMoreViewed.isVisible = true
-                } else {
-                    val query: String = binding.etSearch.text.toString()
+                val query: String = binding.etSearch.text.toString()
+                if (query.length >= 3) {
                     searchAnimal(query)
                     binding.tvMoreViewed.isVisible = false
                     binding.tvLastAdded.isVisible = false
-                    binding.rvMoreViewed.isVisible = false
+                    binding.rvLastAnimals.isVisible = false
                 }
             }
         }
@@ -69,7 +64,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             searchCategory(it)
             binding.tvMoreViewed.isVisible = false
             binding.tvLastAdded.isVisible = false
-            binding.rvMoreViewed.isVisible = false
+            binding.rvLastAnimals.isVisible = false
         }
         adapterLastAdded.onItemClick = { id: Int, categoryId: Int ->
             goToInfoFragment(id, categoryId)
@@ -86,20 +81,20 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 ResourceState.LOADING -> {
                     showProgress()
                     binding.rvLastAnimals.isVisible = false
-                    binding.rvMoreViewed.isVisible = false
+                    binding.rvLastAnimals.isVisible = false
                     binding.tvMoreViewed.isVisible = false
                     binding.tvLastAdded.isVisible = false
                 }
                 ResourceState.SUCCESS -> {
-                    adapterLastAdded.models = listOf()
-                    adapterLastAdded.models = it!!.data!!.results
+                    adapterMoreViewed.models = listOf()
+                    adapterMoreViewed.models = it!!.data!!.results
+                    binding.rvMoreViewed.isVisible = true
                     hideProgress()
-                    binding.rvLastAnimals.isVisible = true
                 }
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
                     hideProgress()
-                    binding.rvLastAnimals.isVisible = true
+                    binding.rvMoreViewed.isVisible = true
                 }
             }
         }
@@ -119,7 +114,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 ResourceState.LOADING -> {
                     showProgress()
                     binding.rvLastAnimals.isVisible = false
-                    binding.rvMoreViewed.isVisible = false
+                    binding.rvLastAnimals.isVisible = false
                     binding.tvMoreViewed.isVisible = false
                     binding.tvLastAdded.isVisible = false
                 }
@@ -145,7 +140,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     binding.rvLastAnimals.isVisible = true
-                    binding.rvMoreViewed.isVisible = true
                     binding.tvMoreViewed.isVisible = true
                     views = it.data!!.views
                     lastAdded = it.data.lastes
@@ -155,7 +149,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
                     hideProgress()
-                    binding.tvLastAdded.isVisible = false
+                    binding.rvLastAnimals.isVisible = false
+                    binding.tvMoreViewed.isVisible = false
                 }
             }
         }

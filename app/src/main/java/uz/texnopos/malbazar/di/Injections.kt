@@ -15,9 +15,10 @@ import uz.texnopos.malbazar.ui.main.MainViewModel
 import uz.texnopos.malbazar.ui.main.category.CategoryViewModel
 import uz.texnopos.malbazar.ui.main.info.InfoViewModel
 import uz.texnopos.malbazar.ui.main.search.SearchViewModel
-import uz.texnopos.malbazar.ui.myAds.MyAdsViewModel
+import uz.texnopos.malbazar.ui.profile.myAds.MyAdsViewModel
 import uz.texnopos.malbazar.ui.profile.login.LoginViewModel
 import uz.texnopos.malbazar.ui.profile.register.RegisterViewModel
+import uz.texnopos.malbazar.ui.main.info.SelectedViewModel
 import java.util.concurrent.TimeUnit
 
 const val baseUrl = "http://test.malbazar.uz"
@@ -79,4 +80,5 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { InfoViewModel(get()) }
     viewModel { CategoryViewModel(get()) }
+    viewModel { SelectedViewModel(get()) }
 }
