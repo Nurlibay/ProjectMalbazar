@@ -35,7 +35,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainBinding.bind(view)
-        getData()
+        mainViewModel.lastAnimals()
         categoryViewModel.getCategory()
         setUpObserverGetCategory()
         binding.apply {
@@ -45,114 +45,40 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             ivCategory.setOnClickListener {
                 tvLastAdded.isVisible = true
-                getData()
+                mainViewModel.lastAnimals()
             }
 
             // search function
             etSearch.addTextChangedListener {
-                val query: String = binding.etSearch.text.toString()
+                val query: String =etSearch.text.toString()
                 if (query.length >= 3) {
-                    searchAnimal(query)
-                    binding.tvMoreViewed.isVisible = false
-                    binding.tvLastAdded.isVisible = false
-                    binding.rvLastAnimals.isVisible = false
+                    searchViewModel.searchAnimal(query, "all", "all")
+                    binding.apply {
+                        tvMoreViewed.isVisible = false
+                        tvLastAdded.isVisible = false
+                        rvLastAnimals.isVisible = false
+                    }
                 }
             }
         }
 
         adapterCategory.onItemClick = {
-            searchCategory(it)
-            binding.tvMoreViewed.isVisible = false
-            binding.tvLastAdded.isVisible = false
-            binding.rvLastAnimals.isVisible = false
+            searchViewModel.searchAnimal("", "all", "$it")
+            binding.apply {
+                tvMoreViewed.isVisible = false
+                tvLastAdded.isVisible = false
+                rvLastAnimals.isVisible = false
+            }
         }
         adapterLastAdded.onItemClick = { id: Int, categoryId: Int ->
-            goToInfoFragment(id, categoryId)
+            var category = SelectCategory().selectCategory(categoryId)
+            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
+            findNavController().navigate(action)
         }
         adapterMoreViewed.onItemClick = { id: Int, categoryId: Int ->
-            goToInfoFragment(id, categoryId)
-        }
-    }
-
-    private fun searchCategory(it: Int) {
-        searchViewModel.searchAnimal("", "all", "$it")
-        searchViewModel.search.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> {
-                    showProgress()
-                    binding.rvLastAnimals.isVisible = false
-                    binding.rvLastAnimals.isVisible = false
-                    binding.tvMoreViewed.isVisible = false
-                    binding.tvLastAdded.isVisible = false
-                }
-                ResourceState.SUCCESS -> {
-                    adapterMoreViewed.models = listOf()
-                    adapterMoreViewed.models = it!!.data!!.results
-                    binding.rvMoreViewed.isVisible = true
-                    hideProgress()
-                }
-                ResourceState.ERROR -> {
-                    it.message?.let { it1 -> toast(it1) }
-                    hideProgress()
-                    binding.rvMoreViewed.isVisible = true
-                }
-            }
-        }
-    }
-
-
-    private fun goToInfoFragment(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCategory(categoryId)
-        val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
-        findNavController().navigate(action)
-    }
-
-    private fun searchAnimal(query: String) {
-        searchViewModel.searchAnimal(query, "all", "all")
-        searchViewModel.search.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> {
-                    showProgress()
-                    binding.rvLastAnimals.isVisible = false
-                    binding.rvLastAnimals.isVisible = false
-                    binding.tvMoreViewed.isVisible = false
-                    binding.tvLastAdded.isVisible = false
-                }
-                ResourceState.SUCCESS -> {
-                    adapterLastAdded.models = listOf()
-                    adapterLastAdded.models = it!!.data!!.results
-                    hideProgress()
-                    binding.rvLastAnimals.isVisible = true
-                }
-                ResourceState.ERROR -> {
-                    it.message?.let { it1 -> toast(it1) }
-                    hideProgress()
-                    binding.rvLastAnimals.isVisible = true
-                }
-            }
-        }
-    }
-
-    private fun getData() {
-        mainViewModel.lastAnimals()
-        mainViewModel.lastAnimals.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> showProgress()
-                ResourceState.SUCCESS -> {
-                    binding.rvLastAnimals.isVisible = true
-                    binding.tvMoreViewed.isVisible = true
-                    views = it.data!!.views
-                    lastAdded = it.data.lastes
-                    setData()
-                    hideProgress()
-                }
-                ResourceState.ERROR -> {
-                    it.message?.let { it1 -> toast(it1) }
-                    hideProgress()
-                    binding.rvLastAnimals.isVisible = false
-                    binding.tvMoreViewed.isVisible = false
-                }
-            }
+            var category = SelectCategory().selectCategory(categoryId)
+            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
+            findNavController().navigate(action)
         }
     }
 
@@ -162,22 +88,90 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     }
 
     private fun setUpObserverGetCategory() {
-        categoryViewModel.getCategory.observe(requireActivity(), {
-            when (it.status) {
-                ResourceState.LOADING -> showProgress()
-                ResourceState.SUCCESS -> {
-                    adapterCategory.models = it.data!!
-                    hideProgress()
-                }
-                ResourceState.ERROR -> {
-                    hideProgress()
-                    toast(it.message!!)
-                }
-                ResourceState.NETWORK_ERROR -> {
-                    hideProgress()
-                    toast(Constants.NO_INTERNET)
+        binding.apply {
+            mainViewModel.lastAnimals.observe(viewLifecycleOwner) {
+                when (it.status) {
+                    ResourceState.LOADING -> showProgress()
+                    ResourceState.SUCCESS -> {
+                        rvLastAnimals.isVisible = true
+                        tvMoreViewed.isVisible = true
+                        views = it.data!!.views
+                        lastAdded = it.data.lastes
+                        setData()
+                        hideProgress()
+                    }
+                    ResourceState.ERROR -> {
+                        it.message?.let { it1 -> toast(it1) }
+                        hideProgress()
+                        rvLastAnimals.isVisible = false
+                        tvMoreViewed.isVisible = false
+                    }
                 }
             }
-        })
+
+            searchViewModel.search.observe(viewLifecycleOwner) {
+                when (it.status) {
+                    ResourceState.LOADING -> {
+                        showProgress()
+                        rvLastAnimals.isVisible = false
+                        rvLastAnimals.isVisible = false
+                        tvMoreViewed.isVisible = false
+                        tvLastAdded.isVisible = false
+                    }
+                    ResourceState.SUCCESS -> {
+                        adapterMoreViewed.models = listOf()
+                        adapterMoreViewed.models = it!!.data!!.results
+                        rvMoreViewed.isVisible = true
+                        hideProgress()
+                    }
+                    ResourceState.ERROR -> {
+                        it.message?.let { it1 -> toast(it1) }
+                        hideProgress()
+                        rvMoreViewed.isVisible = true
+                    }
+                }
+            }
+
+            searchViewModel.search.observe(viewLifecycleOwner) {
+                when (it.status) {
+                    ResourceState.LOADING -> {
+                        showProgress()
+                        rvLastAnimals.isVisible = false
+                        rvLastAnimals.isVisible = false
+                        tvMoreViewed.isVisible = false
+                        tvLastAdded.isVisible = false
+                    }
+                    ResourceState.SUCCESS -> {
+                        adapterLastAdded.models = listOf()
+                        adapterLastAdded.models = it!!.data!!.results
+                        hideProgress()
+                        rvLastAnimals.isVisible = true
+                    }
+                    ResourceState.ERROR -> {
+                        it.message?.let { it1 -> toast(it1) }
+                        hideProgress()
+                        rvLastAnimals.isVisible = true
+                    }
+                }
+            }
+
+            categoryViewModel.getCategory.observe(requireActivity(), {
+                when (it.status) {
+                    ResourceState.LOADING -> showProgress()
+                    ResourceState.SUCCESS -> {
+                        adapterCategory.models = it.data!!
+                        hideProgress()
+                    }
+                    ResourceState.ERROR -> {
+                        hideProgress()
+                        toast(it.message!!)
+                    }
+                    ResourceState.NETWORK_ERROR -> {
+                        hideProgress()
+                        toast(Constants.NO_INTERNET)
+                    }
+                }
+            })
+        }
     }
 }

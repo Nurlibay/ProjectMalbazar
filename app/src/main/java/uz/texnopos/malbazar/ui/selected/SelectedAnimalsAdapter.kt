@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.profile.myAds
+package uz.texnopos.malbazar.ui.selected
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
-class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
+class SelectedAnimalsAdapter : RecyclerView.Adapter<SelectedAnimalsAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: MainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -21,7 +21,7 @@ class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
             binding.apply {
                 tvPrice.text = "${animal.price} swm"
                 tvTitle.text = animal.title
-                binding.tvViewing.text = " ${animal.view}"
+                binding.tvViewing.text = "  ${animal.view}"
                 tvCity.text = cityId.selectCity(animal.city_id)
                 Glide
                     .with(root.context)
