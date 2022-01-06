@@ -7,7 +7,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.databinding.FragmentSelectedBinding
 
-class SelectedFragment : Fragment(R.layout.fragment_selected) {
+class UserSelectedAnimals : Fragment(R.layout.fragment_selected) {
 
     private lateinit var binding:FragmentSelectedBinding
 

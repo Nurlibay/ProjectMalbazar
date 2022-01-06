@@ -25,9 +25,13 @@ interface ApiInterface {
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<AnimalInfo>>
 
     @POST("api/favourite")
-    fun addSelectedAnimal(@Body selectedAnimal:PostSelectedAnimal): Observable<GenericResponse<Any>>
+    fun addSelectedAnimal(@Body selectedAnimal: PostSelectedAnimal): Observable<GenericResponse<Any>>
 
-
+    @DELETE("api/favourite/{animalId}/{userId}")
+    fun deleteSelectedAnimal(
+        @Path("animalId") animalId: Int,
+        @Path("userId") userId: Int
+    ): Observable<GenericResponse<Any>>
 
     @GET("api/search")
     fun searchAnimal(
@@ -35,6 +39,10 @@ interface ApiInterface {
         @Query("city_id") city_id: String,
         @Query("category_id") category_id: String
     ): Observable<GenericResponse<SearchResult>>
+
+    @GET("api/favourite/{user_id}")
+    fun getSelectedAnimals(@Path("user_id") userId: Int): Observable<GenericResponse<List<Animal>>>
+
     @GET("api/category")
     fun getAllCategory(): Observable<GenericResponse<List<Category>>>
 

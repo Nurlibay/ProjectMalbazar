@@ -17,12 +17,14 @@ class SelectedViewModel(private val api: ApiInterface) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     private var _selectedAnimal: MutableLiveData<Resource<Any>> = MutableLiveData()
-    val addSelectedAnimal: MutableLiveData<Resource<Any>> get() = _selectedAnimal
+    val selectedAnimal: MutableLiveData<Resource<Any>> get() = _selectedAnimal
+    private var _unSelectedAnimal: MutableLiveData<Resource<Any>> = MutableLiveData()
+    val unSelectedAnimal: MutableLiveData<Resource<Any>> get() = _unSelectedAnimal
 
-    fun addSelectedAnimal(animalId:Int) {
+    fun addSelectedAnimal(animalId: Int) {
         _selectedAnimal.value = Resource.loading()
         compositeDisposable.add(
-            api.addSelectedAnimal(selectedAnimal = PostSelectedAnimal(userId!!,animalId))
+            api.addSelectedAnimal(selectedAnimal = PostSelectedAnimal(userId!!, animalId))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -35,18 +37,19 @@ class SelectedViewModel(private val api: ApiInterface) : ViewModel() {
                 )
         )
     }
-    fun deleteSelectedAnimal(animalId:Int) {
-        _selectedAnimal.value = Resource.loading()
+
+    fun deleteSelectedAnimal(animalId: Int) {
+        _unSelectedAnimal.value = Resource.loading()
         compositeDisposable.add(
-            api.addSelectedAnimal(selectedAnimal = PostSelectedAnimal(userId!!,animalId))
+            api.deleteSelectedAnimal(animalId = animalId, userId!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                     {
-                        _selectedAnimal.value = Resource.success(it.data)
+                        _unSelectedAnimal.value = Resource.success(it.data)
                     },
                     {
-                        _selectedAnimal.value = Resource.error(it.message)
+                        _unSelectedAnimal.value = Resource.error(it.message)
                     }
                 )
         )

@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar
+package uz.texnopos.malbazar.core
 
 class SelectCity {
     fun selectCity(category_id: Int): String {
