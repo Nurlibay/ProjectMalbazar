@@ -206,8 +206,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     }
 
     private fun updateUI(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCategory(categoryId)
-        var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
+        val category = SelectCategory().selectCategory(categoryId)
+        val action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
         findNavController().navigate(action)
     }
 }
