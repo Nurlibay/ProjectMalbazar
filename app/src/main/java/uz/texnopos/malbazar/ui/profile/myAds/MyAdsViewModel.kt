@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.myAds
+package uz.texnopos.malbazar.ui.profile.myAds
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

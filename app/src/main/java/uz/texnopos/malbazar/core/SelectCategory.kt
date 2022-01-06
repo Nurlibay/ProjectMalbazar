@@ -10,7 +10,7 @@ class SelectCategory {
             5 -> "Ӄой"
             6 -> "Мал азығы"
             7 -> "Таўиқ"
-            else -> ""
+            else -> "ELSE"
         }
     }
 }

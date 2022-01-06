@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.main
+package uz.texnopos.malbazar.ui.profile.myAds
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,7 +11,31 @@ import uz.texnopos.malbazar.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
 
-class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
+class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
+
+    inner class ViewHolder(private val binding: MainItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
+        fun populateModel(animal: Animal) {
+            val cityId = SelectCity()
+            binding.apply {
+                tvPrice.text = "${animal.price} swm"
+                tvTitle.text = animal.title
+                binding.tvViewing.text = " Коринди: ${animal.view}"
+                tvCity.text = cityId.selectCity(animal.city_id)
+                Glide
+                    .with(root.context)
+                    .load(animal.img1)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
+                    .into(ivFirstAnimal)
+
+                constraintMainItem.setOnClickListener {
+                    onItemClick.invoke(animal.id,animal.category_id)
+                }
+
+            }
+        }
+    }
 
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
@@ -19,27 +43,6 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
             field = value
             notifyDataSetChanged()
         }
-
-    inner class ViewHolder(private val binding: MainItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
-        fun populateModel(animal: Animal) {
-            val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price} swm"
-            binding.tvTitle.text = animal.title
-            binding.tvViewing.text = " Коринди: ${animal.view}"
-            binding.tvCity.text = cityId.selectCity(animal.city_id)
-            Glide
-                .with(binding.root.context)
-                .load(animal.img1)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                .into(binding.ivFirstAnimal)
-
-            binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id, animal.category_id)
-            }
-        }
-    }
 
     var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
 

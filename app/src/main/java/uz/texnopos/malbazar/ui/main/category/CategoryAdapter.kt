@@ -19,13 +19,13 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(category: Category) {
             binding.apply {
-                tvCategoryName.text = category.name
-//                    .load(ContextCompat.getDrawable(root.context, R.drawable.malbazar_logo))
+                tvCategoryName.text  = category.name
                 Glide
                     .with(root.context)
                     .load(category.icon)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(500)))
                     .into(ivCategory)
+
                 categoryItem.onClick {
                     onItemClick.invoke(category.id)
                 }

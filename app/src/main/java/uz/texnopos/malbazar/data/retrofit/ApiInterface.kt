@@ -24,6 +24,11 @@ interface ApiInterface {
     @GET("api/animal/{id}")
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<AnimalInfo>>
 
+    @POST("api/favourite")
+    fun addSelectedAnimal(@Body selectedAnimal:PostSelectedAnimal): Observable<GenericResponse<Any>>
+
+
+
     @GET("api/search")
     fun searchAnimal(
         @Query("query") query: String,
