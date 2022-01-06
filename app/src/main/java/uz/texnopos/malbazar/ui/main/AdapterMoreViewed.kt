@@ -27,7 +27,7 @@ class AdapterMoreViewed : RecyclerView.Adapter<AdapterMoreViewed.ViewHolder>() {
             val cityId = SelectCity()
             binding.tvPrice.text = "${animal.price} swm"
             binding.tvTitle.text = animal.title
-            binding.tvViewing.text = "${animal.view}"
+            binding.tvViewing.text = " ${animal.view}"
             binding.tvCity.text = cityId.selectCity(animal.city_id)
             Glide
                 .with(binding.root.context)

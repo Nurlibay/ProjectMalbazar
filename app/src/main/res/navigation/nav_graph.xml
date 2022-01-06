@@ -103,17 +103,37 @@
         <argument
             android:name="categoryId"
             app:argType="string" />
+        <argument android:name="isSelected"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/selectedFragment"
-        android:name="uz.texnopos.malbazar.ui.selected.UserSelectedAnimalsFragment"
+        android:name="uz.texnopos.malbazar.ui.selected.SelectedAnimalsFragment"
         android:label="fragment_selected"
         tools:layout="@layout/fragment_selected" >
+        <action
+            android:id="@+id/action_selectedFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_selectedFragment_to_selectedInfoFragment"
+            app:destination="@id/selectedInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"
         android:name="uz.texnopos.malbazar.ui.aboutUs.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/selectedInfoFragment"
+        android:name="uz.texnopos.malbazar.ui.selected.SelectedInfoFragment"
+        android:label="SelectedInfoFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="categoryId"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

@@ -21,7 +21,7 @@ class SelectedAnimalsAdapter : RecyclerView.Adapter<SelectedAnimalsAdapter.ViewH
             binding.apply {
                 tvPrice.text = "${animal.price} swm"
                 tvTitle.text = animal.title
-                binding.tvViewing.text = "  ${animal.view}"
+                binding.tvViewing.text = " ${animal.view}"
                 tvCity.text = cityId.selectCity(animal.city_id)
                 Glide
                     .with(root.context)

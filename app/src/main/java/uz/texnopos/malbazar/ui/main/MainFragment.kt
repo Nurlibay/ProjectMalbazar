@@ -50,7 +50,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
 
             // search function
             etSearch.addTextChangedListener {
-                val query: String =etSearch.text.toString()
+                val query: String = etSearch.text.toString()
                 if (query.length >= 3) {
                     searchViewModel.searchAnimal(query, "all", "all")
                     binding.apply {
