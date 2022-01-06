@@ -30,7 +30,7 @@ class SelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
             adapter.onItemClick = { id, categoryId ->
                 var category = SelectCategory().selectCategory(categoryId)
                 val action =
-                    SelectedAnimalsFragmentDirections.actionSelectedFragmentToSelectedInfoFragment(
+                    SelectedAnimgit alsFragmentDirections.actionSelectedFragmentToSelectedInfoFragment(
                         id,
                         category
                     )
