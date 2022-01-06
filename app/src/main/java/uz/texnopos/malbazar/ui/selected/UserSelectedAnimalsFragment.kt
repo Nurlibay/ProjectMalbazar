@@ -8,6 +8,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
 import uz.texnopos.malbazar.R
+import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.databinding.FragmentSelectedBinding
 
@@ -38,6 +39,10 @@ class UserSelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
                 ResourceState.ERROR -> {
                     hideProgress()
                     it.message?.let { it1 -> toast(it1) }
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(Constants.NO_INTERNET)
                 }
             }
         }

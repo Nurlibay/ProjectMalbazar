@@ -55,6 +55,7 @@
     <string name="selected">Саиландылар</string>
     <string name="logOut">Аккаунтан шыгыу</string>
     <string name="aboutUs">Биз хаӄымызда</string>
+    <string name="favourite">Саиланганлар</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>

@@ -33,8 +33,8 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
             rvMyAds.adapter = adapter
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.logOut -> {
-                        var dialog = ExitFromAccountDialog(requireContext())
+                    R.id.logout -> {
+                        val dialog = ExitFromAccountDialog(requireContext())
                         dialog.show()
                         dialog.exitClick = {
                             userId = 0
@@ -80,7 +80,7 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
     }
 
     private fun goToInfoFragment(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCategory(categoryId)
+        val category = SelectCategory().selectCategory(categoryId)
         val action = MyAdsFragmentDirections.actionMyAdsFragmentToInfoFragment(id, category)
         findNavController().navigate(action)
     }
