@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.main.info
+package uz.texnopos.malbazar.ui.selected
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -16,6 +16,7 @@ import hideProgress
 import isHasPermission
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
+import textToString
 import toast
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
@@ -24,29 +25,28 @@ import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
+import uz.texnopos.malbazar.ui.main.info.*
 
-class InfoFragment : Fragment(R.layout.fragment_info) {
+class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
 
     private lateinit var binding: FragmentInfoBinding
     private val adapter = InfoAdapter()
-    private val args: InfoFragmentArgs by navArgs()
+    private val args: SelectedInfoFragmentArgs by navArgs()
     private val viewModel: InfoViewModel by viewModel()
     private val addSelectedAnimalViewModel: SelectedViewModel by viewModel()
     private val maxImageCount = 3
     private var imageCount = 1
     private lateinit var animal: Animal
-    private var select: Int = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getData(args.id)
         binding = FragmentInfoBinding.bind(view)
-        select = args.isSelected
-        setIcon()
         binding.apply {
             toolbar.title = args.categoryId
             recyclerView.adapter = adapter
-            ivLeft.isVisible = false
+
+            toolbar.inflateMenu(R.menu.menu_unselect_info)
 
             tvPhoneNumber.setOnClickListener {
                 callToUser()
@@ -99,17 +99,9 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
             toolbar.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
-                    R.id.selected -> {
-                        if (select == 0) {
-                            select = 1
-                            menuItem.setIcon(R.drawable.selected)
-                            addSelectedAnimalViewModel.addSelectedAnimal(animal.id)
-                        } else {
-                            select = 0
-                            menuItem.setIcon(R.drawable.select)
-                            addSelectedAnimalViewModel.deleteSelectedAnimal(animal.id)
-                        }
-
+                    R.id.select -> {
+                        menuItem.setIcon(R.drawable.select)
+                        addSelectedAnimalViewModel.deleteSelectedAnimal(animal.id)
                         true
                     }
                     else -> false
@@ -119,16 +111,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
         adapter.onItemClick = { id, categoryId ->
             updateUI(id, categoryId)
-        }
-    }
-
-    private fun setIcon() {
-        binding.apply {
-            if (select == 0) {
-                toolbar.inflateMenu(R.menu.menu_select_info)
-            } else {
-                toolbar.inflateMenu(R.menu.menu_unselect_info)
-            }
         }
     }
 
@@ -166,26 +148,13 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
         }
 
-        addSelectedAnimalViewModel.selectedAnimal.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> showProgress()
-                ResourceState.SUCCESS -> {
-                    hideProgress()
-                    toast("Саиланды")
-                }
-                ResourceState.ERROR -> {
-                    hideProgress()
-                    it.message?.let { it1 -> toast(it1) }
-                }
-            }
-        }
-
         addSelectedAnimalViewModel.unSelectedAnimal.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     toast("Алып тасланды")
+                    requireActivity().onBackPressed()
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
@@ -213,8 +182,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     }
 
     private fun updateUI(id: Int, categoryId: Int) {
-        val category = SelectCategory().selectCategory(categoryId)
-        val action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
+        var category = SelectCategory().selectCategory(categoryId)
+        var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
         findNavController().navigate(action)
     }
 }

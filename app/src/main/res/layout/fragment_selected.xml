@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.selected.UserSelectedAnimalsFragment">
+    android:background="@color/background"
+    tools:context=".ui.selected.SelectedAnimalsFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
@@ -36,5 +38,16 @@
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
         app:spanCount="2"
         tools:listitem="@layout/main_item" />
+
+    <TextView
+        android:id="@+id/tvNullData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Сиз еле еш нарсе саиламадыныз"
+        android:textColor="@color/purple_700"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
