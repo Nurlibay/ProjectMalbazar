@@ -135,6 +135,20 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 //                            putExtra(Intent.EXTRA_TEXT, textToShare)
 //                            type = "text/plain"
 
+                        val hasPerms: Boolean =
+                            EasyPermissions.hasPermissions(this@MainActivity, perms)
+                        if (hasPerms) {
+//            shareImageFromUrl(IMAGE_URL);
+                            shareImageFromBitmap(this.bmp)
+                        } else {
+                            EasyPermissions.requestPermissions(
+                                this@MainActivity,
+                                getString(R.string.rationale_storage),
+                                SHARE_STORAGE_PERMS_REQUEST_CODE,
+                                perms
+                            )
+                        }
+
                         true
                     }
                     else -> false
@@ -292,8 +306,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     }
 
     private fun updateUI(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCategory(categoryId)
-        var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
+        val category = SelectCategory().selectCategory(categoryId)
+        val action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
         findNavController().navigate(action)
     }
 }

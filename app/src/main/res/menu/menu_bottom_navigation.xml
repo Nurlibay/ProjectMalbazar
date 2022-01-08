@@ -11,13 +11,13 @@
         android:icon="@drawable/ic__add"
         android:title="@string/add" />
 
+    <item android:id="@+id/selectedFragment"
+        android:title="@string/selected"
+        android:icon="@drawable/select"/>
+
     <item
         android:id="@+id/loginFragment"
         android:icon="@drawable/person"
         android:title="@string/profil" />
-
-    <item android:id="@+id/selectedFragment"
-        android:title="@string/selected"
-        android:icon="@drawable/select"/>
 
 </menu>
