@@ -3,6 +3,7 @@ package uz.texnopos.malbazar.ui.main.info
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -17,13 +18,22 @@ import isHasPermission
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
 import toast
-import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
+import android.os.Build
+import android.os.Environment
+import androidx.annotation.RequiresApi
+import android.provider.MediaStore.Images
+import androidx.core.net.toUri
+import uz.texnopos.malbazar.R
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
@@ -37,16 +47,17 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     private lateinit var animal: Animal
     private var select: Int = 1
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData(args.id)
+        viewModel.getAnimalInfo(args.id)
+        setUpObserver()
         binding = FragmentInfoBinding.bind(view)
         select = args.isSelected
-        setIcon()
+        setMenu()
         binding.apply {
             toolbar.title = args.categoryId
             recyclerView.adapter = adapter
-            ivLeft.isVisible = false
 
             tvPhoneNumber.setOnClickListener {
                 callToUser()
@@ -109,6 +120,32 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                             menuItem.setIcon(R.drawable.select)
                             addSelectedAnimalViewModel.deleteSelectedAnimal(animal.id)
                         }
+                        true
+                    }
+                    R.id.share -> {
+//                        var city: String = SelectCity().selectCity(animal.city_id)
+//                        var category: String = SelectCategory().selectCategory(animal.category_id)
+//                        val textToShare =
+//                            "🕹Категория: $category\n💰Бахасы: ${animal.price}\n🏠Аймақ: $city\n📞Телефон: ${animal.phone}\n✍Мағлыумат: ${animal.description}"
+//                        val sendIntent: Intent = Intent().apply {
+//                            action = Intent.ACTION_SEND
+//                            putExtra(Intent.EXTRA_TEXT, textToShare)
+//                            type = "text/plain"
+
+//                        val uri: Uri = Uri.parse(animal.img1)
+//                        val intent = Intent(Intent.ACTION_SEND)
+//                        intent.type = "image/jpeg"
+//                        intent.putExtra(Intent.EXTRA_STREAM, uri)
+//                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                        startActivity(Intent.createChooser(intent, "AAAAAAAAAAAA"))
+
+                        val bitMap : Bitmap =binding.ivAnimal.drawingCache!!
+                        val bos = ByteArrayOutputStream();
+                        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, bos)
+                        val file= File(binding.ivAnimal.tag.toString())
+                            file.createNewFile()
+                            val fos = FileOutputStream(file)
+                            fos.write(bos.toByteArray())
 
                         true
                     }
@@ -122,7 +159,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
     }
 
-    private fun setIcon() {
+    private fun setMenu() {
         binding.apply {
             if (select == 0) {
                 toolbar.inflateMenu(R.menu.menu_select_info)
@@ -142,11 +179,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             arrayOf(Manifest.permission.CALL_PHONE),
             ASK_PHONE_PERMISSION_REQUEST_CODE
         )
-    }
-
-    private fun getData(id: Int) {
-        viewModel.getAnimalInfo(id)
-        setUpObserver()
     }
 
     private fun setUpObserver() {

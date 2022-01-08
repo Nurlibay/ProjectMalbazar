@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -87,49 +86,55 @@
 
             <HorizontalScrollView
                 android:id="@+id/nsvCategory"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:fillViewport="true"
+                android:measureAllChildren="false"
+                android:nestedScrollingEnabled="true"
                 android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvCategory">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <com.makeramen.roundedimageview.RoundedImageView
                         android:id="@+id/ivCategory"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:layout_margin="@dimen/margin_middle"
                         android:scaleType="fitCenter"
+                        android:layout_margin="@dimen/margin_middle"
                         android:src="@drawable/malbazar_logo"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:riv_corner_radius="30dp"
+                        app:riv_corner_radius="30dip"
                         app:riv_mutate_background="true"
                         app:riv_oval="true" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvCategoryName"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/all"
+                        android:text="Qaramal"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="@id/ivCategory"
-                        app:layout_constraintStart_toStartOf="@id/ivCategory"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/ivCategory" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvCategory"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintStart_toEndOf="@id/tvCategoryName"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:itemCount="7"
+                        app:layout_constraintStart_toEndOf="@id/ivCategory"
+                        tools:itemCount="15"
                         tools:listitem="@layout/category_item" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

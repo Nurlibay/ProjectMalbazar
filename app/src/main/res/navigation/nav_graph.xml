@@ -118,6 +118,9 @@
         <action
             android:id="@+id/action_selectedFragment_to_selectedInfoFragment"
             app:destination="@id/selectedInfoFragment" />
+        <action
+            android:id="@+id/action_selectedFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutUsFragment"

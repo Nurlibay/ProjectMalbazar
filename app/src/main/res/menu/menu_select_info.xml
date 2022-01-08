@@ -6,4 +6,9 @@
         android:icon="@drawable/select"
         android:title="@string/selected"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/share"
+        android:title="@string/selected"
+        app:showAsAction="always" />
 </menu>

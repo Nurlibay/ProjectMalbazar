@@ -16,13 +16,13 @@ import hideProgress
 import isHasPermission
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showProgress
-import textToString
 import toast
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.SelectCity
+import uz.texnopos.malbazar.core.preferences.isSignedIn
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 import uz.texnopos.malbazar.ui.main.info.*
@@ -40,7 +40,8 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getData(args.id)
+        viewModel.getAnimalInfo(args.id)
+        setUpObserver()
         binding = FragmentInfoBinding.bind(view)
         binding.apply {
             toolbar.title = args.categoryId
@@ -104,13 +105,24 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
                         addSelectedAnimalViewModel.deleteSelectedAnimal(animal.id)
                         true
                     }
+                    R.id.share -> {
+                        var city: String = SelectCity().selectCity(animal.city_id)
+                        var category: String = SelectCategory().selectCategory(animal.category_id)
+                        val textToShare =
+                            "🕹Категория: $category\n💰Бахасы: ${animal.price}\n🏠Аймақ: $city\n📞Телефон: ${animal.phone}\n✍Мағлыумат: ${animal.description}"
+                        val sendIntent: Intent = Intent().apply {
+                            action = Intent.ACTION_SEND
+                            putExtra(Intent.EXTRA_TEXT, textToShare)
+                            type = "text/plain"
+                        }
+
+                        val shareIntent = Intent.createChooser(sendIntent, "Дағаза менен болисиу...")
+                        startActivity(shareIntent)
+                        true
+                    }
                     else -> false
                 }
             }
-        }
-
-        adapter.onItemClick = { id, categoryId ->
-            updateUI(id, categoryId)
         }
     }
 
@@ -124,11 +136,6 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
             arrayOf(Manifest.permission.CALL_PHONE),
             ASK_PHONE_PERMISSION_REQUEST_CODE
         )
-    }
-
-    private fun getData(id: Int) {
-        viewModel.getAnimalInfo(id)
-        setUpObserver()
     }
 
     private fun setUpObserver() {
@@ -179,11 +186,5 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
             tvTitle.text = animal.title
             tvCity.text = ": $city"
         }
-    }
-
-    private fun updateUI(id: Int, categoryId: Int) {
-        var category = SelectCategory().selectCategory(categoryId)
-        var action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
-        findNavController().navigate(action)
     }
 }

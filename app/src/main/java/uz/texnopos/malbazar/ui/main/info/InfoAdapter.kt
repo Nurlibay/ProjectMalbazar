@@ -14,7 +14,7 @@ import uz.texnopos.malbazar.databinding.RecommendationItemBinding
 
 class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
-    var onItemClick: (id: Int,categoryId:Int) -> Unit = {_,_ -> }
+    var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -24,27 +24,23 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val binding: RecommendationItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price} swm"
-            binding.tvTitle.text = animal.title
-            binding.tvCity.text = cityId.selectCity(animal.city_id)
+            binding.apply {
+                tvPrice.text = "${animal.price} swm"
+                tvTitle.text = animal.title
+                tvCity.text = cityId.selectCity(animal.city_id)
 
-            if (animal.img1 == null) {
                 Glide
-                    .with(binding.root.context)
-                    .load(R.drawable.malbazar_logo)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
-                    .into(binding.ivAnimal)
-            } else {
-                Glide
-                    .with(binding.root.context)
+                    .with(root.context)
                     .load(animal.img1)
                     .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivAnimal)
-            }
-            binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id,animal.category_id)
+                constraintMainItem.setOnClickListener {
+                    onItemClick.invoke(animal.id, animal.category_id)
+                }
+
             }
         }
     }

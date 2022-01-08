@@ -15,8 +15,7 @@ class App : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         appInstance = this
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        val modules = listOf(dataModule, viewModelModule)
+         val modules = listOf(dataModule, viewModelModule)
         startKoin {//use AndroidLogger as Koin Logger - default Level
             androidLogger()
             //use the Android context given there

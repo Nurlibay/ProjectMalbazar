@@ -12,6 +12,8 @@ import toast
 import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.SelectCategory
+import uz.texnopos.malbazar.core.preferences.isSignedIn
+import uz.texnopos.malbazar.core.preferences.token
 import uz.texnopos.malbazar.databinding.FragmentSelectedBinding
 
 class SelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
@@ -22,20 +24,27 @@ class SelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateUI()
         binding = FragmentSelectedBinding.bind(view)
         viewModel.getSelectedAnimals()
         setUpObserver()
         binding.apply {
-            rvSelectedAnimals.adapter = adapter 
+            rvSelectedAnimals.adapter = adapter
             adapter.onItemClick = { id, categoryId ->
                 var category = SelectCategory().selectCategory(categoryId)
                 val action =
-                    SelectedAnimgit alsFragmentDirections.actionSelectedFragmentToSelectedInfoFragment(
+                    SelectedAnimalsFragmentDirections.actionSelectedFragmentToSelectedInfoFragment(
                         id,
                         category
                     )
                 findNavController().navigate(action)
             }
+        }
+    }
+
+    private fun updateUI() {
+        if (token == "") {
+            findNavController().navigate(R.id.action_selectedFragment_to_loginFragment)
         }
     }
 
