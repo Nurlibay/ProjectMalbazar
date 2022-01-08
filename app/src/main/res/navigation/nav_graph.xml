@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_myAdsFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_myAdsFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"

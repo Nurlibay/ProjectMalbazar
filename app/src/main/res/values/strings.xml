@@ -56,6 +56,22 @@
     <string name="logOut">Аккаунтан шыгыу</string>
     <string name="aboutUs">Биз хаӄымызда</string>
     <string name="favourite">Саиланганлар</string>
+    <string name="about">Биз ҳаққимизда</string>
+    <string name="connect">БАЙЛАНЫС УШИН</string>
+    <string name="town">Нукус</string>
+    <string name="phoneToConnect">+33 447-00-69</string>
+    <string name="email">info@malbazar.uz</string>
+    <string name="socialIcons">Ағза Болиў</string>
+    <string name="instagram">Instagram</string>
+    <string name="facebook">Facebook</string>
+    <string name="youtube">Youtube</string>
+    <string name="telegram">Telegram</string>
+    <string name="tiktok">Tiktok</string>
+    <string name="no_instagram_account">Инстаграм аккоунт еле жаратилмади</string>
+    <string name="no_facebook_account">Фазебоок аккоунт еле жаратилмади</string>
+    <string name="no_tiktok_account">Тикток аккоунт еле жаратилмади</string>
+    <string name="back">Артӄа</string>
+    <string name="logout">Шығыу</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>

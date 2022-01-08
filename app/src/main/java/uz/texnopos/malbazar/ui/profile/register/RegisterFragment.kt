@@ -49,7 +49,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 }
             }
         }
-
     }
 
     private fun setUpObserver() {
@@ -79,7 +78,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private fun FragmentRegisterBinding.validate(): Boolean {
         return when {
             etPhone.checkIsEmpty() -> tilPhone.showError(getString(R.string.required))
-            etPhone.textToString().length != 13 -> tilPhone.showError(getString(R.string.number_format_exception))
             etPassword.checkIsEmpty() -> tilPassword.showError(getString(R.string.required))
             etPassword.textToString().length < 8 -> tilPassword.showError(getString(R.string.password_format_exception))
             etName.checkIsEmpty() -> tilName.showError(getString(R.string.required))

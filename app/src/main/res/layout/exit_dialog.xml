@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="180dp"
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_middle"
         android:padding="@dimen/margin_middle"
-        android:text="Аккаунтан шыгыуды ӄалейсизба. \nЕгер шыӄсаӊыз өз аккаунтыӊызди ӄаита \nтиклеи аласыз."
+        android:text="Аккаунтан шыгыуды ӄалейсизба. Егер шыӄсаӊыз \n өз аккаунтыӊызди ӄаита тиклеи аласыз."
         android:textColor="#232F34"
         app:layout_constraintBottom_toTopOf="@id/tvExit"
         app:layout_constraintStart_toStartOf="@id/ivLogo"
@@ -49,10 +50,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/margin_middle"
-        android:text="Шығыу"
+        android:text="@string/logout"
         android:textColor="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        />
 
     <TextView
         android:id="@+id/tvCancel"
@@ -60,8 +65,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_standard"
         android:padding="@dimen/margin_middle"
-        android:text="Артӄа"
+        android:text="@string/back"
         android:textColor="@color/purple_700"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tvExit" />
+        app:layout_constraintEnd_toStartOf="@id/tvExit"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
