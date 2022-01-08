@@ -2,8 +2,10 @@ package uz.texnopos.malbazar.ui.main.info
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -33,6 +35,7 @@ import uz.texnopos.malbazar.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
@@ -132,21 +135,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 //                            putExtra(Intent.EXTRA_TEXT, textToShare)
 //                            type = "text/plain"
 
-//                        val uri: Uri = Uri.parse(animal.img1)
-//                        val intent = Intent(Intent.ACTION_SEND)
-//                        intent.type = "image/jpeg"
-//                        intent.putExtra(Intent.EXTRA_STREAM, uri)
-//                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//                        startActivity(Intent.createChooser(intent, "AAAAAAAAAAAA"))
-
-                        val bitMap : Bitmap =binding.ivAnimal.drawingCache!!
-                        val bos = ByteArrayOutputStream();
-                        bitMap.compress(Bitmap.CompressFormat.JPEG, 100, bos)
-                        val file= File(binding.ivAnimal.tag.toString())
-                            file.createNewFile()
-                            val fos = FileOutputStream(file)
-                            fos.write(bos.toByteArray())
-
                         true
                     }
                     else -> false
@@ -167,6 +155,65 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 toolbar.inflateMenu(R.menu.menu_unselect_info)
             }
         }
+    }
+
+    private fun shareImageFromBitmap(bmp: Bitmap) {
+        val uri = getUriImageFromBitmap(bmp, this@MainActivity)
+            ?: //Show no URI message
+            return
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, MainActivity.IMAGE_URL)
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        shareIntent.type = "image/png"
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        startActivity(Intent.createChooser(shareIntent, "Share image using"))
+    }
+
+    @AfterPermissionGranted(SHARE_STORAGE_PERMS_REQUEST_CODE)
+    fun getBitmapFromUrl(url: String): Bitmap? {
+        val uri = Uri.parse(url)
+        val downloadRequest: ImageRequest = ImageRequest.fromUri(uri)
+        val cacheKey: CacheKey =
+            DefaultCacheKeyFactory.getInstance().getEncodedCacheKey(downloadRequest, requireContext())
+        if (ImagePipelineFactory.getInstance().getMainFileCache().hasKey(cacheKey)) {
+            val resource: BinaryResource =
+                ImagePipelineFactory.getInstance().getMainFileCache().getResource(cacheKey)
+            var data: ByteArray? = null
+            try {
+                data = resource.read()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return BitmapFactory.decodeByteArray(data, 0, data!!.size)
+        }
+        return null
+    }
+
+    fun getUriImageFromBitmap(bmp: Bitmap?, context: Context): Uri? {
+        if (bmp == null) return null
+        var bmpUri: Uri? = null
+        try {
+            val file = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                "IMG_" + System.currentTimeMillis() + ".png"
+            )
+            val out = FileOutputStream(file)
+            bmp.compress(Bitmap.CompressFormat.PNG, 90, out)
+            out.flush()
+            out.close()
+
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+            bmpUri = FileProvider.getUriForFile(
+                context,
+                BuildConfig.APPLICATION_ID.toString() + ".provider",
+                file
+            )
+            //            else
+//                bmpUri = Uri.fromFile(file);
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return bmpUri
     }
 
     private fun callToUser() {
