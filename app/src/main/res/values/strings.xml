@@ -10,7 +10,7 @@
     <string name="welcome">"Welcome!"</string>
     <string name="required">Мәжбүрий</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Password must be >6 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="advertise">Дағаза бериў</string>
     <string name="category">Бөлимлер</string>
@@ -44,8 +44,8 @@
     <string name="last_added">Соӊғы ӄосылғанлар</string>
     <string name="terrain">Аимақ</string>
 
-    <string name="number_format_exception">Телефон номерди дурис форматта киритиń</string>
-    <string name="password_format_exception">Парол 8 симболдан коп болиў керек!</string>
+    <string name="number_format_exception">Телефон номерди дурис форматта киритыӊ!</string>
+    <string name="password_format_exception">Парол кеминде 6 символ болиў керек!</string>
     <string name="empty_ad_list">Сизде еле дагаза жок</string>
     <string name="my_ads">Мениӊ дағазаларим</string>
     <string name="categories">Категориялар</string>
@@ -67,11 +67,13 @@
     <string name="youtube">Youtube</string>
     <string name="telegram">Telegram</string>
     <string name="tiktok">Tiktok</string>
-    <string name="no_instagram_account">Инстаграм аккоунт еле жаратилмади</string>
-    <string name="no_facebook_account">Фазебоок аккоунт еле жаратилмади</string>
-    <string name="no_tiktok_account">Тикток аккоунт еле жаратилмади</string>
+    <string name="no_facebook_account">Фэйзбук аккаунт еле жаратилмади</string>
+    <string name="no_tiktok_account">Тикток аккаунт еле жаратилмади</string>
+    <string name="no_youtube_account">Ютуб аккаунт еле жаратилмади</string>
     <string name="back">Артӄа</string>
     <string name="logout">Шығыу</string>
+    <string name="rationale_storage">App needs access to your storage</string>
+    <string name="deleteAd">Дағазаны ошириў</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>
@@ -81,6 +83,7 @@
         <item>Ӄой</item>
         <item>Мал азығы</item>
         <item>Таўиқ</item>
+
     </string-array>
 
 </resources>

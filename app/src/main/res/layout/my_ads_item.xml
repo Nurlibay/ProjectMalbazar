@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintMainItem"
     android:layout_width="match_parent"
@@ -14,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="150dp"
         android:scaleType="centerCrop"
-        android:layout_marginHorizontal="24dp"
         android:src="@drawable/malbazar_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +65,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvCity" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -85,6 +83,19 @@
                 android:text="25"
                 app:layout_constraintStart_toEndOf="@id/ivViewing"
                 app:layout_constraintTop_toTopOf="@id/ivViewing" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_standard"
+                android:backgroundTint="@color/background"
+                android:contentDescription="@string/deleteAd"
+                app:borderWidth="@dimen/size_1dp"
+                android:src="@drawable/ic_baseline_delete_24"
+                app:fabSize="mini"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

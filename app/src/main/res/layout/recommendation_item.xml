@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:padding="4dp"
-        android:src="@drawable/malbazar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -20,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="1 300 000 swm"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintTop_toBottomOf="@id/ivAnimal" />
@@ -31,9 +29,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="4dp"
-        android:text="Бишкек козы кошкарлар"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="@dimen/valueTextError"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/tvPrice"/>
 
@@ -41,7 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvCity"
-        android:text="Нѳкис район"
         android:gravity="center"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"/>

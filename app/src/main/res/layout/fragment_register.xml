@@ -56,7 +56,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/inputPassword"
+        android:id="@+id/tilPassword"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/standard_height"
@@ -95,7 +95,7 @@
         android:importantForAutofill="noExcludeDescendants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inputPassword"
+        app:layout_constraintTop_toBottomOf="@id/tilPassword"
         app:startIconDrawable="@drawable/person"
         >
 
@@ -122,7 +122,7 @@
         android:textSize="@dimen/text_size_standard"
         app:cornerRadius="8dp"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/inputPassword"
+        app:layout_constraintEnd_toEndOf="@id/tilPassword"
         app:layout_constraintTop_toBottomOf="@id/tilName"
         tools:ignore="SpUsage" />
 

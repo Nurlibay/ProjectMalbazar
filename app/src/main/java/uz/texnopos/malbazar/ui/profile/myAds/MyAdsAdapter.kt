@@ -10,10 +10,11 @@ import com.bumptech.glide.request.RequestOptions
 import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.MainItemBinding
+import uz.texnopos.malbazar.databinding.MyAdsItemBinding
 
 class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(private val binding: MainItemBinding) :
+    inner class ViewHolder(private val binding: MyAdsItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun populateModel(animal: Animal) {
@@ -30,7 +31,10 @@ class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
                     .into(ivFirstAnimal)
 
                 constraintMainItem.setOnClickListener {
-                    onItemClick.invoke(animal.id,animal.category_id)
+                    onItemClick.invoke(animal.id, animal.category_id)
+                }
+                fabDelete.setOnClickListener {
+                    deleteItemClick.invoke(animal.id)
                 }
 
             }
@@ -45,10 +49,11 @@ class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
         }
 
     var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
+    var deleteItemClick: (animalId: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            MyAdsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

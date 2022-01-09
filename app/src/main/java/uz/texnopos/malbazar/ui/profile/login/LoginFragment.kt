@@ -36,11 +36,29 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")
             btnLogin.onClick {
-                if (validate()) {
-                    viewModel.loginUser(
-                        phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
-                        etPassword.textToString()
-                    )
+                when {
+                    etPhone.checkIsEmpty() -> {
+                        tilPhone.showError(getString(R.string.required))
+                    }
+                    (etPhone.textToString().getOnlyDigits()).length < 9 -> {
+                        tilPhone.showError(getString(R.string.number_format_exception))
+                    }
+                    etPassword.checkIsEmpty() -> {
+                        tilPhone.isErrorEnabled = false
+                        tilPassword.showError(getString(R.string.required))
+                    }
+                    etPassword.textToString().length < 6 -> {
+                        tilPhone.isErrorEnabled = false
+                        tilPassword.showError(getString(R.string.password_format_exception))
+                    }
+                    else -> {
+                        etPassword.isCursorVisible = false
+                        etPhone.isCursorVisible = false
+                       viewModel.loginUser(
+                            phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
+                            password = binding.etPassword.textToString()
+                        )
+                    }
                 }
             }
             btnSignUp.onClick {
@@ -71,14 +89,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun updateUI() {
         if (isSignedIn()) findNavController().navigate(R.id.action_loginFragment_to_myAdsFragment)
-    }
-
-    private fun FragmentLoginBinding.validate(): Boolean {
-        return when {
-            etPassword.checkIsEmpty() -> tilPassword.showError(getString(R.string.required))
-            etPhone.checkIsEmpty() -> tilPhone.showError(getString(R.string.required))
-            else -> true
-        }
     }
 
     private fun TextInputEditText.addMaskAndHint(mask: String) {

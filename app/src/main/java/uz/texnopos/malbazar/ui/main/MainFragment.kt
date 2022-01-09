@@ -43,15 +43,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             rvMoreViewed.adapter = adapterMoreViewed
             rvCategory.adapter = adapterCategory
 
-            ivCategory.setOnClickListener {
-                tvLastAdded.isVisible = true
-                mainViewModel.lastAnimals()
-            }
-
             // search function
             etSearch.addTextChangedListener {
                 val query: String = etSearch.text.toString()
-                if (query.length >= 3) {
+                if (query.isEmpty()) {
+                    etSearch.isCursorVisible = false
+                } else if (query.length >= 3) {
                     searchViewModel.searchAnimal(query, "all", "all")
                     binding.apply {
                         tvMoreViewed.isVisible = false
@@ -128,29 +125,6 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         it.message?.let { it1 -> toast(it1) }
                         hideProgress()
                         rvMoreViewed.isVisible = true
-                    }
-                }
-            }
-
-            searchViewModel.search.observe(viewLifecycleOwner) {
-                when (it.status) {
-                    ResourceState.LOADING -> {
-                        showProgress()
-                        rvLastAnimals.isVisible = false
-                        rvLastAnimals.isVisible = false
-                        tvMoreViewed.isVisible = false
-                        tvLastAdded.isVisible = false
-                    }
-                    ResourceState.SUCCESS -> {
-                        adapterLastAdded.models = listOf()
-                        adapterLastAdded.models = it!!.data!!.results
-                        hideProgress()
-                        rvLastAnimals.isVisible = true
-                    }
-                    ResourceState.ERROR -> {
-                        it.message?.let { it1 -> toast(it1) }
-                        hideProgress()
-                        rvLastAnimals.isVisible = true
                     }
                 }
             }

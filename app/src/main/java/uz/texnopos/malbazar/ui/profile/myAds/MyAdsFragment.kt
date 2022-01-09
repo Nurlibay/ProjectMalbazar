@@ -23,6 +23,7 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
 
     private lateinit var binding: FragmentMyAdsBinding
     private val viewModel: MyAdsViewModel by viewModel()
+    private val deleteAdsViewModel: DeleteAdsViewModel by viewModel()
     private val adapter = MyAdsAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,21 +56,46 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
         adapter.onItemClick = { id: Int, categoryId: Int ->
             goToInfoFragment(id, categoryId)
         }
+        adapter.deleteItemClick = {
+            deleteAdsViewModel.deleteAd(it)
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private fun setUpObserver() {
+        deleteAdsViewModel.deleteAds.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> showProgress()
+                ResourceState.SUCCESS -> {
+                    viewModel.userAds(userId!!)
+                    toast("Дағаза ѳширилди")
+                    hideProgress()
+                }
+                ResourceState.ERROR -> {
+                    hideProgress()
+                    toast(it.message!!)
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(Constants.NO_INTERNET)
+                }
+            }
+        }
         viewModel.myAds.observe(requireActivity(), {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     hideProgress()
-                    if (it.data!!.ads.isEmpty()) toast(getString(R.string.empty_ad_list))
-                    adapter.models = it.data.ads
-                    binding.apply {
-                        tvName.text = (it.data.user_name)
-                        tvPhoneNumber.text = (it.data.phone)
-                        tvAdsCount.text = "Дағазалар саны: ${it.data.ads_count}"
+                    if (it.data!!.ads.isEmpty()) {
+                        toast(getString(R.string.empty_ad_list))
+                    } else {
+                        adapter.models = it.data.ads
+                        binding.apply {
+                            tvName.text = (it.data.user_name)
+                            tvPhoneNumber.text = (it.data.phone)
+                            tvAdsCount.text = "Дағазалар саны: ${it.data.ads_count}"
+
+                        }
                     }
                 }
                 ResourceState.ERROR -> {

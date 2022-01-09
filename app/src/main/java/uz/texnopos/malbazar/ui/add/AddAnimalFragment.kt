@@ -63,9 +63,20 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
             etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")
 
+            allCity.observe(requireActivity(), { cityList ->
+                val cityNameList = cityList.map { category -> category.name }.toTypedArray()
+                var categoryAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down, cityNameList)
+                etCity.setAdapter(categoryAdapter)
+                etCity.setOnItemClickListener { _, _, position, _ ->
+                    val cityName = etCity.textToString()
+                    if (cityList[position].name == cityName) cityId = cityList[position].id
+                }
+            })
+
             allCategory.observe(requireActivity(), { categoryList ->
                 val categoryNameList = categoryList.map { category -> category.name }.toTypedArray()
-                val categoryAdapter =
+
+                var categoryAdapter =
                     ArrayAdapter(requireContext(), R.layout.item_drop_down, categoryNameList)
                 etCategory.setAdapter(categoryAdapter)
                 etCategory.setOnItemClickListener { _, _, position, _ ->
@@ -75,16 +86,6 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
                 }
             })
 
-            allCity.observe(requireActivity(), { cityList ->
-                val cityNameList = cityList.map { category -> category.name }.toTypedArray()
-                val categoryAdapter =
-                    ArrayAdapter(requireContext(), R.layout.item_drop_down, cityNameList)
-                etCity.setAdapter(categoryAdapter)
-                etCity.setOnItemClickListener { _, _, position, _ ->
-                    val cityName = etCity.textToString()
-                    if (cityList[position].name == cityName) cityId = cityList[position].id
-                }
-            })
 
             selectImg1.apply {
                 fabAddGalleryPhoto.onClick {

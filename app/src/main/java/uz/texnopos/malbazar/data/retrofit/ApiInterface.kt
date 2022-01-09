@@ -33,6 +33,9 @@ interface ApiInterface {
         @Path("userId") userId: Int
     ): Observable<GenericResponse<Any>>
 
+    @GET("api/delete_ads/{id}")
+    fun deleteAds(@Path("id") id:Int): Observable<GenericResponse<Any>>
+
     @GET("api/search")
     fun searchAnimal(
         @Query("query") query: String,

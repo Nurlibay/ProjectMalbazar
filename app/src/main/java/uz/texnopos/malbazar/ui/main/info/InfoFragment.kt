@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -22,21 +21,18 @@ import showProgress
 import toast
 import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.SelectCity
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
-import android.provider.MediaStore.Images
-import androidx.core.net.toUri
+import androidx.core.content.FileProvider
+import uz.texnopos.malbazar.BuildConfig
 import uz.texnopos.malbazar.R
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
@@ -49,10 +45,13 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     private var imageCount = 1
     private lateinit var animal: Animal
     private var select: Int = 1
+    private var imageUrl: String = ""
+    private var bmp: Bitmap? = null
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getAnimalInfo(args.id)
         setUpObserver()
         binding = FragmentInfoBinding.bind(view)
@@ -126,29 +125,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                         true
                     }
                     R.id.share -> {
-//                        var city: String = SelectCity().selectCity(animal.city_id)
-//                        var category: String = SelectCategory().selectCategory(animal.category_id)
-//                        val textToShare =
-//                            "🕹Категория: $category\n💰Бахасы: ${animal.price}\n🏠Аймақ: $city\n📞Телефон: ${animal.phone}\n✍Мағлыумат: ${animal.description}"
-//                        val sendIntent: Intent = Intent().apply {
-//                            action = Intent.ACTION_SEND
-//                            putExtra(Intent.EXTRA_TEXT, textToShare)
-//                            type = "text/plain"
-
-                        val hasPerms: Boolean =
-                            EasyPermissions.hasPermissions(this@MainActivity, perms)
-                        if (hasPerms) {
-//            shareImageFromUrl(IMAGE_URL);
-                            shareImageFromBitmap(this.bmp)
-                        } else {
-                            EasyPermissions.requestPermissions(
-                                this@MainActivity,
-                                getString(R.string.rationale_storage),
-                                SHARE_STORAGE_PERMS_REQUEST_CODE,
-                                perms
-                            )
-                        }
-
+                        shareImageFromBitmap(bmp)
                         true
                     }
                     else -> false
@@ -171,39 +148,21 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         }
     }
 
-    private fun shareImageFromBitmap(bmp: Bitmap) {
-        val uri = getUriImageFromBitmap(bmp, this@MainActivity)
-            ?: //Show no URI message
-            return
+    private fun shareImageFromBitmap(bmp: Bitmap?) {
+        var city: String = SelectCity().selectCity(animal.city_id)
+        val textToShare =
+            "🕹Категория: ${animal.categoryName}\n💰Бахасы: ${animal.price}\n🏠Аймақ: $city\n📞Телефон: ${animal.phone}\n✍Мағлыумат: ${animal.description}"
+        val uri = getUriImageFromBitmap(bmp, requireContext())
         val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.putExtra(Intent.EXTRA_TEXT, MainActivity.IMAGE_URL)
+        this.imageUrl = animal.img1
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "${textToShare}\n${this.imageUrl}")
         shareIntent.type = "image/png"
         shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        startActivity(Intent.createChooser(shareIntent, "Share image using"))
+        startActivity(Intent.createChooser(shareIntent, animal.categoryName))
     }
 
-    @AfterPermissionGranted(SHARE_STORAGE_PERMS_REQUEST_CODE)
-    fun getBitmapFromUrl(url: String): Bitmap? {
-        val uri = Uri.parse(url)
-        val downloadRequest: ImageRequest = ImageRequest.fromUri(uri)
-        val cacheKey: CacheKey =
-            DefaultCacheKeyFactory.getInstance().getEncodedCacheKey(downloadRequest, requireContext())
-        if (ImagePipelineFactory.getInstance().getMainFileCache().hasKey(cacheKey)) {
-            val resource: BinaryResource =
-                ImagePipelineFactory.getInstance().getMainFileCache().getResource(cacheKey)
-            var data: ByteArray? = null
-            try {
-                data = resource.read()
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-            return BitmapFactory.decodeByteArray(data, 0, data!!.size)
-        }
-        return null
-    }
-
-    fun getUriImageFromBitmap(bmp: Bitmap?, context: Context): Uri? {
+    private fun getUriImageFromBitmap(bmp: Bitmap?, context: Context): Uri? {
         if (bmp == null) return null
         var bmpUri: Uri? = null
         try {
@@ -216,14 +175,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             out.flush()
             out.close()
 
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-            bmpUri = FileProvider.getUriForFile(
-                context,
-                BuildConfig.APPLICATION_ID.toString() + ".provider",
-                file
-            )
-            //            else
-//                bmpUri = Uri.fromFile(file);
+            bmpUri =
+                FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
         } catch (e: IOException) {
             e.printStackTrace()
         }
@@ -264,7 +217,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     hideProgress()
-                    toast("Саиланды")
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
@@ -278,7 +230,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     hideProgress()
-                    toast("Алып тасланды")
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
@@ -290,6 +241,10 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     @SuppressLint("SetTextI18n")
     private fun setInfo() {
+        if (animal.img2.isNotEmpty()) {
+            binding.ivRight.isVisible = true
+            binding.tvImageCount.isVisible = true
+        }
         binding.apply {
             Glide
                 .with(requireContext())
@@ -306,8 +261,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     }
 
     private fun updateUI(id: Int, categoryId: Int) {
-        val category = SelectCategory().selectCategory(categoryId)
-        val action = InfoFragmentDirections.actionInfoFragmentSelf(id, category)
+        val action = InfoFragmentDirections.actionInfoFragmentSelf(id, animal.categoryName)
         findNavController().navigate(action)
     }
 }

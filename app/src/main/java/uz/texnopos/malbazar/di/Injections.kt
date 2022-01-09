@@ -19,6 +19,7 @@ import uz.texnopos.malbazar.ui.profile.myAds.MyAdsViewModel
 import uz.texnopos.malbazar.ui.profile.login.LoginViewModel
 import uz.texnopos.malbazar.ui.profile.register.RegisterViewModel
 import uz.texnopos.malbazar.ui.main.info.SelectedViewModel
+import uz.texnopos.malbazar.ui.profile.myAds.DeleteAdsViewModel
 import uz.texnopos.malbazar.ui.selected.GetSelectedViewModel
 import java.util.concurrent.TimeUnit
 
@@ -81,6 +82,7 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { InfoViewModel(get()) }
     viewModel { CategoryViewModel(get()) }
+    viewModel { DeleteAdsViewModel(get()) }
     viewModel { SelectedViewModel(get()) }
     viewModel { GetSelectedViewModel(get()) }
 }
