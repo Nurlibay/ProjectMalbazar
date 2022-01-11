@@ -27,7 +27,11 @@ import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import kotlinx.android.synthetic.main.fragment_info.*
 import uz.texnopos.malbazar.BuildConfig
 import uz.texnopos.malbazar.R
 import java.io.File
@@ -58,55 +62,55 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         select = args.isSelected
         setMenu()
         binding.apply {
-            toolbar.title = args.categoryId
-            recyclerView.adapter = adapter
+            clComment.setOnClickListener {
+                val action = InfoFragmentDirections.actionInfoFragmentToCommentsFragment(args.id)
+                findNavController().navigate(action)
 
-            tvPhoneNumber.setOnClickListener {
-                callToUser()
-            }
-            ivCallIcon.setOnClickListener {
-                callToUser()
-            }
-            toolbar.setNavigationOnClickListener {
-                requireActivity().onBackPressed()
-            }
-            ivRight.setOnClickListener {
-                if (maxImageCount - imageCount == 2) {
-                    imageCount = 2
-                    binding.tvImageCount.text = "2/3"
-                    binding.ivLeft.isVisible = true
-                    Glide
-                        .with(requireContext())
-                        .load(animal.img2)
-                        .into(binding.ivAnimal)
-                } else {
-                    imageCount = 3
-                    binding.tvImageCount.text = "3/3"
-                    binding.ivRight.isVisible = false
-                    binding.ivLeft.isVisible = true
-                    Glide
-                        .with(requireContext())
-                        .load(animal.img3)
-                        .into(binding.ivAnimal)
+                recyclerView.adapter = adapter
+
+                tvPhoneNumber.setOnClickListener {
+                    callToUser()
                 }
-            }
-            ivLeft.setOnClickListener {
-                binding.ivRight.isVisible = true
-                if (maxImageCount - imageCount == 1) {
-                    imageCount = 1
-                    binding.tvImageCount.text = "1/3"
-                    binding.ivLeft.isVisible = false
-                    Glide
-                        .with(requireContext())
-                        .load(animal.img1)
-                        .into(binding.ivAnimal)
-                } else {
-                    imageCount = 2
-                    binding.tvImageCount.text = "2/3"
-                    Glide
-                        .with(requireContext())
-                        .load(animal.img2)
-                        .into(binding.ivAnimal)
+                ivCallIcon.setOnClickListener {
+                    callToUser()
+                }
+                toolbar.setNavigationOnClickListener {
+                    requireActivity().onBackPressed()
+                }
+                ivRight.setOnClickListener {
+                    binding.apply {
+                        if (maxImageCount - imageCount == 2) {
+                            imageCount = 2
+                            tvImageCount.text = "2/3"
+                            ivLeft.isVisible = true
+                            ivFirstAnimal.isVisible = false
+                            ivSecondAnimal.isVisible = true
+                        } else {
+                            imageCount = 3
+                            tvImageCount.text = "3/3"
+                            ivRight.isVisible = false
+                            ivSecondAnimal.isVisible = false
+                            ivThirdAnimal.isVisible = true
+                        }
+                    }
+                }
+                ivLeft.setOnClickListener {
+                    binding.apply {
+                        ivRight.isVisible = true
+                        if (maxImageCount - imageCount == 1) {
+                            imageCount = 1
+                            tvImageCount.text = "1/3"
+                            ivLeft.isVisible = false
+                            ivSecondAnimal.isVisible = false
+                            ivFirstAnimal.isVisible = true
+                        } else {
+                            imageCount = 2
+                            tvImageCount.text = "2/3"
+                            ivThirdAnimal.isVisible = false
+                            ivSecondAnimal.isVisible = true
+                        }
+
+                    }
                 }
             }
 
@@ -133,8 +137,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             }
         }
 
-        adapter.onItemClick = { id, categoryId ->
-            updateUI(id, categoryId)
+        adapter.onItemClick = {
+            updateUI(it)
         }
     }
 
@@ -183,6 +187,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         return bmpUri
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun callToUser() {
         var phone = animal.phone
         if (isHasPermission(Manifest.permission.CALL_PHONE)) {
@@ -203,6 +208,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                     hideProgress()
                     adapter.models = it.data!!.likes
                     animal = it.data.animal
+                    binding.toolbar.title = it.data.animal.categoryName
                     setInfo()
                 }
                 ResourceState.ERROR -> {
@@ -241,27 +247,34 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     @SuppressLint("SetTextI18n")
     private fun setInfo() {
-        if (animal.img2.isNotEmpty()) {
-            binding.ivRight.isVisible = true
-            binding.tvImageCount.isVisible = true
-        }
         binding.apply {
             Glide
                 .with(requireContext())
                 .load(animal.img1)
-                .into(ivAnimal)
-
-            var city: String = SelectCity().selectCity(animal.city_id)
+                .into(ivFirstAnimal)
             tvDescription.text = animal.description
             tvPhoneNumber.text = ": ${animal.phone}"
             tvPrice.text = ": ${animal.price}"
             tvTitle.text = animal.title
-            tvCity.text = ": $city"
+            tvCity.text = ": ${animal.city_name}"
+            tvCommentCount.text = animal.countComments.toString()
+            if (animal.img2.isNotEmpty()) {
+                ivRight.isVisible = true
+                tvImageCount.isVisible = true
+                Glide
+                    .with(requireContext())
+                    .load(animal.img2)
+                    .into(ivSecondAnimal)
+                Glide
+                    .with(requireContext())
+                    .load(animal.img3)
+                    .into(ivThirdAnimal)
+            }
         }
     }
 
-    private fun updateUI(id: Int, categoryId: Int) {
-        val action = InfoFragmentDirections.actionInfoFragmentSelf(id, animal.categoryName)
+    private fun updateUI(id: Int) {
+        val action = InfoFragmentDirections.actionInfoFragmentSelf(id)
         findNavController().navigate(action)
     }
 }

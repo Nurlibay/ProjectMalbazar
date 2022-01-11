@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_middle"
         android:padding="@dimen/margin_middle"
-        android:text="Аккаунтан шыгыуды ӄалейсизба. Егер шыӄсаӊыз \n өз аккаунтыӊызди ӄаита тиклеи аласыз."
+        android:text="Аккаунтан шыгыуды ӄалейсизба. Егер шыӄсаӊыз өз аккаунтыӊызди ӄаита тиклеи аласыз."
         android:textColor="#232F34"
         app:layout_constraintBottom_toTopOf="@id/tvExit"
         app:layout_constraintStart_toStartOf="@id/ivLogo"

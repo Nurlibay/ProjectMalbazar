@@ -51,4 +51,11 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     }
 
     override fun getItemCount() = models.size
+
+    fun addCategory(category:Category){
+        val list = models.toMutableList()
+        list.add(0,category)
+        models = list
+        notifyItemInserted(list.indexOf(category))
+    }
 }

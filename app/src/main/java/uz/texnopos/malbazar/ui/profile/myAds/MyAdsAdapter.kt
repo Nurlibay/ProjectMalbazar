@@ -31,7 +31,7 @@ class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
                     .into(ivFirstAnimal)
 
                 constraintMainItem.setOnClickListener {
-                    onItemClick.invoke(animal.id, animal.category_id)
+                    onItemClick.invoke(animal.id)
                 }
                 fabDelete.setOnClickListener {
                     deleteItemClick.invoke(animal.id)
@@ -48,7 +48,7 @@ class MyAdsAdapter : RecyclerView.Adapter<MyAdsAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
 
-    var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
+    var onItemClick: (id: Int) -> Unit = {}
     var deleteItemClick: (animalId: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

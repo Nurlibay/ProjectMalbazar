@@ -43,7 +43,7 @@ class SelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
     }
 
     private fun updateUI() {
-        if (isSignedIn()){
+        if (!isSignedIn()){
             findNavController().navigate(R.id.action_selectedFragment_to_loginFragment)
         }
     }

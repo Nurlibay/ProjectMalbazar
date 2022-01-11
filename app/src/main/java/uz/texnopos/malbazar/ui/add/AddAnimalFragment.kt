@@ -168,7 +168,7 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    if (it.data != null) allCategory.postValue(it.data!!)
+                    if (it.data != null) allCategory.postValue(it.data)
                     hideProgress()
                 }
                 ResourceState.ERROR -> {

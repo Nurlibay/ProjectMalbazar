@@ -84,6 +84,9 @@
         <action
             android:id="@+id/action_myAdsFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_myAdsFragment_self"
+            app:destination="@id/myAdsFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -103,12 +106,12 @@
         <action
             android:id="@+id/action_infoFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-        <argument
-            android:name="categoryId"
-            app:argType="string" />
         <argument android:name="isSelected"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_infoFragment_to_commentsFragment"
+            app:destination="@id/commentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectedFragment"
@@ -132,7 +135,7 @@
         tools:layout="@layout/fragment_about_us" />
     <fragment
         android:id="@+id/selectedInfoFragment"
-        android:name="uz.texnopos.malbazar.ui.selected.SelectedInfoFragment"
+        android:name="uz.texnopos.malbazar.ui.selected.GetSelectedInfoFragment"
         android:label="SelectedInfoFragment" >
         <argument
             android:name="id"
@@ -140,6 +143,15 @@
         <argument
             android:name="categoryId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentsFragment"
+        android:name="uz.texnopos.malbazar.ui.main.info.comments.CommentsFragment"
+        android:label="fragment_comments"
+        tools:layout="@layout/fragment_comments" >
+        <argument
+            android:name="animalId"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

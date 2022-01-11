@@ -14,7 +14,9 @@ import toast
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.SelectCategory
+import uz.texnopos.malbazar.core.preferences.userId
 import uz.texnopos.malbazar.data.model.Animal
+import uz.texnopos.malbazar.data.model.Category
 import uz.texnopos.malbazar.databinding.FragmentMainBinding
 import uz.texnopos.malbazar.ui.main.category.CategoryAdapter
 import uz.texnopos.malbazar.ui.main.category.CategoryViewModel
@@ -47,9 +49,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             etSearch.addTextChangedListener {
                 val query: String = etSearch.text.toString()
                 if (query.isEmpty()) {
-                    etSearch.isCursorVisible = false
+                    userId?.let { it1 -> searchViewModel.searchAnimal(query, "all", "all", it1) }
+                    binding.apply {
+                        tvMoreViewed.isVisible = false
+                        tvLastAdded.isVisible = false
+                        rvLastAnimals.isVisible = false
+                    }
+
                 } else if (query.length >= 3) {
-                    searchViewModel.searchAnimal(query, "all", "all")
+                    userId?.let { it1 -> searchViewModel.searchAnimal(query, "all", "all", it1) }
                     binding.apply {
                         tvMoreViewed.isVisible = false
                         tvLastAdded.isVisible = false
@@ -60,21 +68,26 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         }
 
         adapterCategory.onItemClick = {
-            searchViewModel.searchAnimal("", "all", "$it")
             binding.apply {
-                tvMoreViewed.isVisible = false
-                tvLastAdded.isVisible = false
-                rvLastAnimals.isVisible = false
+                if (it == 0) {
+                    userId?.let { it1 -> searchViewModel.searchAnimal("", "all", "all", it1) }
+                    tvMoreViewed.isVisible = false
+                    tvLastAdded.isVisible = false
+                    rvLastAnimals.isVisible = false
+                } else {
+                    userId?.let { it1 -> searchViewModel.searchAnimal("", "all", "$it", it1) }
+                    tvMoreViewed.isVisible = false
+                    tvLastAdded.isVisible = false
+                    rvLastAnimals.isVisible = false
+                }
             }
         }
-        adapterLastAdded.onItemClick = { id: Int, categoryId: Int ->
-            var category = SelectCategory().selectCategory(categoryId)
-            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
+        adapterLastAdded.onItemClick = {
+            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
             findNavController().navigate(action)
         }
-        adapterMoreViewed.onItemClick = { id: Int, categoryId: Int ->
-            var category = SelectCategory().selectCategory(categoryId)
-            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(id, category)
+        adapterMoreViewed.onItemClick = {
+            val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
             findNavController().navigate(action)
         }
     }
@@ -135,6 +148,15 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     ResourceState.SUCCESS -> {
                         adapterCategory.models = it.data!!
                         hideProgress()
+                        adapterCategory.addCategory(
+                            category = Category(
+                                "",
+                                "https://t4.ftcdn.net/jpg/01/85/42/93/240_F_185429335_uxBeyiRS6OUK9cfVGlCXqwbdERiZlXHW.jpg",
+                                0,
+                                getString(R.string.all),
+                                ""
+                            )
+                        )
                     }
                     ResourceState.ERROR -> {
                         hideProgress()

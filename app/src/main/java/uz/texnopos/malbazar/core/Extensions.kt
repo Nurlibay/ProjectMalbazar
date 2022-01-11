@@ -77,6 +77,10 @@ fun TextInputEditText.showError(error: String): Boolean {
     return false
 }
 
+fun addLetterToWord(letter: String, word: String): String {
+    return "$word$letter"
+}
+
 fun TextInputLayout.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()

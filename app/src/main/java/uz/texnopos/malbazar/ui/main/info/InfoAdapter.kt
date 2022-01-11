@@ -14,7 +14,7 @@ import uz.texnopos.malbazar.databinding.RecommendationItemBinding
 
 class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
 
-    var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
+    var onItemClick: (id: Int) -> Unit = {}
     var models: List<Animal> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
@@ -35,10 +35,9 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
                 Glide
                     .with(root.context)
                     .load(animal.img1)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                     .into(binding.ivAnimal)
                 constraintMainItem.setOnClickListener {
-                    onItemClick.invoke(animal.id, animal.category_id)
+                    onItemClick.invoke(animal.id)
                 }
 
             }

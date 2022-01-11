@@ -6,13 +6,14 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import askPermission
 import com.bumptech.glide.Glide
@@ -27,19 +28,19 @@ import uz.texnopos.malbazar.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.ResourceState
 import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.SelectCity
-import uz.texnopos.malbazar.core.preferences.isSignedIn
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 import uz.texnopos.malbazar.ui.main.info.*
+import uz.texnopos.malbazar.ui.main.info.SelectedViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
+class GetSelectedInfoFragment : Fragment(R.layout.fragment_info) {
 
     private lateinit var binding: FragmentInfoBinding
     private val adapter = InfoAdapter()
-    private val args: SelectedInfoFragmentArgs by navArgs()
+    private val args: GetSelectedInfoFragmentArgs by navArgs()
     private val viewModel: InfoViewModel by viewModel()
     private val addSelectedAnimalViewModel: SelectedViewModel by viewModel()
     private val maxImageCount = 3
@@ -48,6 +49,7 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
     private var IMAGE_URL: String = ""
     private var bmp: Bitmap? = null
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAnimalInfo(args.id)
@@ -76,7 +78,7 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
                     Glide
                         .with(requireContext())
                         .load(animal.img2)
-                        .into(binding.ivAnimal)
+                        .into(binding.ivFirstAnimal)
                 } else {
                     imageCount = 3
                     binding.tvImageCount.text = "3/3"
@@ -85,7 +87,7 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
                     Glide
                         .with(requireContext())
                         .load(animal.img3)
-                        .into(binding.ivAnimal)
+                        .into(binding.ivFirstAnimal)
                 }
             }
             ivLeft.setOnClickListener {
@@ -97,14 +99,14 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
                     Glide
                         .with(requireContext())
                         .load(animal.img1)
-                        .into(binding.ivAnimal)
+                        .into(binding.ivFirstAnimal)
                 } else {
                     imageCount = 2
                     binding.tvImageCount.text = "2/3"
                     Glide
                         .with(requireContext())
                         .load(animal.img2)
-                        .into(binding.ivAnimal)
+                        .into(binding.ivFirstAnimal)
                 }
             }
 
@@ -162,6 +164,7 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
         return bmpUri
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun callToUser() {
         var phone = animal.phone
         if (isHasPermission(Manifest.permission.CALL_PHONE)) {
@@ -213,7 +216,7 @@ class SelectedInfoFragment : Fragment(R.layout.fragment_info) {
             Glide
                 .with(requireContext())
                 .load(animal.img1)
-                .into(ivAnimal)
+                .into(ivFirstAnimal)
 
             var city: String = SelectCity().selectCity(animal.city_id)
             tvDescription.text = animal.description

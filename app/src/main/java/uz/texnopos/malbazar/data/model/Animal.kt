@@ -19,5 +19,9 @@ data class Animal(
     val user_id: Int,
     val view: Int,
     @SerializedName("category_name")
-    val categoryName:String
+    val categoryName: String,
+    @SerializedName("city_name")
+    val city_name: String,
+    @SerializedName("count_comments")
+    val countComments: Int
 )

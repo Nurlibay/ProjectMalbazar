@@ -36,12 +36,12 @@ class AdapterMoreViewed : RecyclerView.Adapter<AdapterMoreViewed.ViewHolder>() {
                 .into(binding.ivFirstAnimal)
 
             binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id, animal.category_id)
+                onItemClick.invoke(animal.id)
             }
         }
     }
 
-    var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
+    var onItemClick: (id: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

@@ -40,7 +40,8 @@ interface ApiInterface {
     fun searchAnimal(
         @Query("query") query: String,
         @Query("city_id") city_id: String,
-        @Query("category_id") category_id: String
+        @Query("category_id") category_id: String,
+        @Query("user_id") user_id: Int
     ): Observable<GenericResponse<SearchResult>>
 
     @GET("api/favourite/{user_id}")
@@ -51,6 +52,12 @@ interface ApiInterface {
 
     @GET("api/city")
     fun getAllCity(): Observable<GenericResponse<List<City>>>
+
+    @POST("api/comment")
+    fun addComment(@Body comment:AddComment): Observable<GenericResponse<Any>>
+
+    @GET("api/comment/{id}")
+    fun getComments(@Path("id") animalId: Int): Observable<GenericResponse<Comments>>
 
     @Multipart
     @POST("api/animal")

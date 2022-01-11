@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import hideProgress
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -53,8 +54,8 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
                 }
             }
         }
-        adapter.onItemClick = { id: Int, categoryId: Int ->
-            goToInfoFragment(id, categoryId)
+        adapter.onItemClick = {
+            goToInfoFragment(it)
         }
         adapter.deleteItemClick = {
             deleteAdsViewModel.deleteAd(it)
@@ -69,7 +70,7 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
                 ResourceState.SUCCESS -> {
                     viewModel.userAds(userId!!)
                     toast("Дағаза ѳширилди")
-                    hideProgress()
+                    updateUI()
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
@@ -87,14 +88,22 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     if (it.data!!.ads.isEmpty()) {
-                        toast(getString(R.string.empty_ad_list))
-                    } else {
-                        adapter.models = it.data.ads
                         binding.apply {
+                            tvNotAds.isVisible = true
+                            ivLogo.isVisible = true
                             tvName.text = (it.data.user_name)
                             tvPhoneNumber.text = (it.data.phone)
                             tvAdsCount.text = "Дағазалар саны: ${it.data.ads_count}"
-
+                        }
+                    } else {
+                        adapter.models = it.data.ads
+                        binding.apply {
+                            tvMyAds.isVisible = true
+                            rvMyAds.isVisible = true
+                            ivLogo.isVisible = true
+                            tvName.text = (it.data.user_name)
+                            tvPhoneNumber.text = (it.data.phone)
+                            tvAdsCount.text = "Дағазалар саны: ${it.data.ads_count}"
                         }
                     }
                 }
@@ -110,9 +119,12 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
         })
     }
 
-    private fun goToInfoFragment(id: Int, categoryId: Int) {
-        val category = SelectCategory().selectCategory(categoryId)
-        val action = MyAdsFragmentDirections.actionMyAdsFragmentToInfoFragment(id, category)
+    private fun updateUI() {
+        findNavController().navigate(R.id.action_myAdsFragment_self)
+    }
+
+    private fun goToInfoFragment(id: Int) {
+        val action = MyAdsFragmentDirections.actionMyAdsFragmentToInfoFragment(id)
         findNavController().navigate(action)
     }
 }
