@@ -31,6 +31,7 @@
         android:layout_marginStart="@dimen/margin_middle"
         android:text="ddddddddddddddddddddddddddddddddddddd"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivPerson" />
+        app:layout_constraintStart_toEndOf="@id/ivPerson"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
