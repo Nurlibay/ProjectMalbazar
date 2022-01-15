@@ -14,6 +14,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import askPermission
 import com.bumptech.glide.Glide
@@ -56,10 +57,14 @@ class GetSelectedInfoFragment : Fragment(R.layout.fragment_info) {
         setUpObserver()
         binding = FragmentInfoBinding.bind(view)
         binding.apply {
-            toolbar.title = args.categoryId
             recyclerView.adapter = adapter
 
             toolbar.inflateMenu(R.menu.menu_unselect_info)
+
+            clComment.setOnClickListener {
+                val action = GetSelectedInfoFragmentDirections.actionSelectedInfoFragmentToCommentsFragment(args.id)
+                findNavController().navigate(action)
+            }
 
             tvPhoneNumber.setOnClickListener {
                 callToUser()
@@ -119,7 +124,6 @@ class GetSelectedInfoFragment : Fragment(R.layout.fragment_info) {
                     }
                     R.id.share -> {
                         shareImageFromBitmap(bmp)
-
                         true
                     }
                     else -> false
@@ -185,6 +189,7 @@ class GetSelectedInfoFragment : Fragment(R.layout.fragment_info) {
                     hideProgress()
                     adapter.models = it.data!!.likes
                     animal = it.data.animal
+                    binding.toolbar.title = it.data.animal.categoryName
                     setInfo()
                 }
                 ResourceState.ERROR -> {
@@ -217,13 +222,24 @@ class GetSelectedInfoFragment : Fragment(R.layout.fragment_info) {
                 .with(requireContext())
                 .load(animal.img1)
                 .into(ivFirstAnimal)
-
-            var city: String = SelectCity().selectCity(animal.city_id)
             tvDescription.text = animal.description
             tvPhoneNumber.text = ": ${animal.phone}"
             tvPrice.text = ": ${animal.price}"
             tvTitle.text = animal.title
-            tvCity.text = ": $city"
+            tvCity.text = ": ${animal.city_name}"
+            tvCommentCount.text = animal.countComments.toString()
+            if (animal.img2.isNotEmpty()) {
+                ivRight.isVisible = true
+                tvImageCount.isVisible = true
+                Glide
+                    .with(requireContext())
+                    .load(animal.img2)
+                    .into(ivSecondAnimal)
+                Glide
+                    .with(requireContext())
+                    .load(animal.img3)
+                    .into(ivThirdAnimal)
+            }
         }
     }
 }

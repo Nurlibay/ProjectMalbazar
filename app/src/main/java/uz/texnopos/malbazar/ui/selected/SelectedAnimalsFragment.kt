@@ -24,7 +24,10 @@ class SelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        updateUI()
+        if (!isSignedIn()) {
+            findNavController().navigate(R.id.action_selectedFragment_to_loginFragment)
+            return
+        }
         setUpObserver()
         binding = FragmentSelectedBinding.bind(view)
         viewModel.getSelectedAnimals()
@@ -43,8 +46,9 @@ class SelectedAnimalsFragment : Fragment(R.layout.fragment_selected) {
     }
 
     private fun updateUI() {
-        if (!isSignedIn()){
+        if (!isSignedIn()) {
             findNavController().navigate(R.id.action_selectedFragment_to_loginFragment)
+            return
         }
     }
 

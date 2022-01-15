@@ -65,6 +65,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
             clComment.setOnClickListener {
                 val action = InfoFragmentDirections.actionInfoFragmentToCommentsFragment(args.id)
                 findNavController().navigate(action)
+            }
 
                 recyclerView.adapter = adapter
 
@@ -77,41 +78,45 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 toolbar.setNavigationOnClickListener {
                     requireActivity().onBackPressed()
                 }
-                ivRight.setOnClickListener {
-                    binding.apply {
-                        if (maxImageCount - imageCount == 2) {
-                            imageCount = 2
-                            tvImageCount.text = "2/3"
-                            ivLeft.isVisible = true
-                            ivFirstAnimal.isVisible = false
-                            ivSecondAnimal.isVisible = true
-                        } else {
-                            imageCount = 3
-                            tvImageCount.text = "3/3"
-                            ivRight.isVisible = false
-                            ivSecondAnimal.isVisible = false
-                            ivThirdAnimal.isVisible = true
-                        }
-                    }
+            ivRight.setOnClickListener {
+                if (maxImageCount - imageCount == 2) {
+                    imageCount = 2
+                    binding.tvImageCount.text = "2/3"
+                    binding.ivLeft.isVisible = true
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img2)
+                        .into(binding.ivFirstAnimal)
+                } else {
+                    imageCount = 3
+                    binding.tvImageCount.text = "3/3"
+                    binding.ivRight.isVisible = false
+                    binding.ivLeft.isVisible = true
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img3)
+                        .into(binding.ivFirstAnimal)
                 }
-                ivLeft.setOnClickListener {
-                    binding.apply {
-                        ivRight.isVisible = true
-                        if (maxImageCount - imageCount == 1) {
-                            imageCount = 1
-                            tvImageCount.text = "1/3"
-                            ivLeft.isVisible = false
-                            ivSecondAnimal.isVisible = false
-                            ivFirstAnimal.isVisible = true
-                        } else {
-                            imageCount = 2
-                            tvImageCount.text = "2/3"
-                            ivThirdAnimal.isVisible = false
-                            ivSecondAnimal.isVisible = true
-                        }
-
-                    }
+            }
+            ivLeft.setOnClickListener {
+                binding.ivRight.isVisible = true
+                if (maxImageCount - imageCount == 1) {
+                    imageCount = 1
+                    binding.tvImageCount.text = "1/3"
+                    binding.ivLeft.isVisible = false
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img1)
+                        .into(binding.ivFirstAnimal)
+                } else {
+                    imageCount = 2
+                    binding.tvImageCount.text = "2/3"
+                    Glide
+                        .with(requireContext())
+                        .load(animal.img2)
+                        .into(binding.ivFirstAnimal)
                 }
+            }
             }
 
             toolbar.setOnMenuItemClickListener { menuItem ->
@@ -135,7 +140,6 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                     else -> false
                 }
             }
-        }
 
         adapter.onItemClick = {
             updateUI(it)

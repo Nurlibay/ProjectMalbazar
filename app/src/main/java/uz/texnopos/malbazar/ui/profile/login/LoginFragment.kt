@@ -9,9 +9,11 @@ import checkIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import getOnlyDigits
+import hideProgress
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showError
+import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
@@ -71,16 +73,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.login.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
-                    binding.progressBar.isVisible = true
+                    showProgress()
                 }
                 ResourceState.SUCCESS -> {
-                    binding.progressBar.isVisible = false
+                    hideProgress()
                     token = it.data!!.token
                     userId = it.data.userId
                     updateUI()
                 }
                 ResourceState.ERROR -> {
-                    binding.progressBar.isVisible = false
+                    hideProgress()
                     toast(it.message!!)
                 }
             }

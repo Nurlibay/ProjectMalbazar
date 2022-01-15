@@ -19,7 +19,7 @@ class RegisterViewModel(private val apiInterface: ApiInterface) : ViewModel() {
     fun registerUser(phone: String, name: String, password: String) {
         _registerUser.value = Resource.loading()
         compositeDisposable.add(
-            apiInterface.registerUser(user = RegisterUser(phone, name, password))
+            apiInterface.registerUser(user = RegisterUser(phone, name, password,"apk"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
