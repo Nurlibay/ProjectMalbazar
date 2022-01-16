@@ -7,5 +7,6 @@ object Constants {
     const val mySharedPreferences = "MalbazarProjectPreferences"
     const val USERID = 0
     const val ASK_PHONE_PERMISSION_REQUEST_CODE=1002
+    const val ASK_CAMERA_PERMISSION_REQUEST_CODE=1003
 
 }

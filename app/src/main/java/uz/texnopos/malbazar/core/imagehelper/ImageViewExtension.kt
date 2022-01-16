@@ -19,7 +19,7 @@ fun ImageView.setDrawableImage(@DrawableRes resource: Int, applyCircle: Boolean 
     }
 }
 
-fun ImageView.setLocalImage(uri: Uri?, applyCircle: Boolean = false) {
+fun ImageView.setLocalImage(uri: Uri, applyCircle: Boolean = false) {
     val glide = Glide.with(this).load(uri)
     if (applyCircle) {
         glide.apply(RequestOptions.circleCropTransform()).into(this)
@@ -39,8 +39,6 @@ fun Fragment.pickCameraImage(code: Int) {
             "ImagePicker"))
         .saveDir(requireActivity().getExternalFilesDir("ImagePicker")!!)
         .saveDir(File(requireActivity().externalCacheDir, "ImagePicker"))
-        .saveDir(File(requireActivity().cacheDir, "ImagePicker"))
-        .saveDir(File(requireActivity().filesDir, "ImagePicker"))
         .start(code)
 }
 
@@ -58,3 +56,4 @@ fun Fragment.pickGalleryImage(code: Int) {
         .maxResultSize(1080, 1920)
         .start(code)
 }
+

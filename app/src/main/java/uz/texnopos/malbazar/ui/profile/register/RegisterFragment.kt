@@ -65,7 +65,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                         viewModel.registerUser(
                             phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
                             name = binding.etName.textToString(),
-                            password = binding.etPassword.textToString()
+                            password = binding.etPassword.textToString(),"apk"
                         )
                     }
                 }
