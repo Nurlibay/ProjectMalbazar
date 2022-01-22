@@ -15,7 +15,7 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
 
         fun populateModel(comment: GetComments) {
             binding.apply {
-                binding.tvName.text = "By ${comment.userName}"
+                binding.tvName.text = comment.userName
                 binding.tvMessage.text = comment.text
             }
         }
@@ -29,14 +29,10 @@ class CommentsAdapter : RecyclerView.Adapter<CommentsAdapter.ViewHolder>() {
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            CommentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+        return ViewHolder( CommentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false) )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.populateModel(models[position])
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.populateModel(models[position]) }
 
     override fun getItemCount() = models.size
 }

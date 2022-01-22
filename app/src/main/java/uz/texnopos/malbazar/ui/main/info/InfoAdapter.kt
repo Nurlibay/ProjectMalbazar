@@ -28,7 +28,7 @@ class InfoAdapter : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
             binding.apply {
-                tvPrice.text = "${animal.price} swm"
+                tvPrice.text = animal.price
                 tvTitle.text = animal.title
                 tvCity.text = cityId.selectCity(animal.city_id)
 

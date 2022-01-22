@@ -2,6 +2,7 @@ package uz.texnopos.malbazar.ui.main
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import uz.texnopos.malbazar.R
@@ -37,6 +38,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentMainBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         mainViewModel.lastAnimals()
         categoryViewModel.getCategory()
         setUpObserverGetCategory()

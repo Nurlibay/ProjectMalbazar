@@ -27,6 +27,7 @@ import uz.texnopos.malbazar.databinding.FragmentInfoBinding
 import android.os.Build
 import android.os.Environment
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.FileProvider
 import androidx.fragment.app.FragmentManager
@@ -55,10 +56,10 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding = FragmentInfoBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         viewModel.getAnimalInfo(args.id)
         setUpObserver()
-        binding = FragmentInfoBinding.bind(view)
         select = args.isSelected
         setMenu()
         binding.apply {

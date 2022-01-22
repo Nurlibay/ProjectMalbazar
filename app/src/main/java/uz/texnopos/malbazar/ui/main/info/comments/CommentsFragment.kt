@@ -4,6 +4,7 @@ import addLetterToWord
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,11 +29,12 @@ class CommentsFragment : Fragment(R.layout.fragment_comments) {
     private val args: CommentsFragmentArgs by navArgs()
     private val adapter = CommentsAdapter()
     private lateinit var binding: FragmentCommentsBinding
-    private var visible = 1
+    private var visible = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCommentsBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         viewModel.getComments(args.animalId)
         setUpObservable()
         binding.apply {

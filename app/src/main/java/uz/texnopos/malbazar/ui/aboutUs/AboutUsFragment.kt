@@ -18,6 +18,7 @@ import askPermission
 import isHasPermission
 import uz.texnopos.malbazar.core.Constants
 import android.view.View.OnLongClickListener
+import androidx.appcompat.app.AppCompatDelegate
 import textToString
 
 
@@ -29,6 +30,7 @@ class AboutUsFragment : Fragment(R.layout.fragment_about_us) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAboutUsBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding.apply {
             toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()

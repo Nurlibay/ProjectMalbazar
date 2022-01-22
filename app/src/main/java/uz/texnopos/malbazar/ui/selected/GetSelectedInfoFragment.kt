@@ -12,6 +12,7 @@ import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
@@ -56,6 +57,7 @@ class GetSelectedInfoFragment : Fragment(R.layout.fragment_info) {
         viewModel.getAnimalInfo(args.id)
         setUpObserver()
         binding = FragmentInfoBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         binding.apply {
             recyclerView.adapter = adapter
 
