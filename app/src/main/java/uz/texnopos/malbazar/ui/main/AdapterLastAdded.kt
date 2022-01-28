@@ -25,7 +25,7 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
         @SuppressLint("SetTextI18n")
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price} swm"
+            binding.tvPrice.text = animal.price
             binding.tvTitle.text = animal.title
             binding.tvViewing.text = " ${animal.view}"
             binding.tvCity.text = cityId.selectCity(animal.city_id)

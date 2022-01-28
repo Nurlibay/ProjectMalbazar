@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import onClick
+import uz.texnopos.malbazar.R
 import uz.texnopos.malbazar.data.model.Category
 import uz.texnopos.malbazar.databinding.CategoryItemBinding
 
@@ -22,9 +23,8 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
                 Glide
                     .with(root.context)
                     .load(category.icon)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(500)))
                     .into(ivCategory)
-
+                ivCategory.setBackgroundResource(R.drawable.shapeable_category)
                 categoryItem.onClick {
                     onItemClick.invoke(category.id)
                 }
@@ -52,9 +52,9 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun getItemCount() = models.size
 
-    fun addCategory(category:Category){
+    fun addCategory(category: Category) {
         val list = models.toMutableList()
-        list.add(0,category)
+        list.add(0, category)
         models = list
         notifyItemInserted(list.indexOf(category))
     }

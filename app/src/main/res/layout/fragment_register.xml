@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logo"
@@ -26,21 +24,20 @@
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_middle"
         android:enabled="true"
         android:hint="@string/phone"
         app:endIconMode="clear_text"
         app:expandedHintEnabled="false"
         app:hintAnimationEnabled="false"
         app:hintEnabled="true"
-        app:prefixText="+998"
-        app:prefixTextColor="@color/black"
-        app:startIconDrawable="@drawable/ic_call"
-        android:layout_marginTop="@dimen/margin_middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        >
+        app:prefixText="+998"
+        app:prefixTextColor="@color/black"
+        app:startIconDrawable="@drawable/ic_call">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPhone"
@@ -48,10 +45,10 @@
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:maxLength="20"
-            android:textColorHint="@color/valueOperationColor"
             android:maxLines="1"
             android:padding="@dimen/margin_middle_standard"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:textColorHint="@color/valueOperationColor" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,12 +63,11 @@
         android:hint="@string/password"
         android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="password_toggle"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilPhone"
-        app:startIconDrawable="@drawable/password"
-        app:errorEnabled="true"
-        >
+        app:startIconDrawable="@drawable/password">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
@@ -96,8 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilPassword"
-        app:startIconDrawable="@drawable/person"
-        >
+        app:startIconDrawable="@drawable/person">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etName"
@@ -119,9 +114,9 @@
         android:paddingHorizontal="@dimen/margin_standard"
         android:text="@string/btn_signup"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_size_standard"
         app:cornerRadius="8dp"
-        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/tilPassword"
         app:layout_constraintTop_toBottomOf="@id/tilName"
         tools:ignore="SpUsage" />
@@ -132,12 +127,12 @@
         android:layout_height="40dp"
         android:layout_marginBottom="@dimen/margin_standard"
         android:gravity="center"
+        android:linksClickable="true"
         android:text="@string/btn_login"
         android:textColor="@color/purple_700"
-        android:textStyle="bold"
-        android:textSize="@dimen/text_size_standard"
-        android:linksClickable="true"
         android:textColorLink="@color/white"
+        android:textSize="@dimen/text_size_standard"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

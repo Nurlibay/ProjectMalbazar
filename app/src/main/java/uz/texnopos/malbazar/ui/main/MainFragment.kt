@@ -14,7 +14,6 @@ import showProgress
 import toast
 import uz.texnopos.malbazar.core.Constants
 import uz.texnopos.malbazar.core.ResourceState
-import uz.texnopos.malbazar.core.SelectCategory
 import uz.texnopos.malbazar.core.preferences.userId
 import uz.texnopos.malbazar.data.model.Animal
 import uz.texnopos.malbazar.data.model.Category
@@ -51,13 +50,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             etSearch.addTextChangedListener {
                 val query: String = etSearch.text.toString()
                 if (query.isEmpty()) {
-                    userId?.let { it1 -> searchViewModel.searchAnimal(query, "all", "all", it1) }
+                    mainViewModel.lastAnimals()
                     binding.apply {
-                        tvMoreViewed.isVisible = false
-                        tvLastAdded.isVisible = false
-                        rvLastAnimals.isVisible = false
+                        tvMoreViewed.isVisible = true
+                        tvLastAdded.isVisible = true
+                        rvLastAnimals.isVisible = true
                     }
-
                 } else if (query.length >= 3) {
                     userId?.let { it1 -> searchViewModel.searchAnimal(query, "all", "all", it1) }
                     binding.apply {
@@ -105,18 +103,18 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 when (it.status) {
                     ResourceState.LOADING -> showProgress()
                     ResourceState.SUCCESS -> {
-                        rvLastAnimals.isVisible = true
-                        tvMoreViewed.isVisible = true
                         views = it.data!!.views
                         lastAdded = it.data.lastes
                         setData()
                         hideProgress()
+                        tvMoreViewed.isVisible = true
+                        rvMoreViewed.isVisible = true
+                        tvLastAdded.isVisible = true
+                        rvLastAnimals.isVisible = true
                     }
                     ResourceState.ERROR -> {
                         it.message?.let { it1 -> toast(it1) }
                         hideProgress()
-                        rvLastAnimals.isVisible = false
-                        tvMoreViewed.isVisible = false
                     }
                 }
             }
@@ -137,6 +135,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         hideProgress()
                     }
                     ResourceState.ERROR -> {
+                        adapterMoreViewed.models = listOf()
                         it.message?.let { it1 -> toast(it1) }
                         hideProgress()
                         rvMoreViewed.isVisible = true
@@ -148,17 +147,19 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 when (it.status) {
                     ResourceState.LOADING -> showProgress()
                     ResourceState.SUCCESS -> {
-                        adapterCategory.models = it.data!!
-                        hideProgress()
-                        adapterCategory.addCategory(
-                            category = Category(
-                                "",
-                                "https://t4.ftcdn.net/jpg/01/85/42/93/240_F_185429335_uxBeyiRS6OUK9cfVGlCXqwbdERiZlXHW.jpg",
-                                0,
-                                getString(R.string.all),
-                                ""
-                            )
+                        var category = Category(
+                            "",
+                            "https://t4.ftcdn.net/jpg/01/85/42/93/240_F_185429335_uxBeyiRS6OUK9cfVGlCXqwbdERiZlXHW.jpg",
+                            0,
+                            getString(R.string.all),
+                            ""
                         )
+                        val list: MutableList<Category> = mutableListOf(category)
+                        it.data!!.forEach { category ->
+                            list.add(category)
+                        }
+                        adapterCategory.models = list
+                        hideProgress()
                     }
                     ResourceState.ERROR -> {
                         hideProgress()
