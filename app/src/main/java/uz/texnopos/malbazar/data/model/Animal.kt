@@ -1,7 +1,10 @@
 package uz.texnopos.malbazar.data.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Animal(
     val category_id: Int,
     val city_id: Int,
@@ -24,4 +27,4 @@ data class Animal(
     val city_name: String,
     @SerializedName("count_comments")
     val countComments: Int
-)
+): Parcelable

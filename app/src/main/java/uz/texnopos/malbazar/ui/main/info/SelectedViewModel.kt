@@ -18,6 +18,7 @@ class SelectedViewModel(private val api: ApiInterface) : ViewModel() {
 
     private var _selectedAnimal: MutableLiveData<Resource<Any>> = MutableLiveData()
     val selectedAnimal: MutableLiveData<Resource<Any>> get() = _selectedAnimal
+
     private var _unSelectedAnimal: MutableLiveData<Resource<Any>> = MutableLiveData()
     val unSelectedAnimal: MutableLiveData<Resource<Any>> get() = _unSelectedAnimal
 

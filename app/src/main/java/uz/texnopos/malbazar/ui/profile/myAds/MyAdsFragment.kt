@@ -84,7 +84,8 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
                 }
             }
         }
-        viewModel.myAds.observe(requireActivity(), {
+
+        viewModel.myAds.observe(requireActivity()) {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
@@ -103,7 +104,7 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
                             tvMyAds.isVisible = true
                             rvMyAds.isVisible = true
                             ivLogo.isVisible = true
-                            tvName.text = (it.data.user_name)
+                            tvName.text = it.data.user_name
                             tvPhoneNumber.text = (it.data.phone)
                             tvAdsCount.text = "Дағазалар саны: ${it.data.ads_count}"
                         }
@@ -118,7 +119,7 @@ class MyAdsFragment : Fragment(R.layout.fragment_my_ads) {
                     toast(Constants.NO_INTERNET)
                 }
             }
-        })
+        }
     }
 
     private fun updateUI() {

@@ -23,7 +23,7 @@ import uz.texnopos.malbazar.ui.profile.register.RegisterViewModel
 import uz.texnopos.malbazar.ui.profile.myAds.DeleteAdsViewModel
 import java.util.concurrent.TimeUnit
 
-const val baseUrl = "http://test.malbazar.uz"
+const val baseUrl = "https://malbazar.uz"
 const val appTimeOut = 24L
 
 val dataModule = module {

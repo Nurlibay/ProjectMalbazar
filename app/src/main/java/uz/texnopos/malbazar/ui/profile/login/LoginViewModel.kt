@@ -20,7 +20,7 @@ class LoginViewModel(private val api: ApiInterface) : ViewModel() {
     fun loginUser(phone: String, password: String) {
         _login.value = Resource.loading()
         compositeDisposable.add(
-            api.loginUser(user = LoginUser(phone = phone, password))
+            api.loginUser(LoginUser(phone, password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

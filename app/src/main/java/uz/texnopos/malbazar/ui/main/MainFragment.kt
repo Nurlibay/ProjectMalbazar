@@ -82,10 +82,12 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
         }
+
         adapterLastAdded.onItemClick = {
             val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
             findNavController().navigate(action)
         }
+
         adapterMoreViewed.onItemClick = {
             val action = MainFragmentDirections.actionMainFragmentToInfoFragment(it)
             findNavController().navigate(action)
@@ -143,7 +145,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
 
-            categoryViewModel.getCategory.observe(requireActivity(), {
+            categoryViewModel.getCategory.observe(requireActivity()) {
                 when (it.status) {
                     ResourceState.LOADING -> showProgress()
                     ResourceState.SUCCESS -> {
@@ -170,7 +172,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         toast(Constants.NO_INTERNET)
                     }
                 }
-            })
+            }
         }
     }
 }

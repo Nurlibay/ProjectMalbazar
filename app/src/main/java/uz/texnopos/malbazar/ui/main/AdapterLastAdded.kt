@@ -35,7 +35,7 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
                 .into(binding.ivFirstAnimal)
 
             binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id)
+                onItemClick.invoke(it.id)
             }
         }
     }

@@ -11,15 +11,16 @@ import uz.texnopos.malbazar.data.model.UserToken
 import uz.texnopos.malbazar.data.retrofit.ApiInterface
 
 class RegisterViewModel(private val api: ApiInterface) : ViewModel() {
-    private val compositeDisposable = CompositeDisposable()
-    private var _registerUser: MutableLiveData<Resource<UserToken>> = MutableLiveData()
-    val registerUser: MutableLiveData<Resource<UserToken>>
-        get() = _registerUser
 
-    fun registerUser(phone: String, name: String, password: String, from: String) {
+    private val compositeDisposable = CompositeDisposable()
+
+    private var _registerUser: MutableLiveData<Resource<UserToken>> = MutableLiveData()
+    val registerUser: MutableLiveData<Resource<UserToken>> get() = _registerUser
+
+    fun registerUser(phone: String, name: String, password: String) {
         _registerUser.value = Resource.loading()
         compositeDisposable.add(
-            api.registerUser(user = RegisterUser(phone, name, password, from = from))
+            api.registerUser(user = RegisterUser(phone, name, password))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

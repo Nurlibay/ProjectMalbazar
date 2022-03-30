@@ -52,7 +52,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                         tilPhone.isErrorEnabled = false
                         tilPassword.showError(getString(R.string.required))
                     }
-                    etPassword.textToString().length<6 -> {
+                    etPassword.textToString().length < 6 -> {
                         tilPhone.isErrorEnabled = false
                         tilPassword.showError(getString(R.string.password_format_exception))
                     }
@@ -67,7 +67,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                         viewModel.registerUser(
                             phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
                             name = binding.etName.textToString(),
-                            password = binding.etPassword.textToString(),"apk"
+                            password = binding.etPassword.textToString()
                         )
                     }
                 }
@@ -75,36 +75,37 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         }
     }
 
-private fun setUpObserver() {
-    viewModel.registerUser.observe(viewLifecycleOwner) {
-        when (it.status) {
-            ResourceState.LOADING -> {
-                binding.progressBar.isVisible = true
-            }
-            ResourceState.SUCCESS -> {
-                binding.progressBar.isVisible = false
-                token = it.data?.token
-                userId = it.data!!.userId
-                updateUI()
-            }
-            ResourceState.ERROR -> {
-                it.message?.let { it1 -> toast(it1) }
-                binding.progressBar.isVisible = false
+    private fun setUpObserver() {
+        viewModel.registerUser.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> {
+                    binding.progressBar.isVisible = true
+                }
+                ResourceState.SUCCESS -> {
+                    binding.progressBar.isVisible = false
+                    token = it.data?.token
+                    userId = it.data!!.userId
+                    updateUI()
+                }
+                ResourceState.ERROR -> {
+                    it.message?.let { it1 -> toast(it1) }
+                    binding.progressBar.isVisible = false
+                } else -> {
+                    // something
+                }
             }
         }
     }
-}
 
-private fun updateUI() {
-    if (isSignedIn()) findNavController().navigate(R.id.action_registerFragment_to_myAdsFragment)
-}
+    private fun updateUI() {
+        if (isSignedIn()) findNavController().navigate(R.id.action_registerFragment_to_myAdsFragment)
+    }
 
-private fun TextInputEditText.addMaskAndHint(mask: String) {
-    val listener = MaskedTextChangedListener.installOn(
-        this,
-        mask
-    )
-    this.hint = listener.placeholder()
-}
-
+    private fun TextInputEditText.addMaskAndHint(mask: String) {
+        val listener = MaskedTextChangedListener.installOn(
+            this,
+            mask
+        )
+        this.hint = listener.placeholder()
+    }
 }

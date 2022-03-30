@@ -1,10 +1,9 @@
 package uz.texnopos.malbazar.ui.profile.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import checkIsEmpty
 import com.google.android.material.textfield.TextInputEditText
@@ -58,7 +57,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     else -> {
                         etPassword.isCursorVisible = false
                         etPhone.isCursorVisible = false
-                       viewModel.loginUser(
+                        viewModel.loginUser(
                             phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
                             password = binding.etPassword.textToString()
                         )
@@ -71,7 +70,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
-    private fun setUpObserver(){
+    private fun setUpObserver() {
         viewModel.login.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
@@ -86,6 +85,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 ResourceState.ERROR -> {
                     hideProgress()
                     toast(it.message!!)
+                } else -> {
+                    // something
                 }
             }
         }
@@ -102,5 +103,4 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         )
         this.hint = listener.placeholder()
     }
-
 }

@@ -93,10 +93,6 @@
         android:name="uz.texnopos.malbazar.ui.main.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info">
-        <argument
-            android:name="id"
-            android:defaultValue="0"
-            app:argType="integer" />
         <action
             android:id="@+id/action_infoFragment_self"
             app:destination="@id/infoFragment"
@@ -106,12 +102,15 @@
         <action
             android:id="@+id/action_infoFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
-        <argument android:name="isSelected"
-            app:argType="integer"
-            android:defaultValue="0" />
         <action
             android:id="@+id/action_infoFragment_to_commentsFragment"
             app:destination="@id/commentsFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <argument
+            android:name="isSelected"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/selectedFragment"

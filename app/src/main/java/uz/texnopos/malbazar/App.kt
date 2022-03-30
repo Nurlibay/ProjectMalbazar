@@ -14,13 +14,10 @@ class App : MultiDexApplication() {
         super.onCreate()
         appInstance = this
          val modules = listOf(dataModule, viewModelModule)
-        startKoin {//use AndroidLogger as Koin Logger - default Level
+        startKoin {
             androidLogger()
-            //use the Android context given there
             androidContext(this@App)
-            //load properties from assets/koin.properties file
             androidFileProperties()
-            //module list
             koin.loadModules(modules)
         }
     }
