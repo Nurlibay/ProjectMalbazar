@@ -20,35 +20,32 @@ class AdapterLastAdded : RecyclerView.Adapter<AdapterLastAdded.ViewHolder>() {
             notifyDataSetChanged()
         }
 
-    inner class ViewHolder(private val binding: MainItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: MainItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun populateModel(animal: Animal) {
             val cityId = SelectCity()
-            binding.tvPrice.text = "${animal.price} swm"
+            binding.tvPrice.text = animal.price
             binding.tvTitle.text = animal.title
+            binding.tvViewing.text = " ${animal.view}"
             binding.tvCity.text = cityId.selectCity(animal.city_id)
             Glide
                 .with(binding.root.context)
                 .load(animal.img1)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(18)))
                 .into(binding.ivFirstAnimal)
 
             binding.constraintMainItem.setOnClickListener {
-                onItemClick.invoke(animal.id, animal.category_id)
+                onItemClick.invoke(it.id)
             }
         }
     }
 
-    var onItemClick: (id: Int, categoryId: Int) -> Unit = { _, _ -> }
+    var onItemClick: (id: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
-    }
+        return ViewHolder( MainItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)) }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.populateModel(models[position])
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) { holder.populateModel(models[position]) }
 
     override fun getItemCount() = models.size
 }

@@ -1,14 +1,19 @@
 package uz.texnopos.malbazar.ui.add
 
+import android.Manifest.permission.*
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
+import askPermission
 import checkIsEmpty
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
@@ -17,6 +22,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import getOnlyDigits
 import hideProgress
+import isHasPermission
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showError
@@ -24,6 +30,7 @@ import showProgress
 import textToString
 import toast
 import uz.texnopos.malbazar.R
+import uz.texnopos.malbazar.core.Constants.ASK_CAMERA_PERMISSION_REQUEST_CODE
 import uz.texnopos.malbazar.core.mask.MaskWatcherPrice
 import uz.texnopos.malbazar.core.Constants.NO_INTERNET
 import uz.texnopos.malbazar.core.ResourceState
@@ -50,22 +57,44 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
     private var categoryId: Int = 0
     private var cityId: Int = 0
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddAnimalBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setUpObserver()
         setUpObserverGetCategory()
         setUpObserverGetCity()
         viewModel.getCategory()
         viewModel.getCity()
+        if (!isHasPermission(CAMERA) || !isHasPermission(READ_EXTERNAL_STORAGE) ||
+            !isHasPermission(WRITE_EXTERNAL_STORAGE)
+        ) {
+            askPermission(
+                arrayOf(CAMERA, READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE),
+                ASK_CAMERA_PERMISSION_REQUEST_CODE
+            )
+        }
         binding.apply {
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")
 
+            allCity.observe(requireActivity(), { cityList ->
+                val cityNameList = cityList.map { category -> category.name }.toTypedArray()
+                var categoryAdapter =
+                    ArrayAdapter(requireContext(), R.layout.item_drop_down, cityNameList)
+                etCity.setAdapter(categoryAdapter)
+                etCity.setOnItemClickListener { _, _, position, _ ->
+                    val cityName = etCity.textToString()
+                    if (cityList[position].name == cityName) cityId = cityList[position].id
+                }
+            })
+
             allCategory.observe(requireActivity(), { categoryList ->
                 val categoryNameList = categoryList.map { category -> category.name }.toTypedArray()
-                val categoryAdapter =
+
+                var categoryAdapter =
                     ArrayAdapter(requireContext(), R.layout.item_drop_down, categoryNameList)
                 etCategory.setAdapter(categoryAdapter)
                 etCategory.setOnItemClickListener { _, _, position, _ ->
@@ -75,16 +104,6 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
                 }
             })
 
-            allCity.observe(requireActivity(), { cityList ->
-                val cityNameList = cityList.map { category -> category.name }.toTypedArray()
-                val categoryAdapter =
-                    ArrayAdapter(requireContext(), R.layout.item_drop_down, cityNameList)
-                etCity.setAdapter(categoryAdapter)
-                etCity.setOnItemClickListener { _, _, position, _ ->
-                    val cityName = etCity.textToString()
-                    if (cityList[position].name == cityName) cityId = cityList[position].id
-                }
-            })
 
             selectImg1.apply {
                 fabAddGalleryPhoto.onClick {
@@ -121,11 +140,11 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
                         cityId = cityId,
                         categoryId = categoryId,
                         userId = userId!!,
-                        phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
+                        phone = ("998${etPhone.textToString().getOnlyDigits()}"),
                         price = etPrice.textToString().getOnlyDigits(),
-                        img1 = if(img1ImageUri == null) null else File(img1ImageUri?.path!!),
-                        img2 = if(img2ImageUri == null) null else File(img2ImageUri?.path!!),
-                        img3 = if(img3ImageUri == null) null else File(img3ImageUri?.path!!),
+                        img1 = if (img1ImageUri == null) null else File(img1ImageUri?.path!!),
+                        img2 = if (img2ImageUri == null) null else File(img2ImageUri?.path!!),
+                        img3 = if (img3ImageUri == null) null else File(img3ImageUri?.path!!),
                     )
                     viewModel.addAnimal(newAnimal)
                 }
@@ -222,16 +241,22 @@ class AddAnimalFragment : Fragment(R.layout.fragment_add_animal) {
                 when (requestCode) {
                     IMG1_GALLERY_REQ_CODE, IMG1_CAMERA_REQ_CODE -> {
                         this.img1ImageUri = uri
-                        binding.selectImg1.imgGallery.setLocalImage(uri)
+                        if (uri != null) {
+                            binding.selectImg1.imgGallery.setLocalImage(uri)
+                        }
 
                     }
                     IMG2_GALLERY_REQ_CODE, IMG2_CAMERA_REQ_CODE -> {
                         this.img2ImageUri = uri
-                        binding.selectImg2.imgGallery.setLocalImage(uri)
+                        if (uri != null) {
+                            binding.selectImg2.imgGallery.setLocalImage(uri)
+                        }
                     }
                     IMG3_GALLERY_REQ_CODE, IMG3_CAMERA_REQ_CODE -> {
                         this.img3ImageUri = uri
-                        binding.selectImg3.imgGallery.setLocalImage(uri)
+                        if (uri != null) {
+                            binding.selectImg3.imgGallery.setLocalImage(uri)
+                        }
                     }
                 }
             }

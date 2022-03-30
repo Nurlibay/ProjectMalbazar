@@ -30,5 +30,4 @@ class InfoViewModel(private val api: ApiInterface) : ViewModel() {
                 )
         )
     }
-
 }

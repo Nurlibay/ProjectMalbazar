@@ -1,6 +1,5 @@
 package uz.texnopos.malbazar.core
 
-
 open class Resource<out T>(val status: ResourceState, val data: T?, val message: String?) {
 
     companion object {

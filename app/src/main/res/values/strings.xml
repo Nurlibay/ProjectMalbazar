@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mal bazarı</string>
+    <string name="app_name">Мбазар</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Strings related to login -->
@@ -10,7 +10,7 @@
     <string name="welcome">"Welcome!"</string>
     <string name="required">Мәжбүрий</string>
     <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_password">Password must be >6 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="advertise">Дағаза бериў</string>
     <string name="category">Бөлимлер</string>
@@ -19,6 +19,7 @@
     <string name="long_data">Толиғирақ мағлиўмат</string>
     <string name="price">Бахаси</string>
     <string name="phone_number">Телефон номер</string>
+    <string name="phonee">+998334980705</string>
     <string name="city">Аймақти сайлаң</string>
     <string name="add_photo">Сүўрет қосиў</string>
     <string name="fromCamera">С камеры</string>
@@ -42,13 +43,41 @@
     <string name="more_viewed">Еӊ көп кѳрилгенлер</string>
     <string name="last_added">Соӊғы ӄосылғанлар</string>
     <string name="terrain">Аимақ</string>
+    <string name="point">•</string>
 
-    <string name="number_format_exception">Телефон номерди дурис форматта киритиń</string>
-    <string name="password_format_exception">Парол 8 симболдан коп болиў керек!</string>
-    <string name="empty_ad_list">Сизде еле дагаза жок</string>
-    <string name="my_ads">Менин дагазаларим</string>
+    <string name="number_format_exception">Телефон номерди дурис форматта киритыӊ!</string>
+    <string name="password_format_exception">Парол кеминде 6 символ болиў керек!</string>
+    <string name="empty_ad_list">Сизде еле дағаза жок</string>
+    <string name="my_ads">Мениӊ дағазаларим</string>
     <string name="categories">Категориялар</string>
     <string name="all">Хаммеси</string>
+    <string name="account">Аккаунт</string>
+    <string name="userName">Атыныз</string>
+    <string name="selected">Саиландылар</string>
+    <string name="logOut">Аккаунтан шыгыу</string>
+    <string name="aboutUs">Биз хаӄымызда</string>
+    <string name="favourite">Саиланганлар</string>
+    <string name="about">Биз ҳаққимизда</string>
+    <string name="connect">БАЙЛАНЫС УШИН</string>
+    <string name="town">Нукус</string>
+    <string name="phoneToConnect">+33 447-00-69</string>
+    <string name="email">info@malbazar.uz</string>
+    <string name="socialIcons">Ағза Болиў</string>
+    <string name="instagram">Instagram</string>
+    <string name="facebook">Facebook</string>
+    <string name="youtube">Youtube</string>
+    <string name="telegram">Telegram</string>
+    <string name="tiktok">Tiktok</string>
+    <string name="no_facebook_account">Фэйзбук аккаунт еле жаратилмади</string>
+    <string name="no_tiktok_account">Тикток аккаунт еле жаратилмади</string>
+    <string name="no_youtube_account">Ютуб аккаунт еле жаратилмади</string>
+    <string name="back">Артӄа</string>
+    <string name="logout">Шығыу</string>
+    <string name="rationale_storage">App needs access to your storage</string>
+    <string name="deleteAd">Дағазаны ошириў</string>
+    <string name="addAds">Дағаза бериў</string>
+    <string name="comments">Комментариялар</string>
+    <string name="message">Сообщение</string>
 
     <string-array name="CategoryNames">
         <item>Ӄарамал</item>
@@ -58,6 +87,7 @@
         <item>Ӄой</item>
         <item>Мал азығы</item>
         <item>Таўиқ</item>
+
     </string-array>
 
 </resources>

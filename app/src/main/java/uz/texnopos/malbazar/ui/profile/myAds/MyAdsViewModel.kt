@@ -1,4 +1,4 @@
-package uz.texnopos.malbazar.ui.myAds
+package uz.texnopos.malbazar.ui.profile.myAds
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +12,7 @@ import uz.texnopos.malbazar.data.retrofit.ApiInterface
 class MyAdsViewModel(private val api: ApiInterface) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
+
     private var _myAds: MutableLiveData<Resource<MyAds>> = MutableLiveData()
     val myAds: MutableLiveData<Resource<MyAds>> get() = _myAds
 

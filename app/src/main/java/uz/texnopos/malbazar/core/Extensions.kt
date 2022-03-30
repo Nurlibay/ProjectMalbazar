@@ -1,12 +1,14 @@
 import android.content.Context
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
+import android.os.Build
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.IntRange
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
@@ -42,6 +44,7 @@ fun File.toMultiPart(key: String) =
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
+@RequiresApi(Build.VERSION_CODES.M)
 fun Fragment.isHasPermission(permission: String): Boolean {
     return requireActivity().applicationContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
 }
@@ -72,6 +75,10 @@ fun TextInputEditText.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()
     return false
+}
+
+fun addLetterToWord(letter: String, word: String): String {
+    return "$word$letter"
 }
 
 fun TextInputLayout.showError(error: String): Boolean {

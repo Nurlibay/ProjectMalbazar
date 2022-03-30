@@ -51,7 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:backgroundTint="@color/white"
+            android:clickable="true"
             android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="@string/search"
             android:maxLines="1"
             android:minLines="1"
@@ -74,65 +76,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_standard"
-                android:text="@string/categories"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <HorizontalScrollView
-                android:id="@+id/nsvCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@id/tvCategory">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/ivCategory"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/malbazar_logo"
-                        android:layout_margin="@dimen/margin_middle"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:riv_corner_radius="30dip"
-                        app:riv_mutate_background="true"
-                        app:riv_oval="true" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvCategoryName"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/all"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="@id/ivCategory"
-                        app:layout_constraintStart_toStartOf="@id/ivCategory"
-                        app:layout_constraintTop_toBottomOf="@id/ivCategory" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCategory"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:layout_constraintStart_toEndOf="@id/tvCategoryName"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/category_item" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </HorizontalScrollView>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="15"
+                tools:listitem="@layout/category_item" />
 
             <TextView
                 android:id="@+id/tvLastAdded"
@@ -145,7 +99,8 @@
                 android:textColor="@color/purple_700"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@id/nsvCategory" />
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/rvCategory" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvLastAnimals"
@@ -153,6 +108,7 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="@dimen/margin_middle"
                 android:orientation="vertical"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +141,7 @@
                 android:layout_marginTop="@dimen/margin_middle"
                 android:orientation="vertical"
                 android:paddingBottom="133dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintTop_toBottomOf="@id/tvMoreViewed"
                 app:spanCount="2"

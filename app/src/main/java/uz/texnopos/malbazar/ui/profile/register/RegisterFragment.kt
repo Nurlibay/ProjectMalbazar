@@ -2,6 +2,7 @@ package uz.texnopos.malbazar.ui.profile.register
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -9,7 +10,6 @@ import checkIsEmpty
 import com.google.android.material.textfield.TextInputEditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import getOnlyDigits
-import kotlinx.android.synthetic.main.fragment_login.*
 import onClick
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import showError
@@ -31,6 +31,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentRegisterBinding.bind(view)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         updateUI()
         setUpObserver()
         binding.apply {
@@ -40,16 +41,38 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             }
             btnSignUp.onClick {
-                if(validate()) {
-                    viewModel.registerUser(
-                        phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
-                        name = binding.etName.textToString(),
-                        password = binding.etPassword.textToString()
-                    )
+                when {
+                    etPhone.checkIsEmpty() -> {
+                        tilPhone.showError(getString(R.string.required))
+                    }
+                    (etPhone.textToString().getOnlyDigits()).length < 9 -> {
+                        tilPhone.showError(getString(R.string.number_format_exception))
+                    }
+                    etPassword.checkIsEmpty() -> {
+                        tilPhone.isErrorEnabled = false
+                        tilPassword.showError(getString(R.string.required))
+                    }
+                    etPassword.textToString().length < 6 -> {
+                        tilPhone.isErrorEnabled = false
+                        tilPassword.showError(getString(R.string.password_format_exception))
+                    }
+                    etName.checkIsEmpty() -> {
+                        tilPassword.isErrorEnabled = false
+                        tilName.showError(getString(R.string.required))
+                    }
+                    else -> {
+                        etPassword.isCursorVisible = false
+                        etPhone.isCursorVisible = false
+                        etName.isCursorVisible = false
+                        viewModel.registerUser(
+                            phone = ("+998${etPhone.textToString().getOnlyDigits()}"),
+                            name = binding.etName.textToString(),
+                            password = binding.etPassword.textToString()
+                        )
+                    }
                 }
             }
         }
-
     }
 
     private fun setUpObserver() {
@@ -67,6 +90,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 ResourceState.ERROR -> {
                     it.message?.let { it1 -> toast(it1) }
                     binding.progressBar.isVisible = false
+                } else -> {
+                    // something
                 }
             }
         }
@@ -76,17 +101,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         if (isSignedIn()) findNavController().navigate(R.id.action_registerFragment_to_myAdsFragment)
     }
 
-    private fun FragmentRegisterBinding.validate(): Boolean {
-        return when {
-            etPhone.checkIsEmpty() -> tilPhone.showError(getString(R.string.required))
-            etPhone.textToString().length != 13 -> tilPhone.showError(getString(R.string.number_format_exception))
-            etPassword.checkIsEmpty() -> tilPassword.showError(getString(R.string.required))
-            etPassword.textToString().length < 8 -> tilPassword.showError(getString(R.string.password_format_exception))
-            etName.checkIsEmpty() -> tilName.showError(getString(R.string.required))
-            else -> true
-        }
-    }
-
     private fun TextInputEditText.addMaskAndHint(mask: String) {
         val listener = MaskedTextChangedListener.installOn(
             this,
@@ -94,5 +108,4 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         )
         this.hint = listener.placeholder()
     }
-
 }

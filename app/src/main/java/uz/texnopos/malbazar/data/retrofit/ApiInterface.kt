@@ -24,17 +24,40 @@ interface ApiInterface {
     @GET("api/animal/{id}")
     fun getRecommendations(@Path("id") id: Int): Observable<GenericResponse<AnimalInfo>>
 
+    @POST("api/favourite")
+    fun addSelectedAnimal(@Body selectedAnimal: PostSelectedAnimal): Observable<GenericResponse<Any>>
+
+    @DELETE("api/favourite/{animalId}/{userId}")
+    fun deleteSelectedAnimal(
+        @Path("animalId") animalId: Int,
+        @Path("userId") userId: Int
+    ): Observable<GenericResponse<Any>>
+
+    @GET("api/delete_ads/{id}")
+    fun deleteAds(@Path("id") id:Int): Observable<GenericResponse<Any>>
+
     @GET("api/search")
     fun searchAnimal(
         @Query("query") query: String,
         @Query("city_id") city_id: String,
-        @Query("category_id") category_id: String
+        @Query("category_id") category_id: String,
+        @Query("user_id") user_id: Int
     ): Observable<GenericResponse<SearchResult>>
+
+    @GET("api/favourite/{user_id}")
+    fun getSelectedAnimals(@Path("user_id") userId: Int): Observable<GenericResponse<List<Animal>>>
+
     @GET("api/category")
     fun getAllCategory(): Observable<GenericResponse<List<Category>>>
 
     @GET("api/city")
     fun getAllCity(): Observable<GenericResponse<List<City>>>
+
+    @POST("api/comment")
+    fun addComment(@Body comment:AddComment): Observable<GenericResponse<Any>>
+
+    @GET("api/comment/{id}")
+    fun getComments(@Path("id") animalId: Int): Observable<GenericResponse<Comments>>
 
     @Multipart
     @POST("api/animal")

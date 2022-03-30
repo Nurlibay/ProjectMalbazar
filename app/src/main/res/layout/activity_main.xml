@@ -14,8 +14,6 @@
         app:defaultNavHost="true"
         app:layout_anchorGravity="fill_horizontal"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/nav_graph" />
 
@@ -25,6 +23,5 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
